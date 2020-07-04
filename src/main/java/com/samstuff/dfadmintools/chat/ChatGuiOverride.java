@@ -27,7 +27,7 @@ public class ChatGuiOverride extends NewChatGui {
 
     @Override
     public void render(int updateCounter) {
-        if (this.func_228091_i_()) {
+        if (this.isChatVisible()) {
             int i = this.getLineCount();
             int j = this.drawnChatLines.size();
             if (j > 0) {
@@ -46,7 +46,7 @@ public class ChatGuiOverride extends NewChatGui {
                 int l = 0;
 
                 renderChat(0, 0, this.getMainDrawnChatLines(), updateCounter, i, flag, k, d1, d2, l);
-                renderChat(mc.func_228018_at_().getScaledWidth() - getChatWidth(), 0, this.getSideDrawnChatLines(),updateCounter,i,flag,k,d1,d2,l);
+                renderChat(mc.getMainWindow().getScaledWidth() - getChatWidth(), 0, this.getSideDrawnChatLines(),updateCounter,i,flag,k,d1,d2,l);
 
                 if (flag) {
                     int l2 = 9;
@@ -69,7 +69,7 @@ public class ChatGuiOverride extends NewChatGui {
     }
 
     private void renderChat(int x, int y, List<ChatLine> chatLines, int updateCounter, int i, boolean flag, int k, double d1, double d2, int l) {
-        Matrix4f mainMatrix4f = Matrix4f.func_226599_b_(x, y, -100);
+        Matrix4f mainMatrix4f = Matrix4f.makeTranslate(x, y, -100);
 
         Main.log("rendering" + chatLines);
 
@@ -78,7 +78,7 @@ public class ChatGuiOverride extends NewChatGui {
             if (chatline != null) {
                 int j1 = updateCounter - chatline.getUpdatedCounter();
                 if (j1 < 200 || flag) {
-                    double d3 = flag ? 1.0D : func_212915_c(j1);
+                    double d3 = flag ? 1.0D : getLineBrightness(j1);
                     int l1 = (int)(255.0D * d3 * d1);
                     int i2 = (int)(255.0D * d3 * d2);
                     ++l;
@@ -151,10 +151,10 @@ public class ChatGuiOverride extends NewChatGui {
     @Nullable
     @Override
     public ITextComponent getTextComponent(double p_194817_1_, double p_194817_3_) {
-        if (this.getChatOpen() && !this.mc.gameSettings.hideGUI && this.func_228091_i_()) {
+        if (this.getChatOpen() && !this.mc.gameSettings.hideGUI && this.isChatVisible()) {
             double d0 = this.getScale();
             double d1 = p_194817_1_ - 2.0D;
-            double d2 = (double)this.mc.func_228018_at_().getScaledHeight() - p_194817_3_ - 40.0D;
+            double d2 = (double)this.mc.getMainWindow().getScaledHeight() - p_194817_3_ - 40.0D;
             d1 = MathHelper.floor(d1 / d0);
             d2 = MathHelper.floor(d2 / d0);
             if (!(d1 < 0.0D) && !(d2 < 0.0D)) {
