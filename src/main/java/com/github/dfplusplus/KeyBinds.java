@@ -43,7 +43,7 @@ public class KeyBinds {
         mainScreen = new MainScreen(null);
 //        addKeyBindings();
 
-        ClientRegistry.registerKeyBinding(KeyBinds.displayMainScreen);
+//        ClientRegistry.registerKeyBinding(KeyBinds.displayMainScreen);
 //        for (ActionKeyBidning actionKeyBidning : ACTION_KEY_BINDINGS) {
 //            ClientRegistry.registerKeyBinding(actionKeyBidning.getKeyBinding());
 //        }
