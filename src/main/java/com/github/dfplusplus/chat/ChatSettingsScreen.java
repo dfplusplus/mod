@@ -46,11 +46,13 @@ public class ChatSettingsScreen extends Screen {
         int x = (this.width / 2) - (BUTTON_WIDTH / 2);
         int y = 90;
         for (ChatRule.ChatRuleType chatRuleType : ChatRule.ChatRuleType.values()) {
+            boolean validButton = true;
             switch (chatRuleType) {
-                case SUPPORT: if (!PermissionLevel.hasPerms(PermissionLevel.SUPPORT)) continue; // dont show button if no support perms
-                case SESSION: if (!PermissionLevel.hasPerms(PermissionLevel.MOD)) continue;
-                case MOD: if (!PermissionLevel.hasPerms(PermissionLevel.MOD)) continue;
+                case SUPPORT: if (!PermissionLevel.hasPerms(PermissionLevel.SUPPORT)) validButton = false; break; // dont show button if no support perms
+                case SESSION: if (!PermissionLevel.hasPerms(PermissionLevel.MOD)) validButton = false; break;
+                case MOD: if (!PermissionLevel.hasPerms(PermissionLevel.MOD)) validButton = false; break;
             }
+            if (!validButton) continue;
             ChatRule chatRule = ChatRule.getChatRule(chatRuleType);
 
             Button button = new Button(x, y, BUTTON_WIDTH, BUTTON_HEIGHT, "", new ToggleChatHandler(chatRuleType));
