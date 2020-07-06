@@ -1,20 +1,20 @@
 {
-  "key.categories.dfadmintools": "DF Admin Tools",
+  "key.categories.dfplusplus": "DF Admin Tools",
 
-  "dfadmintools.key.mainscreen": "Open Main Menu",
+  "dfplusplus.key.mainscreen": "Open Main Menu",
 
-  "gui.dfadmintools.mainscreen": "DiamondFire Tools!",
-  "gui.dfadmintools.mainscreen.adminscreen": "Admin Tools",
-  "gui.dfadmintools.mainscreen.modscreen": "Mod Tools",
-  "gui.dfadmintools.mainscreen.generalscreen": "General Tools",
+  "gui.dfplusplus.mainscreen": "DiamondFire Tools!",
+  "gui.dfplusplus.mainscreen.adminscreen": "Admin Tools",
+  "gui.dfplusplus.mainscreen.modscreen": "Mod Tools",
+  "gui.dfplusplus.mainscreen.generalscreen": "General Tools",
 
-  "gui.dfadmintools.adminscreen": "Admin Tools",
+  "gui.dfplusplus.adminscreen": "Admin Tools",
 
-  "gui.dfadmintools.modscreen": "Moderator Tools",
+  "gui.dfplusplus.modscreen": "Moderator Tools",
 
-  "gui.dfadmintools.generalscreen": "General Tools",
+  "gui.dfplusplus.generalscreen": "General Tools",
 
-  "gui.dfadmintools.player": "Player",
-  "gui.dfadmintools.duration": "Duration",
-  "gui.dfadmintools.reason": "Reason"
+  "gui.dfplusplus.player": "Player",
+  "gui.dfplusplus.duration": "Duration",
+  "gui.dfplusplus.reason": "Reason"
 }
