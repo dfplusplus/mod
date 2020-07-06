@@ -10,6 +10,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 
 import javax.annotation.Nullable;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -113,6 +114,7 @@ public class ChatGuiOverride extends NewChatGui {
                 .stream()
                 .map(iTextComponent -> new ChatLine(updateCounter,iTextComponent,chatLineId))
                 .collect(Collectors.toList());
+        Collections.reverse(outputChatLines);
 
         boolean matchedARule = false;
         for (ChatRule chatRule : ChatRule.getChatRules()) {
@@ -120,7 +122,7 @@ public class ChatGuiOverride extends NewChatGui {
                 if (chatRule.getChatSide() == ChatRule.ChatSide.MAIN)
                     this.getMainDrawnChatLines().addAll(0,outputChatLines);
                 else if (chatRule.getChatSide() == ChatRule.ChatSide.SIDE)
-                    this.getSideDrawnChatLines().addAll(0,outputChatLines);
+                    this.getSideDrawnChatLines().addAll(0, outputChatLines);
                 matchedARule = true;
             }
         }
