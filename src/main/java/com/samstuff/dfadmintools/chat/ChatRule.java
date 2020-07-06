@@ -57,6 +57,10 @@ public class ChatRule {
         return chatRule.getChatSide();
     }
 
+    public static void setChatTypeSide(ChatRuleType chatRuleType, ChatSide chatSide) {
+        chatRuleMap.get(chatRuleType).setChatSide(chatSide);
+    }
+
     public enum ChatSide {
         MAIN,
         SIDE;
