@@ -2,6 +2,7 @@ package com.samstuff.dfadmintools;
 
 import com.samstuff.dfadmintools.chat.ChatGuiOverride;
 import com.samstuff.dfadmintools.chat.ChatPredicates;
+import com.samstuff.dfadmintools.chat.ChatRule;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -19,7 +20,7 @@ public class Main {
     public Main() {
         log("Hello World from DF Admin Tools!");
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::init);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT,DFPlusPlusConfig.configSpec);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT,DFPlusPlusConfig.getConfigSpec());
     }
 
     public static void log(Object message) {
@@ -34,5 +35,8 @@ public class Main {
         KeyBinds.registerKeyBindings();
         ChatGuiOverride.inject();
         ChatPredicates.setCustomWords(DFPlusPlusConfig.getCustomWords());
+        for (ChatRule.ChatRuleType chatRuleType : ChatRule.ChatRuleType.values()) {
+            ChatRule.setChatTypeSide(chatRuleType, DFPlusPlusConfig.getChatSide(chatRuleType));
+        }
     }
 }
