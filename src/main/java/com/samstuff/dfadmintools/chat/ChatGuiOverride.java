@@ -71,8 +71,6 @@ public class ChatGuiOverride extends NewChatGui {
     private void renderChat(int x, int y, List<ChatLine> chatLines, int updateCounter, int i, boolean flag, int k, double d1, double d2, int l) {
         Matrix4f mainMatrix4f = Matrix4f.func_226599_b_(x, y, -100);
 
-        Main.log("rendering" + chatLines);
-
         for(int i1 = 0; i1 + this.scrollPos < chatLines.size() && i1 < i; ++i1) {
             ChatLine chatline = chatLines.get(i1 + this.scrollPos);
             if (chatline != null) {

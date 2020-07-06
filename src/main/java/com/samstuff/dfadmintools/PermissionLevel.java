@@ -33,7 +33,6 @@ public enum PermissionLevel {
 
     public static boolean hasPerms(PermissionLevel checkPermissionLevel) {
         List<PermissionLevel> permissionLevelList = Arrays.asList(PermissionLevel.values());
-        Main.log(String.format("%s <= %s",permissionLevelList.indexOf(permissionLevel),permissionLevelList.indexOf(checkPermissionLevel)));
         return permissionLevelList.indexOf(permissionLevel) <= permissionLevelList.indexOf(checkPermissionLevel);
     }
 }

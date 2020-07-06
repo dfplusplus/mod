@@ -38,7 +38,6 @@ public class ChatPattern {
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         for (ChatComponent chatComponent : chatComponents) {
-            Main.log(chatComponent);
             stringBuilder.append(chatComponent.toString()).append("\n");
         }
         return stringBuilder.toString();
