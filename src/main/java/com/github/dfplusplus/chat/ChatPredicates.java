@@ -33,7 +33,7 @@ public class ChatPredicates {
 
 //            Main.log(new ChatPattern(iTextComponent).toString());
             for (String customWord : customWords) {
-                if (iTextComponent.toString().contains(customWord)) return true;
+                if (iTextComponent.getString().contains(customWord)) return true;
             }
 
             return false;
