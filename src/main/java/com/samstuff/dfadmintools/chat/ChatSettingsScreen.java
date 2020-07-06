@@ -36,9 +36,11 @@ public class ChatSettingsScreen extends Screen {
         super.init();
         customWordsField = new TextFieldWidget(minecraft.fontRenderer,width/2 - 100,30,200,20,"Test");
         customWordsField.setText(ChatPredicates.getCustomWords());
-        customWordsField.func_212954_a(this::onCustomWordsFieldUpdate);
+        customWordsField.setResponder(this::onCustomWordsFieldUpdate);
+        customWordsField.setMaxStringLength(1000);
         highlightWordsField = new TextFieldWidget(minecraft.fontRenderer,width/2 - 100,90,200,20,"Test");
         addButtons();
+
         children.add(customWordsField);
     }
 
