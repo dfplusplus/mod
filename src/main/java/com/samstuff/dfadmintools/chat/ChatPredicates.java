@@ -13,7 +13,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class ChatPredicates {
-    private static final String CUSTOM_WORDS_DELIMINITER = " ";
+    private static final String CUSTOM_WORDS_DELIMINITER = ",";
 
     private static List<String> customWords = Lists.newArrayList();
 
@@ -33,11 +33,11 @@ public class ChatPredicates {
 
     public static Predicate<ITextComponent> getCustomPredicate() {
         return iTextComponent -> {
-            Main.log(new ChatPattern(iTextComponent).toString());
-            ArrayList<String> iTextComponentWords = Lists.newArrayList(iTextComponent.getString().split(CUSTOM_WORDS_DELIMINITER));
+            if (customWords.size() == 0 || getCustomWords().trim().length()==0) return false; // do no checks if the input is empty
+
+//            Main.log(new ChatPattern(iTextComponent).toString());
             for (String customWord : customWords) {
-                Main.log(iTextComponentWords.toString());
-                if (iTextComponentWords.contains(customWord)) return true;
+                if (iTextComponent.toString().contains(customWord)) return true;
             }
 
             return false;
