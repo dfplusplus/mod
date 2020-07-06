@@ -1,6 +1,7 @@
 package com.samstuff.dfadmintools.chat;
 
 import com.samstuff.dfadmintools.DFPlusPlusConfig;
+import com.samstuff.dfadmintools.PermissionLevel;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.TextFieldWidget;
@@ -43,8 +44,13 @@ public class ChatSettingsScreen extends Screen {
 
     private void addButtons() {
         int x = (this.width / 2) - (BUTTON_WIDTH / 2);
-        int y = 80;
+        int y = 90;
         for (ChatRule.ChatRuleType chatRuleType : ChatRule.ChatRuleType.values()) {
+            switch (chatRuleType) {
+                case SUPPORT: if (!PermissionLevel.hasPerms(PermissionLevel.SUPPORT)) continue; // dont show button if no support perms
+                case SESSION: if (!PermissionLevel.hasPerms(PermissionLevel.MOD)) continue;
+                case MOD: if (!PermissionLevel.hasPerms(PermissionLevel.MOD)) continue;
+            }
             ChatRule chatRule = ChatRule.getChatRule(chatRuleType);
 
             Button button = new Button(x, y, BUTTON_WIDTH, BUTTON_HEIGHT, "", new ToggleChatHandler(chatRuleType));
@@ -71,8 +77,9 @@ public class ChatSettingsScreen extends Screen {
 
         this.drawString(minecraft.fontRenderer,"Custom Chat Keywords",width/2 - 100,20,16777215);
         customWordsField.render(p_render_1_,p_render_2_,p_render_3_);
-        this.drawString(minecraft.fontRenderer,"Messages containing these words are",width/2 - 100,52,16777215);
-        this.drawString(minecraft.fontRenderer,"put into the 'Custom' second chat",width/2 - 100,62,16777215);
+        this.drawString(minecraft.fontRenderer,"Messages containing these phrases are",width/2 - 100,52,16777215);
+        this.drawString(minecraft.fontRenderer,"put into the 'Custom' second chat.",width/2 - 100,62,16777215);
+        this.drawString(minecraft.fontRenderer,"Separate phrases with commas.",width/2 - 100,72,16777215);
 
 //        this.drawString(minecraft.fontRenderer,"Highlight Keywords",width/2 - 100,80,16777215);
 //        highlightWordsField.render(p_render_1_,p_render_2_,p_render_3_);
@@ -95,6 +102,8 @@ public class ChatSettingsScreen extends Screen {
         public void onPress(Button button) {
             ChatRule.ChatSide newChatSide = ChatRule.toggleChatType(chatRuleType);
             button.setMessage(getButtonMessage(newChatSide,chatRuleType));
+
+            DFPlusPlusConfig.setChatSide(chatRuleType,newChatSide);
         }
     }
 }
