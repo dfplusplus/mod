@@ -14,8 +14,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static net.minecraft.client.gui.AbstractGui.fill;
-
 public class ChatGuiOverride extends NewChatGui {
     private final List<ChatLine> mainDrawnChatLines = Lists.newArrayList();
     private final List<ChatLine> sideDrawnChatLines = Lists.newArrayList();
@@ -44,8 +42,8 @@ public class ChatGuiOverride extends NewChatGui {
                 double d2 = this.mc.gameSettings.accessibilityTextBackgroundOpacity;
                 int l = 0;
 
-                renderChat(0, 0, this.getMainDrawnChatLines(), updateCounter, i, flag, k, d1, d2, l);
-                renderChat(mc.getMainWindow().getScaledWidth() - getChatWidth(), 0, this.getSideDrawnChatLines(),updateCounter,i,flag,k,d1,d2,l);
+                renderChat(0, this.getMainDrawnChatLines(), updateCounter, i, flag, k, d1, d2, l);
+                renderChat(mc.getMainWindow().getScaledWidth() - getChatWidth(), this.getSideDrawnChatLines(),updateCounter,i,flag,k,d1,d2,l);
 
                 if (flag) {
                     int l2 = 9;
@@ -54,12 +52,10 @@ public class ChatGuiOverride extends NewChatGui {
                     int j3 = l * l2 + l;
                     int k3 = this.scrollPos * j3 / j;
                     int k1 = j3 * j3 / i3;
-                    if (i3 != j3) {
-                        int l3 = k3 > 0 ? 170 : 96;
-                        int i4 = this.isScrolled ? 13382451 : 3355562;
-                        fill(0, -k3, 2, -k3 - k1, i4 + (l3 << 24));
-                        fill(2, -k3, 1, -k3 - k1, 13421772 + (l3 << 24));
-                    }
+                    int l3 = 96;
+                    int i4 = this.isScrolled ? 13382451 : 3355562;
+                    fill(0, -k3, 2, -k3 - k1, i4 + (l3 << 24));
+                    fill(2, -k3, 1, -k3 - k1, 13421772 + (l3 << 24));
                 }
 
                 RenderSystem.popMatrix();
@@ -67,8 +63,8 @@ public class ChatGuiOverride extends NewChatGui {
         }
     }
 
-    private void renderChat(int x, int y, List<ChatLine> chatLines, int updateCounter, int i, boolean flag, int k, double d1, double d2, int l) {
-        Matrix4f mainMatrix4f = Matrix4f.makeTranslate(x, y, -100);
+    private void renderChat(int x, List<ChatLine> chatLines, int updateCounter, int i, boolean flag, int k, double d1, double d2, int l) {
+        Matrix4f mainMatrix4f = Matrix4f.makeTranslate(x, 0, -100);
 
         for(int i1 = 0; i1 + this.scrollPos < chatLines.size() && i1 < i; ++i1) {
             ChatLine chatline = chatLines.get(i1 + this.scrollPos);
@@ -80,7 +76,6 @@ public class ChatGuiOverride extends NewChatGui {
                     int i2 = (int)(255.0D * d3 * d2);
                     ++l;
                     if (l1 > 3) {
-                        int j2 = 0;
                         int k2 = -i1 * 9;
                         fill(mainMatrix4f, -2, k2 - 9, k + 4, k2, i2 << 24);
                         String s = chatline.getChatComponent().getFormattedText();
