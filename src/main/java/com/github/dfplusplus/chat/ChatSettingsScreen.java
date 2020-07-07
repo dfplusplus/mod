@@ -32,10 +32,11 @@ public class ChatSettingsScreen extends Screen {
     @Override
     protected void init() {
         super.init();
+        minecraft.keyboardListener.enableRepeatEvents(true);
         customWordsField = new TextFieldWidget(minecraft.fontRenderer,width/2 - 100,30,200,20,"Test");
+        customWordsField.setMaxStringLength(1000);
         customWordsField.setText(ChatPredicates.getCustomWords());
         customWordsField.setResponder(this::onCustomWordsFieldUpdate);
-        customWordsField.setMaxStringLength(1000);
         highlightWordsField = new TextFieldWidget(minecraft.fontRenderer,width/2 - 100,90,200,20,"Test");
         addButtons();
 
@@ -91,6 +92,7 @@ public class ChatSettingsScreen extends Screen {
     @Override
     public void removed() {
         DFPlusPlusConfig.setCustomWords(customWordsField.getText());
+        minecraft.keyboardListener.enableRepeatEvents(false);
     }
 
     private static class ToggleChatHandler implements Button.IPressable {
