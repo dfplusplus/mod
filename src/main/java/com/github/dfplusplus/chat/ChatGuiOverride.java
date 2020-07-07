@@ -44,7 +44,7 @@ public class ChatGuiOverride extends NewChatGui {
                 int l = 0;
 
                 renderChat(0, this.getMainDrawnChatLines(), updateCounter, i, flag, k, d1, d2, l);
-                renderChat(mc.getMainWindow().getScaledWidth() - getChatWidth(), this.getSideDrawnChatLines(),updateCounter,i,flag,k,d1,d2,l);
+                renderChat(getSideChatStartX(), this.getSideDrawnChatLines(),updateCounter,i,flag,k,d1,d2,l);
 
                 if (flag) {
                     int l2 = 9;
@@ -175,7 +175,7 @@ public class ChatGuiOverride extends NewChatGui {
                     int j = (int)(d2 / 9.0D + (double)this.scrollPos);
                     if (j >= 0 && j < this.getSideDrawnChatLines().size()) {
                         ChatLine chatline = this.getSideDrawnChatLines().get(j);
-                        int k = mc.getMainWindow().getScaledWidth() - getChatWidth();
+                        int k = getSideChatStartX();
 
                         for(ITextComponent itextcomponent : chatline.getChatComponent()) {
                             if (itextcomponent instanceof StringTextComponent) {
@@ -193,10 +193,14 @@ public class ChatGuiOverride extends NewChatGui {
         return null;
     }
 
+    private int getSideChatStartX() {
+        return (int) ((mc.getMainWindow().getScaledWidth() - getChatWidth()) / getScale());
+    }
+
     @Override
     public void printChatMessageWithOptionalDeletion(ITextComponent chatComponent, int chatLineId) {
         this.setChatLine(chatComponent, chatLineId, this.mc.ingameGUI.getTicks(), false);
-        LOGGER.info("[CHAT] {}", (Object)chatComponent.getString().replaceAll("\r", "\\\\r").replaceAll("\n", "\\\\n"));
+        LOGGER.info("[CHAT] {}", chatComponent.getString().replaceAll("\r", "\\\\r").replaceAll("\n", "\\\\n"));
     }
 
     public static void inject() {
