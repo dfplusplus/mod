@@ -122,8 +122,6 @@ public class ChatGuiOverride extends NewChatGui {
             }
         }
         if (!matchedARule) this.getMainDrawnChatLines().addAll(0,outputChatLines);
-
-        if (chatComponent.getString().charAt(6) == '1') ChatScreenOverride.i1 = Integer.parseInt(chatComponent.getString().substring(7));
     }
 
     @Override
@@ -169,6 +167,7 @@ public class ChatGuiOverride extends NewChatGui {
                     }
                 }
 
+                d1 = mc.getMainWindow().getScaledWidth() - getChatWidth() - 2;
                 i = Math.min(this.getLineCount(), this.getSideDrawnChatLines().size());
                 if (d1 <= (double)MathHelper.floor((double)this.getChatWidth() / this.getScale()) && d2 < (double)(9 * i + i)) {
                     int j = (int)(d2 / 9.0D + (double)this.scrollPos);
