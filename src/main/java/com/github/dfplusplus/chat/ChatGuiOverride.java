@@ -197,6 +197,11 @@ public class ChatGuiOverride extends NewChatGui {
         return null;
     }
 
+    @Override
+    public void printChatMessageWithOptionalDeletion(ITextComponent chatComponent, int chatLineId) {
+        this.setChatLine(chatComponent, chatLineId, this.mc.ingameGUI.getTicks(), false);
+    }
+
     public static void inject() {
         Minecraft mc = Minecraft.getInstance();
         mc.ingameGUI.persistantChatGUI = new ChatGuiOverride(mc);
