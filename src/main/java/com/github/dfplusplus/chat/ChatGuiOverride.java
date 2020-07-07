@@ -1,5 +1,6 @@
 package com.github.dfplusplus.chat;
 
+import com.github.dfplusplus.Main;
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
@@ -167,13 +168,14 @@ public class ChatGuiOverride extends NewChatGui {
                     }
                 }
 
-                d1 = mc.getMainWindow().getScaledWidth() - getChatWidth() - 2;
                 i = Math.min(this.getLineCount(), this.getSideDrawnChatLines().size());
-                if (d1 <= (double)MathHelper.floor((double)this.getChatWidth() / this.getScale()) && d2 < (double)(9 * i + i)) {
+                if (
+                        d1 >= mc.getMainWindow().getScaledWidth() - (double)MathHelper.floor((double)this.getChatWidth() / this.getScale())
+                        && d2 < (double)(9 * i + i)) {
                     int j = (int)(d2 / 9.0D + (double)this.scrollPos);
                     if (j >= 0 && j < this.getSideDrawnChatLines().size()) {
                         ChatLine chatline = this.getSideDrawnChatLines().get(j);
-                        int k = 0;
+                        int k = mc.getMainWindow().getScaledWidth() - getChatWidth();
 
                         for(ITextComponent itextcomponent : chatline.getChatComponent()) {
                             if (itextcomponent instanceof StringTextComponent) {
