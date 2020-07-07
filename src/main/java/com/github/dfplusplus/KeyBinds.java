@@ -65,7 +65,6 @@ public class KeyBinds {
 
     private static void onDisplayMainScreen() {
 //        minecraft.displayGuiScreen(mainScreen);
-        minecraft.ingameGUI.persistantChatGUI = new ChatGuiOverride(minecraft);
     }
 
     private static void addCommandBinding(String command) {
