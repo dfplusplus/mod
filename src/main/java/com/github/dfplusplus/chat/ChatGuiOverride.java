@@ -196,6 +196,7 @@ public class ChatGuiOverride extends NewChatGui {
     @Override
     public void printChatMessageWithOptionalDeletion(ITextComponent chatComponent, int chatLineId) {
         this.setChatLine(chatComponent, chatLineId, this.mc.ingameGUI.getTicks(), false);
+        LOGGER.info("[CHAT] {}", (Object)chatComponent.getString().replaceAll("\r", "\\\\r").replaceAll("\n", "\\\\n"));
     }
 
     public static void inject() {
