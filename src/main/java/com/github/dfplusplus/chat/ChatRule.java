@@ -12,6 +12,7 @@ public class ChatRule {
 
     static {
         chatRuleMap.put(ChatRuleType.CUSTOM, new ChatRule("Custom Chat", ChatPredicates.getCustomPredicate()));
+        chatRuleMap.put(ChatRuleType.MESSAGE, new ChatRule("Messages", ChatPredicates.getMessagePredicate()));
         chatRuleMap.put(ChatRuleType.SUPPORT, new ChatRule("Support Chat", ChatPredicates.getSupportPredicate()));
         chatRuleMap.put(ChatRuleType.SESSION, new ChatRule("Session Chat", ChatPredicates.getSessionPredicate()));
         chatRuleMap.put(ChatRuleType.MOD, new ChatRule("Mod Chat", ChatPredicates.getModPredicate()));
@@ -73,6 +74,7 @@ public class ChatRule {
 
     public enum ChatRuleType {
         CUSTOM,
+        MESSAGE,
         SUPPORT,
         SESSION,
         MOD
