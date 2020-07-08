@@ -1,5 +1,6 @@
 package com.github.dfplusplus.chat;
 
+import com.github.dfplusplus.Main;
 import com.google.common.collect.Lists;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -13,20 +14,7 @@ public class ChatPredicates {
 
     private static List<String> customWords = Lists.newArrayList();
 
-    public static Predicate<ITextComponent> getSupportPredicate() {
-        return iTextComponent -> (new ChatPattern(iTextComponent)).contains(new ChatPattern(
-                new ChatPattern.ChatComponent("[SUPPORT] ", TextFormatting.BLUE)
-        ));
-    }
-
-    public static Predicate<ITextComponent> getModPredicate() {
-        return s -> false;
-    }
-
-    public static Predicate<ITextComponent> getSessionPredicate() {
-        return s -> false;
-    }
-
+    //CUSTOM
     public static Predicate<ITextComponent> getCustomPredicate() {
         return iTextComponent -> {
             if (customWords.size() == 0 || getCustomWords().trim().length()==0) return false; // do no checks if the input is empty
@@ -49,5 +37,51 @@ public class ChatPredicates {
 
     public static String getCustomWords() {
         return String.join(CUSTOM_WORDS_DELIMINITER, customWords);
+    }
+
+    //MESSAGE
+    private static final ChatPattern messageChatPattern = new ChatPattern(
+            new ChatPattern.ChatComponent("[",TextFormatting.DARK_RED,0),
+            new ChatPattern.ChatComponent(null,TextFormatting.AQUA),
+            new ChatPattern.ChatComponent(" -> ",TextFormatting.GOLD),
+            new ChatPattern.ChatComponent(null,TextFormatting.AQUA),
+            new ChatPattern.ChatComponent("] ",TextFormatting.DARK_RED)
+    );
+    private static final ChatPattern crossNodeMessagePattern = new ChatPattern(
+            new ChatPattern.ChatComponent("[",TextFormatting.GOLD,0),
+            new ChatPattern.ChatComponent(null,TextFormatting.AQUA),
+            new ChatPattern.ChatComponent(" -> ",TextFormatting.DARK_RED),
+            new ChatPattern.ChatComponent(null,TextFormatting.AQUA),
+            new ChatPattern.ChatComponent("] ",TextFormatting.GOLD)
+    );
+    public static Predicate<ITextComponent> getMessagePredicate() {
+        return iTextComponent -> {
+            ChatPattern chatPattern = new ChatPattern(iTextComponent);
+            return chatPattern.contains(messageChatPattern) || chatPattern.contains(crossNodeMessagePattern);
+        };
+    }
+
+    //SUPPORT
+    private static final ChatPattern supportChatPattern = new ChatPattern(
+            new ChatPattern.ChatComponent("[SUPPORT] ", TextFormatting.BLUE,0)
+    );
+    public static Predicate<ITextComponent> getSupportPredicate() {
+        return iTextComponent -> (new ChatPattern(iTextComponent)).contains(supportChatPattern);
+    }
+
+    //MOD
+    private static final ChatPattern modChatPattern = new ChatPattern(
+            new ChatPattern.ChatComponent("[MOD] ", TextFormatting.DARK_GREEN,0)
+    );
+    public static Predicate<ITextComponent> getModPredicate() {
+        return iTextComponent -> (new ChatPattern(iTextComponent)).contains(modChatPattern);
+    }
+
+    //SESSION
+    private static final ChatPattern sessionChatPattern = new ChatPattern(
+            new ChatPattern.ChatComponent("*",TextFormatting.GREEN,0)
+    );
+    public static Predicate<ITextComponent> getSessionPredicate() {
+        return iTextComponent -> (new ChatPattern(iTextComponent)).contains(sessionChatPattern);
     }
 }
