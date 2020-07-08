@@ -56,7 +56,6 @@ public class ChatPattern {
 
         public ChatComponent(String string, TextFormatting color) {
             this.string = string;
-            if (this.string == null) this.string = "null";
             this.color = color;
         }
 
