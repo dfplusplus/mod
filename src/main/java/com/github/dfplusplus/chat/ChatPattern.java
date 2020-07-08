@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class ChatPattern {
@@ -50,8 +51,10 @@ public class ChatPattern {
     }
 
     public static class ChatComponent {
-        private String string;
-        private TextFormatting color;
+        @Nullable
+        private final String string;
+        @Nullable
+        private final TextFormatting color;
         private int pos = -1;
 
         public ChatComponent(String string, TextFormatting color) {
