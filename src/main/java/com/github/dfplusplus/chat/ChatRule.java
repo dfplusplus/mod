@@ -21,7 +21,8 @@ public class ChatRule {
 
     private final String name;
     private final Predicate<ITextComponent> predicate;
-    private ChatSide chatSide;
+    private ChatSide chatSide = ChatSide.SIDE;
+    private ChatSound chatSound = ChatSound.NONE;
 
     public ChatSide getChatSide() {
         return chatSide;
@@ -35,10 +36,17 @@ public class ChatRule {
         return name;
     }
 
+    public ChatSound getChatSound() {
+        return chatSound;
+    }
+
+    public void setChatSound(ChatSound chatSound) {
+        this.chatSound = chatSound;
+    }
+
     public ChatRule(String name, Predicate<ITextComponent> predicate) {
         this.name = name;
         this.predicate = predicate;
-        this.chatSide = ChatSide.SIDE;
     }
 
     public boolean matches(ITextComponent message) {
@@ -80,5 +88,17 @@ public class ChatRule {
         SESSION,
         MOD,
         ADMIN
+    }
+
+    public enum ChatSound {
+        NONE,
+        DING;
+
+        public ChatSound next() {
+            int myIndex = Lists.newArrayList(ChatSound.values()).indexOf(this);
+            myIndex++;
+            if (myIndex >= ChatSound.values().length) myIndex = 0;
+            return ChatSound.values()[myIndex];
+        }
     }
 }

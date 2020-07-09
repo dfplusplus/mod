@@ -26,5 +26,8 @@
   "gui.dfplusplus.admin.settings": "Admin Filter Settings...",
 
   "gui.dfplusplus.chatside.main": "Chat Side: Main Chat",
-  "gui.dfplusplus.chatside.side": "Chat Side: Side Chat"
+  "gui.dfplusplus.chatside.side": "Chat Side: Side Chat",
+
+  "gui.dfplusplus.chatsound.none": "Sound: None",
+  "gui.dfplusplus.chatsound.ding": "Sound: Ding"
 }

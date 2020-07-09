@@ -32,6 +32,7 @@ public class Main {
         ChatPredicates.setCustomWords(DFPlusPlusConfig.getCustomWords());
         for (ChatRule.ChatRuleType chatRuleType : ChatRule.ChatRuleType.values()) {
             ChatRule.getChatRule(chatRuleType).setChatSide(DFPlusPlusConfig.getChatSide(chatRuleType));
+            ChatRule.getChatRule(chatRuleType).setChatSound(DFPlusPlusConfig.getChatSound(chatRuleType));
         }
     }
 }
