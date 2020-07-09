@@ -19,7 +19,7 @@
   "gui.dfplusplus.reason": "Reason",
 
   "gui.dfplusplus.custom.settings": "Custom Filter Settings...",
-  "gui.dfplusplus.message.settings": "Message Filter Settings...",
+  "gui.dfplusplus.message.settings": "/msg Filter Settings...",
   "gui.dfplusplus.support.settings": "Support Filter Settings...",
   "gui.dfplusplus.session.settings": "Session Filter Settings...",
   "gui.dfplusplus.mod.settings": "Mod Filter Settings...",
