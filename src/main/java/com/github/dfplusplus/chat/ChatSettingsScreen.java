@@ -2,6 +2,7 @@ package com.github.dfplusplus.chat;
 
 import com.github.dfplusplus.DFPlusPlusConfig;
 import com.github.dfplusplus.PermissionLevel;
+import net.minecraft.client.gui.screen.ChatScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.gui.widget.button.Button;
@@ -9,20 +10,15 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 
 public class ChatSettingsScreen extends Screen {
-    private final int BUTTON_WIDTH = 200;
-    private final int BUTTON_HEIGHT = 20;
-    private final int BUTTON_GAP = 5;
 
     private TextFieldWidget customWordsField;
-    private TextFieldWidget highlightWordsField;
-    private Button pingHighlightsButton;
+//    private TextFieldWidget highlightWordsField;
+//    private Button pingHighlightsButton;
+    private final Screen priorScreen;
 
-    protected ChatSettingsScreen(ITextComponent titleIn) {
-        super(titleIn);
-    }
-
-    public ChatSettingsScreen() {
+    public ChatSettingsScreen(Screen priorScreen) {
         super(new TranslationTextComponent("Settings"));
+        this.priorScreen = priorScreen;
     }
 
     public void onCustomWordsFieldUpdate(String newText) {
@@ -37,13 +33,14 @@ public class ChatSettingsScreen extends Screen {
         customWordsField.setMaxStringLength(1000);
         customWordsField.setText(ChatPredicates.getCustomWords());
         customWordsField.setResponder(this::onCustomWordsFieldUpdate);
-        highlightWordsField = new TextFieldWidget(minecraft.fontRenderer,width/2 - 100,90,200,20,"Test");
+//        highlightWordsField = new TextFieldWidget(minecraft.fontRenderer,width/2 - 100,90,200,20,"Test");
         addButtons();
 
         children.add(customWordsField);
     }
 
     private void addButtons() {
+        int BUTTON_WIDTH = 200;
         int x = (this.width / 2) - (BUTTON_WIDTH / 2);
         int y = 90;
         for (ChatRule.ChatRuleType chatRuleType : ChatRule.ChatRuleType.values()) {
@@ -57,11 +54,18 @@ public class ChatSettingsScreen extends Screen {
             if (!validButton) continue;
             ChatRule chatRule = ChatRule.getChatRule(chatRuleType);
 
+            int BUTTON_HEIGHT = 20;
             Button button = new Button(x, y, BUTTON_WIDTH, BUTTON_HEIGHT, "", new ToggleChatHandler(chatRuleType));
             button.setMessage(getButtonMessage(chatRule.getChatSide(),chatRuleType));
             addButton(button);
+            int BUTTON_GAP = 5;
             y+=(BUTTON_HEIGHT + BUTTON_GAP);
         }
+        if (priorScreen != null) addButton(new Button(10,10,50,20,"Back",this::onBackButtonPress));
+    }
+
+    private void onBackButtonPress(Button button) {
+        minecraft.displayGuiScreen(priorScreen);
     }
 
     private static String getButtonMessage(ChatRule.ChatSide chatSide, ChatRule.ChatRuleType chatRuleType) {
@@ -97,7 +101,7 @@ public class ChatSettingsScreen extends Screen {
     }
 
     private static class ToggleChatHandler implements Button.IPressable {
-        private ChatRule.ChatRuleType chatRuleType;
+        private final ChatRule.ChatRuleType chatRuleType;
 
         public ToggleChatHandler(ChatRule.ChatRuleType chatRuleType) {
             this.chatRuleType = chatRuleType;

@@ -28,7 +28,7 @@ public class ChatScreenOverride extends ChatScreen {
     }
 
     public void onSettingsButtonPress(Button button) {
-        minecraft.displayGuiScreen(new ChatSettingsScreen());
+        minecraft.displayGuiScreen(new ChatSettingsScreen((minecraft.currentScreen)));
     }
 
     @SubscribeEvent
