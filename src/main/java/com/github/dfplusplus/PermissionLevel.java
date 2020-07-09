@@ -10,6 +10,7 @@ import java.util.List;
 public enum PermissionLevel {
     ADMIN,
     MOD,
+    EXPERT,
     SUPPORT,
     DEFAULT;
 
@@ -18,12 +19,14 @@ public enum PermissionLevel {
     static {
         ResourceLocation adminsResourceLocation = new ResourceLocation(Main.MOD_ID,"admin_permissions");
         ResourceLocation modPermissionLocation = new ResourceLocation(Main.MOD_ID,"mod_permissions");
+        ResourceLocation expertPermissionLocation = new ResourceLocation(Main.MOD_ID,"expert_permissions");
         ResourceLocation supportPermissionLocation = new ResourceLocation(Main.MOD_ID,"support_permissions");
 
         IResourceManager resourceManager = Minecraft.getInstance().getResourceManager();
         permissionLevel = PermissionLevel.DEFAULT;
         if (resourceManager.hasResource(adminsResourceLocation)) permissionLevel = PermissionLevel.ADMIN;
         if (resourceManager.hasResource(modPermissionLocation)) permissionLevel = PermissionLevel.MOD;
+        if (resourceManager.hasResource(expertPermissionLocation)) permissionLevel = PermissionLevel.EXPERT;
         if (resourceManager.hasResource(supportPermissionLocation)) permissionLevel = PermissionLevel.SUPPORT;
     }
 

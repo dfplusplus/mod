@@ -38,7 +38,7 @@ public class ChatTypesScreen extends Screen {
             boolean validButton = true;
             switch (chatRuleType) {
                 case SUPPORT: if (!PermissionLevel.hasPerms(PermissionLevel.SUPPORT)) validButton = false; break; // dont show button if no support perms
-                case SESSION: if (!PermissionLevel.hasPerms(PermissionLevel.MOD)) validButton = false; break;
+                case SESSION: if (!PermissionLevel.hasPerms(PermissionLevel.EXPERT)) validButton = false; break;
                 case MOD: if (!PermissionLevel.hasPerms(PermissionLevel.MOD)) validButton = false; break;
                 case ADMIN: if (!PermissionLevel.hasPerms(PermissionLevel.ADMIN)) validButton = false; break;
             }

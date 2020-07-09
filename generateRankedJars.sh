@@ -21,6 +21,9 @@ jar uf $1-admin.jar assets/dfplusplus/admin_permissions
 cp $1.jar $1-mod.jar
 jar uf $1-mod.jar assets/dfplusplus/mod_permissions
 
+cp $1.jar $1-expert.jar
+jar uf $1-expert.jar assets/dfplusplus/expert_permissions
+
 cp $1.jar $1-support.jar
 jar uf $1-support.jar assets/dfplusplus/support_permissions
 
