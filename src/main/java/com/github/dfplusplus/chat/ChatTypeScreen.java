@@ -1,6 +1,7 @@
 package com.github.dfplusplus.chat;
 
 import com.github.dfplusplus.DFPlusPlusConfig;
+import com.github.dfplusplus.Util;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.resources.I18n;
@@ -45,6 +46,10 @@ public class ChatTypeScreen extends Screen {
     private void onChangeSoundPress(Button button) {
         getChatRule().setChatSound(getChatRule().getChatSound().next());
         button.setMessage(getSoundMessage(getChatRule().getChatSound()));
+
+        if (getChatRule().getChatSound() != ChatRule.ChatSound.NONE) {
+            Util.playSound(getChatRule().getChatSound().getSoundEvent());
+        };
 
         DFPlusPlusConfig.setChatSound(chatRuleType, getChatRule().getChatSound());
     }

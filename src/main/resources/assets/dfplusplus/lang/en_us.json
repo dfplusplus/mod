@@ -29,5 +29,20 @@
   "gui.dfplusplus.chatside.side": "Chat Side: Side Chat",
 
   "gui.dfplusplus.chatsound.none": "Sound: None",
-  "gui.dfplusplus.chatsound.ding": "Sound: Ding"
+  "gui.dfplusplus.chatsound.bass": "Sound: Bass",
+  "gui.dfplusplus.chatsound.bass_drum": "Sound: Bass Drum",
+  "gui.dfplusplus.chatsound.banjo": "Sound: Banjo",
+  "gui.dfplusplus.chatsound.bell": "Sound: Bell",
+  "gui.dfplusplus.chatsound.bit": "Sound: Bit",
+  "gui.dfplusplus.chatsound.chime": "Sound: Chime",
+  "gui.dfplusplus.chatsound.click": "Sound: Click",
+  "gui.dfplusplus.chatsound.cow_bell": "Sound: Cowbell",
+  "gui.dfplusplus.chatsound.didgeridoo": "Sound: Didgeridoo",
+  "gui.dfplusplus.chatsound.flute": "Sound: Flute",
+  "gui.dfplusplus.chatsound.guitar": "Sound: Guitar",
+  "gui.dfplusplus.chatsound.harp": "Sound: Harp",
+  "gui.dfplusplus.chatsound.iron_xylophone": "Sound: Iron Xylophone",
+  "gui.dfplusplus.chatsound.pling": "Sound: Pling",
+  "gui.dfplusplus.chatsound.snare_drum": "Sound: Snare Drum",
+  "gui.dfplusplus.chatsound.xylophone": "Sound: Xylophone"
 }

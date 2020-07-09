@@ -2,6 +2,8 @@ package com.github.dfplusplus.chat;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import net.minecraft.util.SoundEvent;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.ITextComponent;
 
 import java.util.*;
@@ -91,8 +93,33 @@ public class ChatRule {
     }
 
     public enum ChatSound {
-        NONE,
-        DING;
+        NONE(null),
+        BASS(SoundEvents.BLOCK_NOTE_BLOCK_BASS),
+        BASS_DRUM(SoundEvents.BLOCK_NOTE_BLOCK_BASEDRUM),
+        BANJO(SoundEvents.BLOCK_NOTE_BLOCK_BANJO),
+        BELL(SoundEvents.BLOCK_NOTE_BLOCK_BELL),
+        BIT(SoundEvents.BLOCK_NOTE_BLOCK_BIT),
+        CHIME(SoundEvents.BLOCK_NOTE_BLOCK_CHIME),
+        CLICK(SoundEvents.BLOCK_NOTE_BLOCK_HAT),
+        COW_BELL(SoundEvents.BLOCK_NOTE_BLOCK_COW_BELL),
+        DIDGERIDOO(SoundEvents.BLOCK_NOTE_BLOCK_DIDGERIDOO),
+        FLUTE(SoundEvents.BLOCK_NOTE_BLOCK_FLUTE),
+        GUITAR(SoundEvents.BLOCK_NOTE_BLOCK_GUITAR),
+        HARP(SoundEvents.BLOCK_NOTE_BLOCK_HARP),
+        IRON_XYLOPHONE(SoundEvents.BLOCK_NOTE_BLOCK_IRON_XYLOPHONE),
+        PLING(SoundEvents.BLOCK_NOTE_BLOCK_PLING),
+        SNARE_DRUM(SoundEvents.BLOCK_NOTE_BLOCK_SNARE),
+        XYLOPHONE(SoundEvents.BLOCK_NOTE_BLOCK_XYLOPHONE);
+
+        private SoundEvent soundEvent;
+
+        ChatSound(SoundEvent soundEvent) {
+            this.soundEvent = soundEvent;
+        }
+
+        public SoundEvent getSoundEvent() {
+            return soundEvent;
+        }
 
         public ChatSound next() {
             int myIndex = Lists.newArrayList(ChatSound.values()).indexOf(this);

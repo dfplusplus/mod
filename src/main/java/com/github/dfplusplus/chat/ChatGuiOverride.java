@@ -1,6 +1,7 @@
 package com.github.dfplusplus.chat;
 
 import com.github.dfplusplus.Main;
+import com.github.dfplusplus.Util;
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
@@ -114,12 +115,18 @@ public class ChatGuiOverride extends NewChatGui {
 
         boolean matchedARule = false;
         for (ChatRule chatRule : ChatRule.getChatRules()) {
-            if (!matchedARule && chatRule.matches(chatComponent)) {
-                if (chatRule.getChatSide() == ChatRule.ChatSide.MAIN)
-                    this.getMainDrawnChatLines().addAll(0,outputChatLines);
-                else if (chatRule.getChatSide() == ChatRule.ChatSide.SIDE)
-                    this.getSideDrawnChatLines().addAll(0, outputChatLines);
-                matchedARule = true;
+            if (chatRule.matches(chatComponent)) {
+                if (!matchedARule) {
+                    if (chatRule.getChatSide() == ChatRule.ChatSide.MAIN)
+                        this.getMainDrawnChatLines().addAll(0,outputChatLines);
+                    else if (chatRule.getChatSide() == ChatRule.ChatSide.SIDE)
+                        this.getSideDrawnChatLines().addAll(0, outputChatLines);
+                    matchedARule = true;
+                }
+
+                if (chatRule.getChatSound() != ChatRule.ChatSound.NONE) {
+                    Util.playSound(chatRule.getChatSound().getSoundEvent());
+                }
             }
         }
         if (!matchedARule) this.getMainDrawnChatLines().addAll(0,outputChatLines);
