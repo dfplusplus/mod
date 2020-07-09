@@ -23,7 +23,7 @@ public class ChatScreenOverride extends ChatScreen {
     @Override
     protected void init() {
         super.init();
-        this.settingsButton = new Button(2,height - 36,125,20 ,"Settings...",this::onSettingsButtonPress);
+        this.settingsButton = new Button(2,2,125,20 ,"Settings...",this::onSettingsButtonPress);
         this.addButton(settingsButton);
     }
 
