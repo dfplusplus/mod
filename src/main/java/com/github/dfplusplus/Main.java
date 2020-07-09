@@ -26,16 +26,12 @@ public class Main {
         logger.log(Level.INFO,message);
     }
 
-    public static String getModId() {
-        return MOD_ID;
-    }
-
     private void init(FMLClientSetupEvent event) {
         KeyBinds.registerKeyBindings();
         ChatGuiOverride.inject();
         ChatPredicates.setCustomWords(DFPlusPlusConfig.getCustomWords());
         for (ChatRule.ChatRuleType chatRuleType : ChatRule.ChatRuleType.values()) {
-            ChatRule.setChatTypeSide(chatRuleType, DFPlusPlusConfig.getChatSide(chatRuleType));
+            ChatRule.getChatRule(chatRuleType).setChatSide(DFPlusPlusConfig.getChatSide(chatRuleType));
         }
     }
 }

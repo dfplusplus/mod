@@ -45,6 +45,10 @@ public class ChatRule {
         return predicate.test(message);
     }
 
+    public void toggleChatSide() {
+        chatSide = chatSide.other();
+    }
+
     public static List<ChatRule> getChatRules() {
         return Lists.newArrayList(chatRuleMap.values());
     }
@@ -57,10 +61,6 @@ public class ChatRule {
         ChatRule chatRule = chatRuleMap.get(chatRuleType);
         chatRule.setChatSide(chatRule.getChatSide().other());
         return chatRule.getChatSide();
-    }
-
-    public static void setChatTypeSide(ChatRuleType chatRuleType, ChatSide chatSide) {
-        chatRuleMap.get(chatRuleType).setChatSide(chatSide);
     }
 
     public enum ChatSide {
