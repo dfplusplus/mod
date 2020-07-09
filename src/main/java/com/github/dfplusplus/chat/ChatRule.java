@@ -16,6 +16,7 @@ public class ChatRule {
         chatRuleMap.put(ChatRuleType.SUPPORT, new ChatRule("Support Chat", ChatPredicates.getSupportPredicate()));
         chatRuleMap.put(ChatRuleType.SESSION, new ChatRule("Session Chat", ChatPredicates.getSessionPredicate()));
         chatRuleMap.put(ChatRuleType.MOD, new ChatRule("Mod Chat", ChatPredicates.getModPredicate()));
+        chatRuleMap.put(ChatRuleType.ADMIN, new ChatRule("Admin Chat", ChatPredicates.getAdminPredicate()));
     }
 
     private final String name;
@@ -77,6 +78,7 @@ public class ChatRule {
         MESSAGE,
         SUPPORT,
         SESSION,
-        MOD
+        MOD,
+        ADMIN
     }
 }

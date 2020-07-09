@@ -84,4 +84,12 @@ public class ChatPredicates {
     public static Predicate<ITextComponent> getSessionPredicate() {
         return iTextComponent -> (new ChatPattern(iTextComponent)).contains(sessionChatPattern);
     }
+
+    //ADMIN
+    private static final ChatPattern adminChatPattern = new ChatPattern(
+            new ChatPattern.ChatComponent("[ADMIN] ", TextFormatting.RED,0)
+    );
+    public static Predicate<ITextComponent> getAdminPredicate() {
+        return iTextComponent -> (new ChatPattern(iTextComponent)).contains(modChatPattern);
+    }
 }
