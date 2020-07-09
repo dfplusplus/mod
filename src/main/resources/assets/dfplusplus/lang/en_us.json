@@ -16,5 +16,15 @@
 
   "gui.dfplusplus.player": "Player",
   "gui.dfplusplus.duration": "Duration",
-  "gui.dfplusplus.reason": "Reason"
+  "gui.dfplusplus.reason": "Reason",
+
+  "gui.dfplusplus.custom.settings": "Custom Filter Settings...",
+  "gui.dfplusplus.message.settings": "Message Filter Settings...",
+  "gui.dfplusplus.support.settings": "Support Filter Settings...",
+  "gui.dfplusplus.session.settings": "Session Filter Settings...",
+  "gui.dfplusplus.mod.settings": "Mod Filter Settings...",
+  "gui.dfplusplus.admin.settings": "Admin Filter Settings...",
+
+  "gui.dfplusplus.chatside.main": "Chat Side: Main Chat",
+  "gui.dfplusplus.chatside.side": "Chat Side: Side Chat"
 }

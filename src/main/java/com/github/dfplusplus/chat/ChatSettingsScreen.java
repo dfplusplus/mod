@@ -34,42 +34,18 @@ public class ChatSettingsScreen extends Screen {
         customWordsField.setText(ChatPredicates.getCustomWords());
         customWordsField.setResponder(this::onCustomWordsFieldUpdate);
 //        highlightWordsField = new TextFieldWidget(minecraft.fontRenderer,width/2 - 100,90,200,20,"Test");
-        addButtons();
+        if (priorScreen != null) addButton(new Button(10,10,50,20,"Back",this::onBackButtonPress));
+        addButton(new Button((this.width / 2) - 100,90,200,20,"Chat Types Settings...",this::onChatTypesButtonPress));
 
         children.add(customWordsField);
-    }
-
-    private void addButtons() {
-        int BUTTON_WIDTH = 200;
-        int x = (this.width / 2) - (BUTTON_WIDTH / 2);
-        int y = 90;
-        for (ChatRule.ChatRuleType chatRuleType : ChatRule.ChatRuleType.values()) {
-            boolean validButton = true;
-            switch (chatRuleType) {
-                case SUPPORT: if (!PermissionLevel.hasPerms(PermissionLevel.SUPPORT)) validButton = false; break; // dont show button if no support perms
-                case SESSION: if (!PermissionLevel.hasPerms(PermissionLevel.MOD)) validButton = false; break;
-                case MOD: if (!PermissionLevel.hasPerms(PermissionLevel.MOD)) validButton = false; break;
-                case ADMIN: if (!PermissionLevel.hasPerms(PermissionLevel.ADMIN)) validButton = false; break;
-            }
-            if (!validButton) continue;
-            ChatRule chatRule = ChatRule.getChatRule(chatRuleType);
-
-            int BUTTON_HEIGHT = 20;
-            Button button = new Button(x, y, BUTTON_WIDTH, BUTTON_HEIGHT, "", new ToggleChatHandler(chatRuleType));
-            button.setMessage(getButtonMessage(chatRule.getChatSide(),chatRuleType));
-            addButton(button);
-            int BUTTON_GAP = 5;
-            y+=(BUTTON_HEIGHT + BUTTON_GAP);
-        }
-        if (priorScreen != null) addButton(new Button(10,10,50,20,"Back",this::onBackButtonPress));
     }
 
     private void onBackButtonPress(Button button) {
         minecraft.displayGuiScreen(priorScreen);
     }
 
-    private static String getButtonMessage(ChatRule.ChatSide chatSide, ChatRule.ChatRuleType chatRuleType) {
-        return String.format("%s side: %s", chatRuleType.name(), chatSide.name());
+    private void onChatTypesButtonPress(Button button) {
+        minecraft.displayGuiScreen(new ChatTypesScreen(this));
     }
 
     @Override
@@ -98,21 +74,5 @@ public class ChatSettingsScreen extends Screen {
     public void removed() {
         DFPlusPlusConfig.setCustomWords(customWordsField.getText());
         minecraft.keyboardListener.enableRepeatEvents(false);
-    }
-
-    private static class ToggleChatHandler implements Button.IPressable {
-        private final ChatRule.ChatRuleType chatRuleType;
-
-        public ToggleChatHandler(ChatRule.ChatRuleType chatRuleType) {
-            this.chatRuleType = chatRuleType;
-        }
-
-        @Override
-        public void onPress(Button button) {
-            ChatRule.ChatSide newChatSide = ChatRule.toggleChatType(chatRuleType);
-            button.setMessage(getButtonMessage(newChatSide,chatRuleType));
-
-            DFPlusPlusConfig.setChatSide(chatRuleType,newChatSide);
-        }
     }
 }
