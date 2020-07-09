@@ -52,6 +52,7 @@ public class ChatSettingsScreen extends Screen {
                 case SUPPORT: if (!PermissionLevel.hasPerms(PermissionLevel.SUPPORT)) validButton = false; break; // dont show button if no support perms
                 case SESSION: if (!PermissionLevel.hasPerms(PermissionLevel.MOD)) validButton = false; break;
                 case MOD: if (!PermissionLevel.hasPerms(PermissionLevel.MOD)) validButton = false; break;
+                case ADMIN: if (!PermissionLevel.hasPerms(PermissionLevel.ADMIN)) validButton = false; break;
             }
             if (!validButton) continue;
             ChatRule chatRule = ChatRule.getChatRule(chatRuleType);
