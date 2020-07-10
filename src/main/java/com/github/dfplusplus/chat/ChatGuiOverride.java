@@ -2,6 +2,7 @@ package com.github.dfplusplus.chat;
 
 import com.github.dfplusplus.Main;
 import com.github.dfplusplus.Util;
+import com.github.dfplusplus.chat.screens.ChatSizingScreen;
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
@@ -44,8 +45,8 @@ public class ChatGuiOverride extends NewChatGui {
                 double d2 = this.mc.gameSettings.accessibilityTextBackgroundOpacity;
                 int l = 0;
 
-                renderChat(0, this.getMainDrawnChatLines(), updateCounter, i, flag, k, d1, d2, l);
-                renderChat(getSideChatStartX(), this.getSideDrawnChatLines(),updateCounter,i,flag,k,d1,d2,l);
+                renderChat(0, 0, this.getMainDrawnChatLines(), updateCounter, i, flag, k, d1, d2, l);
+                renderChat(getSideChatStartX() + ChatSizingScreen.getChatOffsetX(), -ChatSizingScreen.getChatOffsetY(), this.getSideDrawnChatLines(),updateCounter,i,flag,k,d1,d2,l);
 
                 if (flag) {
                     int l2 = 9;
@@ -65,8 +66,8 @@ public class ChatGuiOverride extends NewChatGui {
         }
     }
 
-    private void renderChat(int x, List<ChatLine> chatLines, int updateCounter, int i, boolean flag, int k, double d1, double d2, int l) {
-        Matrix4f mainMatrix4f = Matrix4f.makeTranslate(x, 0, -100);
+    private void renderChat(int x, int y, List<ChatLine> chatLines, int updateCounter, int i, boolean flag, int k, double d1, double d2, int l) {
+        Matrix4f mainMatrix4f = Matrix4f.makeTranslate(x, y, -100);
 
         for(int i1 = 0; i1 + this.scrollPos < chatLines.size() && i1 < i; ++i1) {
             ChatLine chatline = chatLines.get(i1 + this.scrollPos);
@@ -82,7 +83,7 @@ public class ChatGuiOverride extends NewChatGui {
                         fill(mainMatrix4f, -2, k2 - 9, k + 4, k2, i2 << 24);
                         String s = chatline.getChatComponent().getFormattedText();
                         RenderSystem.enableBlend();
-                        this.mc.fontRenderer.drawStringWithShadow(s, x, (float)(k2 - 8), 16777215 + (l1 << 24));
+                        this.mc.fontRenderer.drawStringWithShadow(s, x, (float)(k2 - 8) + y, 16777215 + (l1 << 24));
                         RenderSystem.disableAlphaTest();
                         RenderSystem.disableBlend();
                     }
@@ -208,6 +209,11 @@ public class ChatGuiOverride extends NewChatGui {
     public void printChatMessageWithOptionalDeletion(ITextComponent chatComponent, int chatLineId) {
         this.setChatLine(chatComponent, chatLineId, this.mc.ingameGUI.getTicks(), false);
         LOGGER.info("[CHAT] {}", chatComponent.getString().replaceAll("\r", "\\\\r").replaceAll("\n", "\\\\n"));
+    }
+
+    @Override
+    public boolean getChatOpen() {
+        return super.getChatOpen() || this.mc.currentScreen instanceof ChatSizingScreen;
     }
 
     public static void inject() {
