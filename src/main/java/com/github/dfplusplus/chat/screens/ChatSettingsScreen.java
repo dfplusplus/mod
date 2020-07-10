@@ -34,6 +34,7 @@ public class ChatSettingsScreen extends Screen {
 //        highlightWordsField = new TextFieldWidget(minecraft.fontRenderer,width/2 - 100,90,200,20,"Test");
         if (priorScreen != null) addButton(new Button(10,10,50,20,"Back",this::onBackButtonPress));
         addButton(new Button((this.width / 2) - 100,90,200,20,"Chat Types Settings...",this::onChatTypesButtonPress));
+        addButton(new Button((this.width / 2) - 100,115,200,20,"Side Chat Sizing...",this::onChatSizingButtonPress));
 
         children.add(customWordsField);
     }
@@ -44,6 +45,10 @@ public class ChatSettingsScreen extends Screen {
 
     private void onChatTypesButtonPress(Button button) {
         minecraft.displayGuiScreen(new ChatTypesScreen(this));
+    }
+
+    private void onChatSizingButtonPress(Button button) {
+        minecraft.displayGuiScreen(new ChatSizingScreen(this));
     }
 
     @Override
