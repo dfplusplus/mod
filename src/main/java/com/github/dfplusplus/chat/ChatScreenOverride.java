@@ -1,6 +1,7 @@
 package com.github.dfplusplus.chat;
 
 import com.github.dfplusplus.Main;
+import com.github.dfplusplus.chat.screens.ChatSettingsScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.ChatScreen;
 import net.minecraft.client.gui.widget.button.Button;

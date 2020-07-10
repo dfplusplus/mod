@@ -1,12 +1,11 @@
-package com.github.dfplusplus.chat;
+package com.github.dfplusplus.chat.screens;
 
-import com.github.dfplusplus.DFPlusPlusConfig;
 import com.github.dfplusplus.PermissionLevel;
+import com.github.dfplusplus.chat.ChatRule;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.util.text.ChatType;
 import net.minecraft.util.text.TranslationTextComponent;
 
 public class ChatTypesScreen extends Screen {
