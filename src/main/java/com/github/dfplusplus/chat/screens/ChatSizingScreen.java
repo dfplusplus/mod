@@ -53,7 +53,7 @@ public class ChatSizingScreen extends Screen {
 
         this.addButton(new OptionSlider(
                 minecraft.gameSettings, (width / 2) - 100, 45, 200, 20,
-                new SliderPercentageOption("gui.dfplusplus.chatoffsetx", 0f, minecraft.getMainWindow().getHeight(), 1f,
+                new SliderPercentageOption("gui.dfplusplus.chatoffsetx", 0f, minecraft.getMainWindow().getScaledHeight(), 1f,
                         (gameSettings -> chatOffsetYValue),
                         ((gameSettings, aDouble) -> chatOffsetYValue = aDouble), // %% is escaped to %
                         (gameSettings, sliderPercentageOption) -> String.format("Chat Offset Y: %spx", ((int) chatOffsetYValue))
