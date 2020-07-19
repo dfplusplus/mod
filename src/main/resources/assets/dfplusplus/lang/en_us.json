@@ -1,5 +1,5 @@
 {
-  "key.categories.dfplusplus": "DF Admin Tools",
+  "key.categories.dfplusplus": "DF++",
 
   "dfplusplus.key.mainscreen": "Open Main Menu",
 
@@ -44,5 +44,8 @@
   "gui.dfplusplus.chatsound.iron_xylophone": "Sound: Iron Xylophone",
   "gui.dfplusplus.chatsound.pling": "Sound: Pling",
   "gui.dfplusplus.chatsound.snare_drum": "Sound: Snare Drum",
-  "gui.dfplusplus.chatsound.xylophone": "Sound: Xylophone"
+  "gui.dfplusplus.chatsound.xylophone": "Sound: Xylophone",
+
+  "gui.dfplusplus.settings.sync.true": "Chat Sizing: Sync with Main Chat",
+  "gui.dfplusplus.settings.sync.false": "Chat Sizing: Custom"
 }
