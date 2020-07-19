@@ -71,7 +71,7 @@ public class ChatGuiOverride extends NewChatGui {
                 double d1 = this.mc.gameSettings.chatOpacity * (double)0.9F + (double)0.1F;
                 double d2 = this.mc.gameSettings.accessibilityTextBackgroundOpacity;
                 int l = 0;
-                renderChat(getSideChatStartX() + ChatSizingScreen.getChatOffsetX() - 4, -ChatSizingScreen.getChatOffsetY(), this.getSideDrawnChatLines(),updateCounter,i,flag,k,d1,d2,l);
+                renderChat(getSideChatStartX() + ChatSizingScreen.getChatOffsetX(), -ChatSizingScreen.getChatOffsetY(), this.getSideDrawnChatLines(),updateCounter,i,flag,k,d1,d2,l);
                 RenderSystem.popMatrix();
             }
         }
@@ -224,7 +224,7 @@ public class ChatGuiOverride extends NewChatGui {
     }
 
     private int getSideChatStartX() {
-        return (int) ((mc.getMainWindow().getScaledWidth() - getSideChatWidth()) / getSideChatScale());
+        return (int) ((mc.getMainWindow().getScaledWidth() - getSideChatWidth()) / getSideChatScale()) - 4;
     }
 
     @Override
