@@ -125,6 +125,7 @@ public class ChatSizingScreen extends Screen {
                         (gameSettings, sliderPercentageOption) -> String.format("Chat Width: %spx", NewChatGui.calculateChatboxWidth(getActualChatWidth())) // on display
                 )
         ));
+        this.chatWidthSlider.active = !syncWithMinecraft;
 
         // dummy message button
         addButton(new Button((width / 2) -100,145,200,20,"Send Dummy Messages",this::onDummyMessagesButtonPress));
