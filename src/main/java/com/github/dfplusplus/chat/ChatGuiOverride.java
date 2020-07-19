@@ -1,6 +1,5 @@
 package com.github.dfplusplus.chat;
 
-import com.github.dfplusplus.Main;
 import com.github.dfplusplus.Util;
 import com.github.dfplusplus.chat.screens.ChatSizingScreen;
 import com.google.common.collect.Lists;
@@ -31,18 +30,18 @@ public class ChatGuiOverride extends NewChatGui {
         if (this.isChatVisible()) {
             int i = this.getLineCount();
             int mainDrawnChatLinesSize = this.mainDrawnChatLines.size();
-            if (mainDrawnChatLinesSize > 0 || this.sideDrawnChatLines.size() > 0) { // if theres messages in either chat
-                boolean flag = false;
-                if (this.getChatOpen()) {
-                    flag = true;
-                }
+            boolean flag = false;
+            if (this.getChatOpen()) {
+                flag = true;
+            }
+            if (mainDrawnChatLinesSize > 0) { // if theres messages in main chat
 
                 double d0 = this.getScale();
-                int k = MathHelper.ceil((double)this.getChatWidth() / d0);
+                int k = MathHelper.ceil((double) this.getChatWidth() / d0);
                 RenderSystem.pushMatrix();
                 RenderSystem.translatef(2.0F, 8.0F, 0.0F);
                 RenderSystem.scaled(d0, d0, 1.0D);
-                double d1 = this.mc.gameSettings.chatOpacity * (double)0.9F + (double)0.1F;
+                double d1 = this.mc.gameSettings.chatOpacity * (double) 0.9F + (double) 0.1F;
                 double d2 = this.mc.gameSettings.accessibilityTextBackgroundOpacity;
                 int l = 0;
                 renderChat(0, 0, this.getMainDrawnChatLines(), updateCounter, i, flag, k, d1, d2, l);
@@ -60,16 +59,18 @@ public class ChatGuiOverride extends NewChatGui {
                     fill(2, -k3, 1, -k3 - k1, 13421772 + (l3 << 24));
                 }
                 RenderSystem.popMatrix();
-
+            }
+            // then, a seperate check for the side drawn chat
+            if (this.sideDrawnChatLines.size() > 0) {
                 // resets the matrix or smth
-                d0 = ChatSizingScreen.getChatScale();
-                k = MathHelper.ceil((double)calculateChatboxWidth(ChatSizingScreen.getChatWidth()) / d0);
+                double d0 = getSideChatScale();
+                int k = MathHelper.ceil((double)getSideChatWidth() / d0);
                 RenderSystem.pushMatrix();
                 RenderSystem.translatef(2.0F, 8.0F, 0.0F);
                 RenderSystem.scaled(d0, d0, 1.0D);
-                d1 = this.mc.gameSettings.chatOpacity * (double)0.9F + (double)0.1F;
-                d2 = this.mc.gameSettings.accessibilityTextBackgroundOpacity;
-                l = 0;
+                double d1 = this.mc.gameSettings.chatOpacity * (double)0.9F + (double)0.1F;
+                double d2 = this.mc.gameSettings.accessibilityTextBackgroundOpacity;
+                int l = 0;
                 renderChat(getSideChatStartX() + ChatSizingScreen.getChatOffsetX() - 4, -ChatSizingScreen.getChatOffsetY(), this.getSideDrawnChatLines(),updateCounter,i,flag,k,d1,d2,l);
                 RenderSystem.popMatrix();
             }
@@ -172,26 +173,34 @@ public class ChatGuiOverride extends NewChatGui {
             d2 = MathHelper.floor(d2 / d0);
             if (!(d1 < 0.0D) && !(d2 < 0.0D)) {
                 int i = Math.min(this.getLineCount(), this.getMainDrawnChatLines().size());
-                if (d1 <= (double)MathHelper.floor((double)this.getChatWidth() / this.getScale()) && d2 < (double)(9 * i + i)) {
-                    int j = (int)(d2 / 9.0D + (double)this.scrollPos);
+                if (d1 <= (double) MathHelper.floor((double) this.getChatWidth() / this.getScale()) && d2 < (double) (9 * i + i)) {
+                    int j = (int) (d2 / 9.0D + (double) this.scrollPos);
                     if (j >= 0 && j < this.getMainDrawnChatLines().size()) {
                         ChatLine chatline = this.getMainDrawnChatLines().get(j);
                         int k = 0;
 
-                        for(ITextComponent itextcomponent : chatline.getChatComponent()) {
+                        for (ITextComponent itextcomponent : chatline.getChatComponent()) {
                             if (itextcomponent instanceof StringTextComponent) {
-                                k += this.mc.fontRenderer.getStringWidth(RenderComponentsUtil.removeTextColorsIfConfigured(((StringTextComponent)itextcomponent).getText(), false));
-                                if ((double)k > d1) {
+                                k += this.mc.fontRenderer.getStringWidth(RenderComponentsUtil.removeTextColorsIfConfigured(((StringTextComponent) itextcomponent).getText(), false));
+                                if ((double) k > d1) {
                                     return itextcomponent;
                                 }
                             }
                         }
                     }
                 }
+            }
 
-                i = Math.min(this.getLineCount(), this.getSideDrawnChatLines().size());
+            // then recalculate the consts as 2nd chat may be diff size
+            d0 = getSideChatScale();
+            d1 = p_194817_1_ - 2.0D;
+            d2 = (double)this.mc.getMainWindow().getScaledHeight() - p_194817_3_ - 40.0D;
+            d1 = MathHelper.floor(d1 / d0);
+            d2 = MathHelper.floor(d2 / d0);
+            if (!(d1 < 0.0D) && !(d2 < 0.0D)) {
+                int i = Math.min(this.getLineCount(), this.getSideDrawnChatLines().size());
                 if (
-                        d1 >= mc.getMainWindow().getScaledWidth() - (double)MathHelper.floor((double)this.getChatWidth() / this.getScale())
+                        d1 >= mc.getMainWindow().getScaledWidth() - (double)MathHelper.floor((double) getSideChatWidth() / getSideChatScale())
                                 && d2 < (double)(9 * i + i)) {
                     int j = (int)(d2 / 9.0D + (double)this.scrollPos);
                     if (j >= 0 && j < this.getSideDrawnChatLines().size()) {
@@ -215,7 +224,7 @@ public class ChatGuiOverride extends NewChatGui {
     }
 
     private int getSideChatStartX() {
-        return (int) ((mc.getMainWindow().getScaledWidth() - calculateChatboxWidth(ChatSizingScreen.getChatWidth())) / ChatSizingScreen.getChatScale());
+        return (int) ((mc.getMainWindow().getScaledWidth() - getSideChatWidth()) / getSideChatScale());
     }
 
     @Override
@@ -259,7 +268,7 @@ public class ChatGuiOverride extends NewChatGui {
         int i;
         switch (side) {
             case MAIN: default:
-                i = MathHelper.floor((double) calculateChatboxWidth(ChatSizingScreen.getChatWidth()) / ChatSizingScreen.getChatScale());
+                i = MathHelper.floor((double) getSideChatWidth() / getSideChatScale());
                 break;
             case SIDE:
                 i = MathHelper.floor((double) this.getChatWidth() / this.getScale());
@@ -267,5 +276,13 @@ public class ChatGuiOverride extends NewChatGui {
         }
         List<ChatLine> outputChatLines = getOutputChatLines(chatComponent, chatLineId, updateCounter, i);
         this.getChatLines(side).addAll(0, outputChatLines);
+    }
+
+    private int getSideChatWidth() {
+        return calculateChatboxWidth(ChatSizingScreen.getChatWidth());
+    }
+
+    private double getSideChatScale() {
+        return ChatSizingScreen.getChatScale();
     }
 }
