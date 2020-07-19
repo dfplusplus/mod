@@ -9,10 +9,13 @@ import net.minecraftforge.fml.common.Mod;
 
 import java.util.Map;
 
-@Mod.EventBusSubscriber(modid = Main.MOD_ID)
+import static com.github.dfplusplus.Main.MOD_ID;
+
+@Mod.EventBusSubscriber(modid = MOD_ID)
 public class Config {
     private static final ForgeConfigSpec configSpec;
     private static final ForgeConfigSpec.ConfigValue<String> customWordsSpec;
+    private static final ForgeConfigSpec.ConfigValue<Integer> chatOffsetXSpec, chatOffsetYSpec;
     private static final ForgeConfigSpec.BooleanValue hasGeneratedChatSizingSettingsSpec;
     private static final ForgeConfigSpec.BooleanValue syncWithMinecraftSpec;
     private static final ForgeConfigSpec.DoubleValue chatScaleSpec, chatWidthSpec;
@@ -26,37 +29,47 @@ public class Config {
         builder.push("chat");
         customWordsSpec = builder
                 .comment("The words for custom 2nd chat")
-                .translation(Main.MOD_ID + ".config.customwords")
+                .translation(MOD_ID + ".config.customwords")
                 .define("customWords","");
 
         hasGeneratedChatSizingSettingsSpec = builder
                 .comment("Whether the user has select 'Do not sync' on the chat sizing settings before")
-                .translation(Main.MOD_ID + ".config.hasgeneratedchatsizingsettings")
+                .translation(MOD_ID + ".config.hasgeneratedchatsizingsettings")
                 .define("hasGeneratedChatSizingSettings",false);
+
+        chatOffsetXSpec = builder
+                .comment("The offset X, in pixels")
+                .translation(MOD_ID + ".config.chatoffsetx")
+                .define("chatOffsetX",0);
+
+        chatOffsetYSpec = builder
+                .comment("The offset Y, in pixels")
+                .translation(MOD_ID + ".config.chatoffsety")
+                .define("chatOffsetY",0);
 
         syncWithMinecraftSpec = builder
                 .comment("Whether chat sizing settings are synced with minecraft")
-                .translation(Main.MOD_ID + ".config.syncwithminecraft")
+                .translation(MOD_ID + ".config.syncwithminecraft")
                 .define("syncWithMinecraft",true);
 
         chatScaleSpec = builder
                 .comment("The scale of the chat")
-                .translation(Main.MOD_ID + ".config.chatscale")
+                .translation(MOD_ID + ".config.chatscale")
                 .defineInRange("chatScale",0,0f,1f);
 
         chatWidthSpec = builder
                 .comment("The width of the chat")
-                .translation(Main.MOD_ID + ".config.chatwidth")
+                .translation(MOD_ID + ".config.chatwidth")
                 .defineInRange("chatWidth",0,0f,1f);
 
         for (ChatRule.ChatRuleType chatRuleType : ChatRule.ChatRuleType.values()) {
             chatSideSpecs.put(chatRuleType, builder
                     .comment(String.format("Side of %s", chatRuleType.name()))
-                    .translation(String.format("%s.config.%sside", Main.MOD_ID, chatRuleType.name()))
+                    .translation(String.format("%s.config.%sside", MOD_ID, chatRuleType.name()))
                     .define(String.format("%s_isSide", chatRuleType.name()), false));
             chatSoundSpecs.put(chatRuleType, builder
                     .comment(String.format("Sound of %s", chatRuleType.name()))
-                    .translation(String.format("%s.config.%sside", Main.MOD_ID, chatRuleType.name()))
+                    .translation(String.format("%s.config.%sside", MOD_ID, chatRuleType.name()))
                     .defineEnum(String.format("%s_sound", chatRuleType.name()), ChatRule.ChatSound.NONE));
         }
         configSpec = builder.build();
@@ -82,6 +95,26 @@ public class Config {
 
     public static boolean hasGeneratedChatSizingSettings() {
         return hasGeneratedChatSizingSettingsSpec.get();
+    }
+
+    public static int getChatOffsetX() {
+        return chatOffsetXSpec.get();
+    }
+
+    public static void setChatOffsetX(int newChatOffsetX) {
+        if (newChatOffsetX == chatOffsetXSpec.get()) return;
+        chatOffsetXSpec.set(newChatOffsetX);
+        chatOffsetXSpec.save();
+    }
+
+    public static int getChatOffsetY() {
+        return chatOffsetYSpec.get();
+    }
+
+    public static void setChatOffsetY(int newChatOffsetY) {
+        if (newChatOffsetY == chatOffsetYSpec.get()) return;
+        chatOffsetYSpec.set(newChatOffsetY);
+        chatOffsetYSpec.save();
     }
 
     public static boolean getSyncWithMinecraft() {

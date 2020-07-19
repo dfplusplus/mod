@@ -3,26 +3,19 @@ package com.github.dfplusplus.chat.screens;
 import com.github.dfplusplus.Config;
 import com.github.dfplusplus.chat.ChatGuiOverride;
 import com.github.dfplusplus.chat.ChatRule;
-import net.minecraft.client.GameSettings;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.IGuiEventListener;
 import net.minecraft.client.gui.NewChatGui;
-import net.minecraft.client.gui.screen.ChatScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.OptionSlider;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.client.settings.AbstractOption;
 import net.minecraft.client.settings.SliderPercentageOption;
 import net.minecraft.util.text.TranslationTextComponent;
 
-import java.util.function.BiFunction;
-import java.util.function.Function;
-
 public class ChatSizingScreen extends Screen {
     private final Screen priorScreen;
-    private static double chatOffsetXValue = 0;
-    private static double chatOffsetYValue = 0;
+    private static double chatOffsetX = 0;
+    private static double chatOffsetY = 0;
     private static boolean syncWithMinecraft = true;
     private static double chatScale;
     private static double chatWidth;
@@ -32,11 +25,11 @@ public class ChatSizingScreen extends Screen {
     private OptionSlider chatWidthSlider;
 
     public static int getChatOffsetX() {
-        return ((int) chatOffsetXValue);
+        return (int) chatOffsetX;
     }
 
     public static int getChatOffsetY() {
-        return (int) chatOffsetYValue;
+        return (int) chatOffsetY;
     }
 
     public static double getChatScale() {
@@ -48,9 +41,19 @@ public class ChatSizingScreen extends Screen {
     }
 
     public static void loadFromConfig() {
+        chatOffsetX = Config.getChatOffsetX();
+        chatOffsetY = Config.getChatOffsetY();
         syncWithMinecraft = Config.getSyncWithMinecraft();
         chatScale = Config.getChatScale();
         chatWidth = Config.getChatWidth();
+    }
+
+    private static void saveToConfig() {
+        Config.setChatOffsetX(getChatOffsetX());
+        Config.setChatOffsetY(getChatOffsetY());
+        Config.setSyncWithMinecraft(syncWithMinecraft);
+        Config.setChatScale(getChatScale());
+        Config.setChatWidth(getChatWidth());
     }
 
     public ChatSizingScreen(Screen priorScreen) {
@@ -70,9 +73,9 @@ public class ChatSizingScreen extends Screen {
         this.addButton(new OptionSlider(
                 minecraft.gameSettings, (width / 2) - 100, 20, 200, 20,
                 new SliderPercentageOption("gui.dfplusplus.chatoffsetx", -windowWidth/2f, windowWidth/2f, 1f,
-                        (gameSettings -> chatOffsetXValue),
-                        ((gameSettings, aDouble) -> chatOffsetXValue = aDouble),
-                        (gameSettings, sliderPercentageOption) -> String.format("Chat Offset X: %spx", ((int) chatOffsetXValue))
+                        (gameSettings -> chatOffsetX),
+                        ((gameSettings, aDouble) -> chatOffsetX = aDouble),
+                        (gameSettings, sliderPercentageOption) -> String.format("Chat Offset X: %spx", ((int) chatOffsetX))
                 ))
         );
 
@@ -80,9 +83,9 @@ public class ChatSizingScreen extends Screen {
         this.addButton(new OptionSlider(
                 minecraft.gameSettings, (width / 2) - 100, 45, 200, 20,
                 new SliderPercentageOption("gui.dfplusplus.chatoffsetx", 0f, minecraft.getMainWindow().getScaledHeight(), 1f,
-                        (gameSettings -> chatOffsetYValue),
-                        ((gameSettings, aDouble) -> chatOffsetYValue = aDouble),
-                        (gameSettings, sliderPercentageOption) -> String.format("Chat Offset Y: %spx", ((int) chatOffsetYValue))
+                        (gameSettings -> chatOffsetY),
+                        ((gameSettings, aDouble) -> chatOffsetY = aDouble),
+                        (gameSettings, sliderPercentageOption) -> String.format("Chat Offset Y: %spx", ((int) chatOffsetY))
                 ))
         );
 
@@ -135,9 +138,7 @@ public class ChatSizingScreen extends Screen {
 
     @Override
     public void removed() {
-        Config.setSyncWithMinecraft(syncWithMinecraft);
-        Config.setChatScale(chatScale);
-        Config.setChatWidth(chatWidth);
+        saveToConfig();
     }
 
     private void onBackButtonPress(Button button) {
