@@ -45,11 +45,9 @@ public class ChatGuiOverride extends NewChatGui {
                 double d1 = this.mc.gameSettings.chatOpacity * (double)0.9F + (double)0.1F;
                 double d2 = this.mc.gameSettings.accessibilityTextBackgroundOpacity;
                 int l = 0;
-
                 renderChat(0, 0, this.getMainDrawnChatLines(), updateCounter, i, flag, k, d1, d2, l);
-                renderChat(getSideChatStartX() + ChatSizingScreen.getChatOffsetX(), -ChatSizingScreen.getChatOffsetY(), this.getSideDrawnChatLines(),updateCounter,i,flag,k,d1,d2,l);
 
-                if (flag) {
+                if (flag) { // scroll bar (ignoring one for 2nd chat)
                     int l2 = 9;
                     RenderSystem.translatef(-3.0F, 0.0F, 0.0F);
                     int i3 = j * l2 + j;
@@ -61,7 +59,18 @@ public class ChatGuiOverride extends NewChatGui {
                     fill(0, -k3, 2, -k3 - k1, i4 + (l3 << 24));
                     fill(2, -k3, 1, -k3 - k1, 13421772 + (l3 << 24));
                 }
+                RenderSystem.popMatrix();
 
+                // resets the matrix or smth
+                d0 = ChatSizingScreen.getChatScale();
+                k = MathHelper.ceil((double)calculateChatboxWidth(ChatSizingScreen.getChatWidth()) / d0);
+                RenderSystem.pushMatrix();
+                RenderSystem.translatef(2.0F, 8.0F, 0.0F);
+                RenderSystem.scaled(d0, d0, 1.0D);
+                d1 = this.mc.gameSettings.chatOpacity * (double)0.9F + (double)0.1F;
+                d2 = this.mc.gameSettings.accessibilityTextBackgroundOpacity;
+                l = 0;
+                renderChat(getSideChatStartX() + ChatSizingScreen.getChatOffsetX() - 4, -ChatSizingScreen.getChatOffsetY(), this.getSideDrawnChatLines(),updateCounter,i,flag,k,d1,d2,l);
                 RenderSystem.popMatrix();
             }
         }
@@ -183,7 +192,7 @@ public class ChatGuiOverride extends NewChatGui {
                 i = Math.min(this.getLineCount(), this.getSideDrawnChatLines().size());
                 if (
                         d1 >= mc.getMainWindow().getScaledWidth() - (double)MathHelper.floor((double)this.getChatWidth() / this.getScale())
-                        && d2 < (double)(9 * i + i)) {
+                                && d2 < (double)(9 * i + i)) {
                     int j = (int)(d2 / 9.0D + (double)this.scrollPos);
                     if (j >= 0 && j < this.getSideDrawnChatLines().size()) {
                         ChatLine chatline = this.getSideDrawnChatLines().get(j);
@@ -206,7 +215,7 @@ public class ChatGuiOverride extends NewChatGui {
     }
 
     private int getSideChatStartX() {
-        return (int) ((mc.getMainWindow().getScaledWidth() - getChatWidth()) / getScale());
+        return (int) ((mc.getMainWindow().getScaledWidth() - calculateChatboxWidth(ChatSizingScreen.getChatWidth())) / ChatSizingScreen.getChatScale());
     }
 
     @Override
