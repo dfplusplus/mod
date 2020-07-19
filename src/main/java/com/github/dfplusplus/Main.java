@@ -3,6 +3,7 @@ package com.github.dfplusplus;
 import com.github.dfplusplus.chat.ChatGuiOverride;
 import com.github.dfplusplus.chat.ChatPredicates;
 import com.github.dfplusplus.chat.ChatRule;
+import com.github.dfplusplus.chat.screens.ChatSizingScreen;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -29,10 +30,8 @@ public class Main {
     private void init(FMLClientSetupEvent event) {
         KeyBinds.registerKeyBindings();
         ChatGuiOverride.inject();
-        ChatPredicates.setCustomWords(Config.getCustomWords());
-        for (ChatRule.ChatRuleType chatRuleType : ChatRule.ChatRuleType.values()) {
-            ChatRule.getChatRule(chatRuleType).setChatSide(Config.getChatSide(chatRuleType));
-            ChatRule.getChatRule(chatRuleType).setChatSound(Config.getChatSound(chatRuleType));
-        }
+        ChatPredicates.loadFromConfig();
+        ChatRule.loadFromConfig();
+        ChatSizingScreen.loadFromConfig();
     }
 }

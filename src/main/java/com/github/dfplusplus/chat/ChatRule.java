@@ -1,5 +1,6 @@
 package com.github.dfplusplus.chat;
 
+import com.github.dfplusplus.Config;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.minecraft.util.SoundEvent;
@@ -19,6 +20,13 @@ public class ChatRule {
         chatRuleMap.put(ChatRuleType.SESSION, new ChatRule("Session Chat", ChatPredicates.getSessionPredicate()));
         chatRuleMap.put(ChatRuleType.MOD, new ChatRule("Mod Chat", ChatPredicates.getModPredicate()));
         chatRuleMap.put(ChatRuleType.ADMIN, new ChatRule("Admin Chat", ChatPredicates.getAdminPredicate()));
+    }
+
+    public static void loadFromConfig() {
+        for (ChatRuleType chatRuleType : ChatRuleType.values()) {
+            getChatRule(chatRuleType).setChatSide(Config.getChatSide(chatRuleType));
+            getChatRule(chatRuleType).setChatSound(Config.getChatSound(chatRuleType));
+        }
     }
 
     private final String name;

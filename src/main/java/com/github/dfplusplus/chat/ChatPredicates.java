@@ -1,5 +1,6 @@
 package com.github.dfplusplus.chat;
 
+import com.github.dfplusplus.Config;
 import com.github.dfplusplus.Main;
 import com.google.common.collect.Lists;
 import net.minecraft.util.text.ITextComponent;
@@ -37,6 +38,10 @@ public class ChatPredicates {
 
     public static String getCustomWords() {
         return String.join(CUSTOM_WORDS_DELIMINITER, customWords);
+    }
+
+    public static void loadFromConfig() {
+        setCustomWords(Config.getCustomWords());
     }
 
     //MESSAGE
