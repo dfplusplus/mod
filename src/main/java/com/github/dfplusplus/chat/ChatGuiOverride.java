@@ -30,8 +30,8 @@ public class ChatGuiOverride extends NewChatGui {
     public void render(int updateCounter) {
         if (this.isChatVisible()) {
             int i = this.getLineCount();
-            int j = this.drawnChatLines.size();
-            if (j > 0) {
+            int mainDrawnChatLinesSize = this.mainDrawnChatLines.size();
+            if (mainDrawnChatLinesSize > 0 || this.sideDrawnChatLines.size() > 0) { // if theres messages in either chat
                 boolean flag = false;
                 if (this.getChatOpen()) {
                     flag = true;
@@ -50,9 +50,9 @@ public class ChatGuiOverride extends NewChatGui {
                 if (flag) { // scroll bar (ignoring one for 2nd chat)
                     int l2 = 9;
                     RenderSystem.translatef(-3.0F, 0.0F, 0.0F);
-                    int i3 = j * l2 + j;
+                    int i3 = mainDrawnChatLinesSize * l2 + mainDrawnChatLinesSize;
                     int j3 = l * l2 + l;
-                    int k3 = this.scrollPos * j3 / j;
+                    int k3 = this.scrollPos * j3 / mainDrawnChatLinesSize;
                     int k1 = j3 * j3 / i3;
                     int l3 = 96;
                     int i4 = this.isScrolled ? 13382451 : 3355562;

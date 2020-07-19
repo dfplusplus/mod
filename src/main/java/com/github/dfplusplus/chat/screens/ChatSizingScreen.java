@@ -124,7 +124,7 @@ public class ChatSizingScreen extends Screen {
         ));
 
         // dummy message button
-        addButton(new Button((width / 2) ,145,200,20,"Send Dummy Messages",this::onDummyMessagesButtonPress));
+        addButton(new Button((width / 2) -100,145,200,20,"Send Dummy Messages",this::onDummyMessagesButtonPress));
     }
 
     @Override
