@@ -1,5 +1,6 @@
 package com.github.dfplusplus.chat.screens;
 
+import com.github.dfplusplus.Config;
 import com.github.dfplusplus.chat.ChatGuiOverride;
 import com.github.dfplusplus.chat.ChatRule;
 import net.minecraft.client.GameSettings;
@@ -46,8 +47,13 @@ public class ChatSizingScreen extends Screen {
         return syncWithMinecraft ? Minecraft.getInstance().gameSettings.chatWidth : chatWidth;
     }
 
+    public static void loadFromConfig() {
+        syncWithMinecraft = Config.getSyncWithMinecraft();
+        chatScale = Config.getChatScale();
+        chatWidth = Config.getChatWidth();
+    }
+
     public ChatSizingScreen(Screen priorScreen) {
-//        super("");
         super(new TranslationTextComponent("Sizing"));
         this.minecraft = Minecraft.getInstance();
         this.priorScreen = priorScreen;
@@ -83,6 +89,7 @@ public class ChatSizingScreen extends Screen {
         // sync toggle button
         this.toggleSyncButton = this.addButton(new Button(
                 (width/2) - 100, 70, 200, 20, "", (button) -> {
+            this.genConfigIfNeeded(); // if switching for the first time, copy the current chat sizing over for easy editing
             syncWithMinecraft = !syncWithMinecraft;
             this.init(minecraft,width,height);
         }
@@ -126,8 +133,22 @@ public class ChatSizingScreen extends Screen {
         super.render(p_render_1_, p_render_2_, p_render_3_);
     }
 
+    @Override
+    public void removed() {
+        Config.setSyncWithMinecraft(syncWithMinecraft);
+        Config.setChatScale(chatScale);
+        Config.setChatWidth(chatWidth);
+    }
+
     private void onBackButtonPress(Button button) {
         minecraft.displayGuiScreen(priorScreen);
+    }
+
+    private void genConfigIfNeeded() {
+        if (!Config.hasGeneratedChatSizingSettings()) {
+            Config.genChatSizingSettings(minecraft.gameSettings);
+            loadFromConfig();
+        }
     }
 
     private void onDummyMessagesButtonPress(Button button) {

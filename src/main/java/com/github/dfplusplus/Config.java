@@ -3,6 +3,7 @@ package com.github.dfplusplus;
 
 import com.google.common.collect.Maps;
 import com.github.dfplusplus.chat.ChatRule;
+import net.minecraft.client.GameSettings;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.fml.common.Mod;
 
@@ -10,8 +11,12 @@ import java.util.Map;
 
 @Mod.EventBusSubscriber(modid = Main.MOD_ID)
 public class Config {
-    private static ForgeConfigSpec configSpec;
+    private static final ForgeConfigSpec configSpec;
     private static final ForgeConfigSpec.ConfigValue<String> customWordsSpec;
+    private static final ForgeConfigSpec.BooleanValue hasGeneratedChatSizingSettingsSpec;
+    private static final ForgeConfigSpec.BooleanValue syncWithMinecraftSpec;
+    private static final ForgeConfigSpec.DoubleValue chatScaleSpec, chatWidthSpec;
+
     private static final Map<ChatRule.ChatRuleType, ForgeConfigSpec.BooleanValue> chatSideSpecs = Maps.newHashMap();
     private static final Map<ChatRule.ChatRuleType, ForgeConfigSpec.EnumValue<ChatRule.ChatSound>> chatSoundSpecs = Maps.newHashMap();
 
@@ -21,8 +26,28 @@ public class Config {
         builder.push("chat");
         customWordsSpec = builder
                 .comment("The words for custom 2nd chat")
-                .translation(Main.MOD_ID + ".config.customWords")
+                .translation(Main.MOD_ID + ".config.customwords")
                 .define("customWords","");
+
+        hasGeneratedChatSizingSettingsSpec = builder
+                .comment("Whether the user has select 'Do not sync' on the chat sizing settings before")
+                .translation(Main.MOD_ID + ".config.hasgeneratedchatsizingsettings")
+                .define("hasGeneratedChatSizingSettings",false);
+
+        syncWithMinecraftSpec = builder
+                .comment("Whether chat sizing settings are synced with minecraft")
+                .translation(Main.MOD_ID + ".config.syncwithminecraft")
+                .define("syncWithMinecraft",true);
+
+        chatScaleSpec = builder
+                .comment("The scale of the chat")
+                .translation(Main.MOD_ID + ".config.chatscale")
+                .defineInRange("chatScale",0,0f,1f);
+
+        chatWidthSpec = builder
+                .comment("The width of the chat")
+                .translation(Main.MOD_ID + ".config.chatwidth")
+                .defineInRange("chatWidth",0,0f,1f);
 
         for (ChatRule.ChatRuleType chatRuleType : ChatRule.ChatRuleType.values()) {
             chatSideSpecs.put(chatRuleType, builder
@@ -44,6 +69,49 @@ public class Config {
     public static void setCustomWords(String customWords) {
         customWordsSpec.set(customWords);
         customWordsSpec.save();
+    }
+
+    public static void genChatSizingSettings(GameSettings gameSettings) {
+        chatScaleSpec.set(gameSettings.chatScale);
+        chatScaleSpec.save();
+        chatWidthSpec.set(gameSettings.chatWidth);
+        chatWidthSpec.save();
+        hasGeneratedChatSizingSettingsSpec.set(true);
+        hasGeneratedChatSizingSettingsSpec.save();
+    }
+
+    public static boolean hasGeneratedChatSizingSettings() {
+        return hasGeneratedChatSizingSettingsSpec.get();
+    }
+
+    public static boolean getSyncWithMinecraft() {
+        return syncWithMinecraftSpec.get();
+    }
+
+    public static void setSyncWithMinecraft(boolean newSyncWithMinecraft) {
+        if (newSyncWithMinecraft == syncWithMinecraftSpec.get()) return;
+        syncWithMinecraftSpec.set(newSyncWithMinecraft);
+        syncWithMinecraftSpec.save();
+    }
+
+    public static double getChatScale() {
+        return chatScaleSpec.get();
+    }
+
+    public static void setChatScale(double newChatScale) {
+        if (newChatScale == chatScaleSpec.get()) return;
+        chatScaleSpec.set(newChatScale);
+        chatScaleSpec.save();
+    }
+
+    public static double getChatWidth() {
+        return chatWidthSpec.get();
+    }
+
+    public static void setChatWidth(double newChatWidth) {
+        if (newChatWidth == chatWidthSpec.get()) return;
+        chatWidthSpec.set(newChatWidth);
+        chatWidthSpec.save();
     }
 
     public static ChatRule.ChatSide getChatSide(ChatRule.ChatRuleType chatRuleType) {
