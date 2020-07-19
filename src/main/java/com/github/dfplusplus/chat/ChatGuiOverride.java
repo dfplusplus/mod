@@ -11,6 +11,7 @@ import net.minecraft.client.renderer.Matrix4f;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 
 import javax.annotation.Nullable;
 import java.util.Collections;
@@ -106,22 +107,11 @@ public class ChatGuiOverride extends NewChatGui {
     protected void setChatLine(ITextComponent chatComponent, int chatLineId, int updateCounter, boolean displayOnly) {
         super.setChatLine(chatComponent,chatLineId,updateCounter,displayOnly);
 
-        int i = MathHelper.floor((double)this.getChatWidth() / this.getScale());
-        List<ChatLine> outputChatLines =
-                RenderComponentsUtil.splitText(chatComponent, i, this.mc.fontRenderer, false, false)
-                .stream()
-                .map(iTextComponent -> new ChatLine(updateCounter,iTextComponent,chatLineId))
-                .collect(Collectors.toList());
-        Collections.reverse(outputChatLines);
-
         boolean matchedARule = false;
         for (ChatRule chatRule : ChatRule.getChatRules()) {
             if (chatRule.matches(chatComponent)) {
                 if (!matchedARule) {
-                    if (chatRule.getChatSide() == ChatRule.ChatSide.MAIN)
-                        this.getMainDrawnChatLines().addAll(0,outputChatLines);
-                    else if (chatRule.getChatSide() == ChatRule.ChatSide.SIDE)
-                        this.getSideDrawnChatLines().addAll(0, outputChatLines);
+                    addToChat(chatRule.getChatSide(), chatComponent, chatLineId, updateCounter);
                     matchedARule = true;
                 }
 
@@ -130,7 +120,21 @@ public class ChatGuiOverride extends NewChatGui {
                 }
             }
         }
-        if (!matchedARule) this.getMainDrawnChatLines().addAll(0,outputChatLines);
+        if (!matchedARule) {
+            int i = MathHelper.floor((double) this.getChatWidth() / this.getScale());
+            List<ChatLine> outputChatLines = getOutputChatLines(chatComponent, chatLineId, updateCounter, i);
+            this.getMainDrawnChatLines().addAll(0, outputChatLines);
+        }
+    }
+
+    private List<ChatLine> getOutputChatLines(ITextComponent chatComponent, int chatLineId, int updateCounter, int i) {
+        List<ChatLine> outputChatLines =
+                RenderComponentsUtil.splitText(chatComponent, i, this.mc.fontRenderer, false, false)
+                        .stream()
+                        .map(iTextComponent -> new ChatLine(updateCounter, iTextComponent, chatLineId))
+                        .collect(Collectors.toList());
+        Collections.reverse(outputChatLines);
+        return outputChatLines;
     }
 
     @Override
@@ -221,11 +225,38 @@ public class ChatGuiOverride extends NewChatGui {
         mc.ingameGUI.persistantChatGUI = new ChatGuiOverride(mc);
     }
 
+    public void addToChat(ChatRule.ChatSide side, String message) {
+        this.addToChat(side, new TranslationTextComponent(message),0,mc.ingameGUI.getTicks());
+    }
+
+    private List<ChatLine> getChatLines(ChatRule.ChatSide chatSide) {
+        switch (chatSide) {
+            case MAIN: default:
+                return mainDrawnChatLines;
+            case SIDE:
+                return sideDrawnChatLines;
+        }
+    }
+
     private List<ChatLine> getMainDrawnChatLines() {
         return mainDrawnChatLines;
     }
 
     private List<ChatLine> getSideDrawnChatLines() {
         return sideDrawnChatLines;
+    }
+
+    private void addToChat(ChatRule.ChatSide side, ITextComponent chatComponent, int chatLineId, int updateCounter) {
+        int i;
+        switch (side) {
+            case MAIN: default:
+                i = MathHelper.floor((double) calculateChatboxWidth(ChatSizingScreen.getChatWidth()) / ChatSizingScreen.getChatScale());
+                break;
+            case SIDE:
+                i = MathHelper.floor((double) this.getChatWidth() / this.getScale());
+                break;
+        }
+        List<ChatLine> outputChatLines = getOutputChatLines(chatComponent, chatLineId, updateCounter, i);
+        this.getChatLines(side).addAll(0, outputChatLines);
     }
 }
