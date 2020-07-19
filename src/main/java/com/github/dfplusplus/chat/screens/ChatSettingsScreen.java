@@ -1,6 +1,6 @@
 package com.github.dfplusplus.chat.screens;
 
-import com.github.dfplusplus.DFPlusPlusConfig;
+import com.github.dfplusplus.Config;
 import com.github.dfplusplus.chat.ChatPredicates;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.TextFieldWidget;
@@ -75,7 +75,7 @@ public class ChatSettingsScreen extends Screen {
 
     @Override
     public void removed() {
-        DFPlusPlusConfig.setCustomWords(customWordsField.getText());
+        Config.setCustomWords(customWordsField.getText());
         minecraft.keyboardListener.enableRepeatEvents(false);
     }
 }

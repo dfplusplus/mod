@@ -9,7 +9,7 @@ import net.minecraftforge.fml.common.Mod;
 import java.util.Map;
 
 @Mod.EventBusSubscriber(modid = Main.MOD_ID)
-public class DFPlusPlusConfig {
+public class Config {
     private static ForgeConfigSpec configSpec;
     private static final ForgeConfigSpec.ConfigValue<String> customWordsSpec;
     private static final Map<ChatRule.ChatRuleType, ForgeConfigSpec.BooleanValue> chatSideSpecs = Maps.newHashMap();

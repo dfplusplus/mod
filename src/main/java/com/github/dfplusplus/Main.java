@@ -19,7 +19,7 @@ public class Main {
 
     public Main() {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::init);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT,DFPlusPlusConfig.getConfigSpec());
+        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.getConfigSpec());
     }
 
     public static void log(Object message) {
@@ -29,10 +29,10 @@ public class Main {
     private void init(FMLClientSetupEvent event) {
         KeyBinds.registerKeyBindings();
         ChatGuiOverride.inject();
-        ChatPredicates.setCustomWords(DFPlusPlusConfig.getCustomWords());
+        ChatPredicates.setCustomWords(Config.getCustomWords());
         for (ChatRule.ChatRuleType chatRuleType : ChatRule.ChatRuleType.values()) {
-            ChatRule.getChatRule(chatRuleType).setChatSide(DFPlusPlusConfig.getChatSide(chatRuleType));
-            ChatRule.getChatRule(chatRuleType).setChatSound(DFPlusPlusConfig.getChatSound(chatRuleType));
+            ChatRule.getChatRule(chatRuleType).setChatSide(Config.getChatSide(chatRuleType));
+            ChatRule.getChatRule(chatRuleType).setChatSound(Config.getChatSound(chatRuleType));
         }
     }
 }

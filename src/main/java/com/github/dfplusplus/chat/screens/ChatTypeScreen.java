@@ -1,6 +1,6 @@
 package com.github.dfplusplus.chat.screens;
 
-import com.github.dfplusplus.DFPlusPlusConfig;
+import com.github.dfplusplus.Config;
 import com.github.dfplusplus.Util;
 import com.github.dfplusplus.chat.ChatRule;
 import net.minecraft.client.gui.screen.Screen;
@@ -41,7 +41,7 @@ public class ChatTypeScreen extends Screen {
         ChatRule.ChatSide newChatSide = ChatRule.toggleChatType(chatRuleType);
         button.setMessage(getSideMessage(newChatSide));
 
-        DFPlusPlusConfig.setChatSide(chatRuleType,newChatSide);
+        Config.setChatSide(chatRuleType,newChatSide);
     }
 
     private void onChangeSoundPress(Button button) {
@@ -52,7 +52,7 @@ public class ChatTypeScreen extends Screen {
             Util.playSound(getChatRule().getChatSound().getSoundEvent());
         };
 
-        DFPlusPlusConfig.setChatSound(chatRuleType, getChatRule().getChatSound());
+        Config.setChatSound(chatRuleType, getChatRule().getChatSound());
     }
 
     private String getSideMessage(ChatRule.ChatSide newChatSide) {
