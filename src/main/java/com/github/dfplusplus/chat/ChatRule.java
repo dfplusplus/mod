@@ -64,7 +64,7 @@ public class ChatRule {
     }
 
     public void toggleChatSide() {
-        chatSide = chatSide.other();
+        chatSide = chatSide.next();
     }
 
     public static List<ChatRule> getChatRules() {
@@ -77,17 +77,20 @@ public class ChatRule {
 
     public static ChatSide toggleChatType(ChatRuleType chatRuleType) {
         ChatRule chatRule = chatRuleMap.get(chatRuleType);
-        chatRule.setChatSide(chatRule.getChatSide().other());
+        chatRule.setChatSide(chatRule.getChatSide().next());
         return chatRule.getChatSide();
     }
 
     public enum ChatSide {
         MAIN,
-        SIDE;
+        SIDE,
+        EITHER;
 
-        public ChatSide other() {
-            if (this == MAIN)   return SIDE;
-            else                return MAIN;
+        public ChatSide next() {
+            int myIndex = Lists.newArrayList(ChatSide.values()).indexOf(this);
+            myIndex++;
+            if (myIndex >= ChatSide.values().length) myIndex = 0;
+            return ChatSide.values()[myIndex];
         }
     }
 

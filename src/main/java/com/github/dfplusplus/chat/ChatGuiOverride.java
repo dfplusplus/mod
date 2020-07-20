@@ -120,7 +120,8 @@ public class ChatGuiOverride extends NewChatGui {
         boolean matchedARule = false;
         for (ChatRule chatRule : ChatRule.getChatRules()) {
             if (chatRule.matches(chatComponent)) {
-                if (!matchedARule) {
+                // also don't add to chat if the chat side is either
+                if (!matchedARule && chatRule.getChatSide() != ChatRule.ChatSide.EITHER) {
                     addToChat(chatRule.getChatSide(), chatComponent, chatLineId, updateCounter);
                     matchedARule = true;
                 }

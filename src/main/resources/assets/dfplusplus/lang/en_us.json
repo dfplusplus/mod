@@ -27,6 +27,7 @@
 
   "gui.dfplusplus.chatside.main": "Chat Side: Main Chat",
   "gui.dfplusplus.chatside.side": "Chat Side: Side Chat",
+  "gui.dfplusplus.chatside.either": "Chat Side: Either",
 
   "gui.dfplusplus.chatsound.none": "Sound: None",
   "gui.dfplusplus.chatsound.bass": "Sound: Bass",
