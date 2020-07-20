@@ -269,10 +269,10 @@ public class ChatGuiOverride extends NewChatGui {
         int i;
         switch (side) {
             case MAIN: default:
-                i = MathHelper.floor((double) getSideChatWidth() / getSideChatScale());
+                i = MathHelper.floor((double) this.getChatWidth() / this.getScale());
                 break;
             case SIDE:
-                i = MathHelper.floor((double) this.getChatWidth() / this.getScale());
+                i = MathHelper.floor((double) getSideChatWidth() / getSideChatScale());
                 break;
         }
         List<ChatLine> outputChatLines = getOutputChatLines(chatComponent, chatLineId, updateCounter, i);
