@@ -68,6 +68,29 @@ public class ChatScreenOverride extends ChatScreen {
         this.defaultInputFieldText = this.inputField.getText();
     }
 
+    private void sendToChat() {
+        String s = this.inputField.getText().trim();
+        if (!s.isEmpty()) {
+            Main.log(chatRoom.name());
+            switch (this.chatRoom) {
+                case DEFAULT_CHAT:
+                    this.sendMessage(s);
+                    break;
+                case SUPPORT_CHAT:
+                    this.sendMessage(String.format("/sb %s", s));
+                    break;
+                case MOD_CHAT:
+                    this.sendMessage(String.format("/mb %s", s));
+                    break;
+                case ADMIN_CHAT:
+                    this.sendMessage(String.format("/ab %s", s));
+                    break;
+            }
+        }
+
+        this.minecraft.displayGuiScreen((Screen)null);
+    }
+
     @SubscribeEvent
     public static void onGuiInitPre(GuiScreenEvent.InitGuiEvent.Pre initGuiEvent) {
         if (initGuiEvent.getGui().getClass() == ChatScreen.class) { // doesnt use instanceof since it must exactly match that class

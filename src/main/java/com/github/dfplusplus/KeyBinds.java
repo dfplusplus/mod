@@ -6,6 +6,7 @@ import com.github.dfplusplus.actions.CommandAction;
 import com.github.dfplusplus.chat.ChatGuiOverride;
 import com.github.dfplusplus.chat.ChatScreenOverride;
 import com.github.dfplusplus.screens.MainScreen;
+import com.google.common.collect.Maps;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.client.event.InputEvent;
@@ -15,18 +16,32 @@ import net.minecraftforge.fml.common.Mod;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
+import static com.github.dfplusplus.Main.MOD_ID;
 import static org.lwjgl.glfw.GLFW.*;
 
-@Mod.EventBusSubscriber(modid = Main.MOD_ID)
+@Mod.EventBusSubscriber(modid = MOD_ID)
 public class KeyBinds {
+    private static final Map<ChatScreenOverride.ChatRoom, KeyBinding> chatRoomKeybinds = Maps.newHashMap();
+
     private static final KeyBinding displayMainScreen = new KeyBinding(
-            Main.MOD_ID + ".key.mainscreen",
+            MOD_ID + ".key.mainscreen",
             GLFW_KEY_U,
             "key.categories.dfadmintools");
     private static final Minecraft minecraft = Minecraft.getInstance();
     private static final List<ActionKeyBidning> ACTION_KEY_BINDINGS = new LinkedList<>();
     private static MainScreen mainScreen = null;
+
+    static {
+        for (ChatScreenOverride.ChatRoom chatRoom : ChatScreenOverride.ChatRoom.values()) {
+            chatRoomKeybinds.put(chatRoom, new KeyBinding(
+                    String.format("%s.key.chatroom.%s", MOD_ID, chatRoom.name().toLowerCase()),
+                    GLFW_KEY_UNKNOWN,
+                    "key.categories.dfplusplus.chatrooms"
+            ));
+        }
+    }
 
     @SubscribeEvent
     public static void onKeyPress(InputEvent.KeyInputEvent keyInputEvent) {
@@ -37,14 +52,35 @@ public class KeyBinds {
         }
     }
 
+    private static void processMainScreenKeybind() {
+        if (displayMainScreen.isPressed()) onDisplayMainScreen();
+    }
+
+    private static void processChatRoomKeyBinds() {
+        for (ChatScreenOverride.ChatRoom chatRoom : ChatScreenOverride.ChatRoom.values()) {
+            if (chatRoomKeybinds.get(chatRoom).isPressed()) {
+                ChatScreenOverride.showChat(chatRoom);
+            }
+        }
+    }
+
+    private static void processActionKeyBinds() {
+        for (ActionKeyBidning actionKeyBidning : ACTION_KEY_BINDINGS) {
+            if (actionKeyBidning.getKeyBinding().isKeyDown()) {
+                actionKeyBidning.action.run();
+            }
+        }
+    }
+
     public static void registerKeyBindings() {
         mainScreen = new MainScreen(null);
-//        addKeyBindings();
+//        registerMainScreenKeyBind();
+//        registerActionKeyBindings();
+        registerChatRoomKeyBindings();
+    }
 
-//        ClientRegistry.registerKeyBinding(KeyBinds.displayMainScreen);
-//        for (ActionKeyBidning actionKeyBidning : ACTION_KEY_BINDINGS) {
-//            ClientRegistry.registerKeyBinding(actionKeyBidning.getKeyBinding());
-//        }
+    private static void registerMainScreenKeyBind() {
+        ClientRegistry.registerKeyBinding(KeyBinds.displayMainScreen);
     }
 
     private static void registerActionKeyBindings() {
@@ -59,6 +95,16 @@ public class KeyBinds {
         addCommandBinding("/server node4");
         addCommandBinding("/server beta");
         addActionBinding("/ban", ArgCommandAction.getBanAction(null));
+
+        for (ActionKeyBidning actionKeyBidning : ACTION_KEY_BINDINGS) {
+            ClientRegistry.registerKeyBinding(actionKeyBidning.getKeyBinding());
+        }
+    }
+
+    private static void registerChatRoomKeyBindings() {
+        for (KeyBinding keyBinding : chatRoomKeybinds.values()) {
+            ClientRegistry.registerKeyBinding(keyBinding);
+        }
     }
 
     private static void onDisplayMainScreen() {
