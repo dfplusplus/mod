@@ -4,6 +4,7 @@ import com.github.dfplusplus.actions.Action;
 import com.github.dfplusplus.actions.ArgCommandAction;
 import com.github.dfplusplus.actions.CommandAction;
 import com.github.dfplusplus.chat.ChatGuiOverride;
+import com.github.dfplusplus.chat.ChatScreenOverride;
 import com.github.dfplusplus.screens.MainScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
@@ -30,12 +31,9 @@ public class KeyBinds {
     @SubscribeEvent
     public static void onKeyPress(InputEvent.KeyInputEvent keyInputEvent) {
         if (Util.isValidClient() && keyInputEvent.getAction() == 1) {
-            if (displayMainScreen.isKeyDown()) onDisplayMainScreen();
-            for (ActionKeyBidning actionKeyBidning : ACTION_KEY_BINDINGS) {
-                if (actionKeyBidning.getKeyBinding().isKeyDown()) {
-                    actionKeyBidning.action.run();
-                }
-            }
+            processMainScreenKeybind();
+            processChatRoomKeyBinds();
+            processActionKeyBinds();
         }
     }
 
@@ -49,7 +47,7 @@ public class KeyBinds {
 //        }
     }
 
-    private static void addKeyBindings() {
+    private static void registerActionKeyBindings() {
         ACTION_KEY_BINDINGS.clear();
         if (PermissionLevel.hasPerms(PermissionLevel.MOD)) {
             addCommandBinding("/v");
