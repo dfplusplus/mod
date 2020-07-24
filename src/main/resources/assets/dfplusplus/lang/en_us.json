@@ -1,7 +1,11 @@
 {
   "key.categories.dfplusplus": "DF++",
+  "key.categories.dfplusplus.chatrooms": "DF++ Chat Shortcuts",
 
   "dfplusplus.key.mainscreen": "Open Main Menu",
+  "dfplusplus.key.chatroom.admin_chat": "Admin Chat (/ab)",
+  "dfplusplus.key.chatroom.mod_chat": "Mod Chat (/mb)",
+  "dfplusplus.key.chatroom.support_chat": "Support Chat (/sb)",
 
   "gui.dfplusplus.mainscreen": "DiamondFire Tools!",
   "gui.dfplusplus.mainscreen.adminscreen": "Admin Tools",
