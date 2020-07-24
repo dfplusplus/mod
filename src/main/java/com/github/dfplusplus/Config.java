@@ -20,7 +20,7 @@ public class Config {
     private static final ForgeConfigSpec.BooleanValue syncWithMinecraftSpec;
     private static final ForgeConfigSpec.DoubleValue chatScaleSpec, chatWidthSpec;
 
-    private static final Map<ChatRule.ChatRuleType, ForgeConfigSpec.BooleanValue> chatSideSpecs = Maps.newHashMap();
+    private static final Map<ChatRule.ChatRuleType, ForgeConfigSpec.EnumValue<ChatRule.ChatSide>> chatSideSpecs = Maps.newHashMap();
     private static final Map<ChatRule.ChatRuleType, ForgeConfigSpec.EnumValue<ChatRule.ChatSound>> chatSoundSpecs = Maps.newHashMap();
 
     static {
@@ -66,7 +66,7 @@ public class Config {
             chatSideSpecs.put(chatRuleType, builder
                     .comment(String.format("Side of %s", chatRuleType.name()))
                     .translation(String.format("%s.config.%sside", MOD_ID, chatRuleType.name()))
-                    .define(String.format("%s_isSide", chatRuleType.name()), false));
+                    .defineEnum(String.format("%s_isSide", chatRuleType.name()), ChatRule.ChatSide.MAIN));
             chatSoundSpecs.put(chatRuleType, builder
                     .comment(String.format("Sound of %s", chatRuleType.name()))
                     .translation(String.format("%s.config.%sside", MOD_ID, chatRuleType.name()))
@@ -148,11 +148,11 @@ public class Config {
     }
 
     public static ChatRule.ChatSide getChatSide(ChatRule.ChatRuleType chatRuleType) {
-        return chatSideSpecs.get(chatRuleType).get() ? ChatRule.ChatSide.SIDE: ChatRule.ChatSide.MAIN;
+        return chatSideSpecs.get(chatRuleType).get();
     }
 
     public static void setChatSide(ChatRule.ChatRuleType chatRuleType, ChatRule.ChatSide chatSide) {
-        chatSideSpecs.get(chatRuleType).set(chatSide == ChatRule.ChatSide.SIDE); // true if inputted 'SIDE'
+        chatSideSpecs.get(chatRuleType).set(chatSide); // true if inputted 'SIDE'
         chatSideSpecs.get(chatRuleType).save();
     }
 
