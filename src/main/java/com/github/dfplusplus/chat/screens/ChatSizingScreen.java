@@ -109,7 +109,7 @@ public class ChatSizingScreen extends Screen {
 
         // chat width slider
         new FineTuneSlider(
-            (width / 2) - 100, 120, 200, 20, !syncWithMinecraft, 0.01,
+            (width / 2) - 100, 120, 200, 20, !syncWithMinecraft, 1d / 280d,
             new SliderPercentageOption("gui.dfplusplus.chatwidth", 0, 1, 0,
                     (gameSettings -> getActualChatWidth()), // on get
                     ((gameSettings, aDouble) -> {
