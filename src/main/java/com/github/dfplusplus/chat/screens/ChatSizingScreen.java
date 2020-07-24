@@ -73,7 +73,7 @@ public class ChatSizingScreen extends Screen {
         int windowWidth = minecraft.getMainWindow().getScaledWidth();
         new FineTuneSlider(
                 (width / 2) - 100, 20, 200, 20, true, 1,
-                new SliderPercentageOption("gui.dfplusplus.chatoffsetx", -windowWidth/2f, windowWidth/2f, 1f,
+                new SliderPercentageOption("gui.dfplusplus.chatoffsetx", -windowWidth/1.5f, windowWidth/1.5f, 1f,
                         (gameSettings -> chatOffsetX),
                         ((gameSettings, aDouble) -> chatOffsetX = aDouble),
                         (gameSettings, sliderPercentageOption) -> String.format("Chat Offset X: %spx", ((int) chatOffsetX))
@@ -82,7 +82,7 @@ public class ChatSizingScreen extends Screen {
         // chat offset y slider
         new FineTuneSlider(
                 (width / 2) - 100, 45, 200, 20, true, 1,
-                new SliderPercentageOption("gui.dfplusplus.chatoffsetx", 0f, minecraft.getMainWindow().getScaledHeight(), 1f,
+                new SliderPercentageOption("gui.dfplusplus.chatoffsetx", 0f, minecraft.getMainWindow().getScaledHeight() * 1.5, 1f,
                         (gameSettings -> chatOffsetY),
                         ((gameSettings, aDouble) -> chatOffsetY = aDouble),
                         (gameSettings, sliderPercentageOption) -> String.format("Chat Offset Y: %spx", ((int) chatOffsetY))
