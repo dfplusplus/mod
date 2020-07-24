@@ -21,10 +21,6 @@ public class ChatSizingScreen extends Screen {
     private static double chatScale;
     private static double chatWidth;
 
-    private Button toggleSyncButton;
-    private FineTuneSlider chatScaleSlider;
-    private OptionSlider chatWidthSlider;
-
     public static int getChatOffsetX() {
         return (int) chatOffsetX;
     }
@@ -89,38 +85,40 @@ public class ChatSizingScreen extends Screen {
                 ));
 
         // sync toggle button
-        this.toggleSyncButton = this.addButton(new Button(
+        this.addButton(new Button(
                 (width/2) - 100, 70, 200, 20, "", (button) -> {
             this.genConfigIfNeeded(); // if switching for the first time, copy the current chat sizing over for easy editing
             syncWithMinecraft = !syncWithMinecraft;
             this.init(minecraft,width,height);
         }
-        ));
-        this.toggleSyncButton.setMessage(I18n.format(syncWithMinecraft ? "gui.dfplusplus.settings.sync.true" : "gui.dfplusplus.settings.sync.false"));
+        ))
+        .setMessage(I18n.format(syncWithMinecraft ? "gui.dfplusplus.settings.sync.true" : "gui.dfplusplus.settings.sync.false"));
 
         // chat scale slider
-        this.chatScaleSlider = new FineTuneSlider((width / 2) - 100, 95, 200, 20, !syncWithMinecraft, 0.01, new SliderPercentageOption("gui.dfplusplus.chatscale", 0, 1, 0,
-            (gameSettings -> getActualChatScale()), // on get
-            ((gameSettings, aDouble) -> {
-                if (!syncWithMinecraft) chatScale = aDouble;
-                minecraft.ingameGUI.persistantChatGUI.clearChatMessages(false);
-            }), // on set, only works if syncing
-            (gameSettings, sliderPercentageOption) -> String.format("Chat Scale: %s%%", (int)(getActualChatScale() * 100)) // on display
-        ));
+        new FineTuneSlider(
+            (width / 2) - 100, 95, 200, 20, !syncWithMinecraft, 0.01,
+            new SliderPercentageOption("gui.dfplusplus.chatscale", 0, 1, 0,
+                (gameSettings -> getActualChatScale()), // on get
+                ((gameSettings, aDouble) -> {
+                    if (!syncWithMinecraft) chatScale = aDouble;
+                    minecraft.ingameGUI.persistantChatGUI.clearChatMessages(false);
+                }), // on set, only works if syncing
+                (gameSettings, sliderPercentageOption) -> String.format("Chat Scale: %s%%", (int)(getActualChatScale() * 100)) // on display
+            )
+        );
 
         // chat width slider
-        this.chatWidthSlider = this.addButton(new OptionSlider(
-                minecraft.gameSettings, (width / 2) - 100, 120, 200, 20,
-                new SliderPercentageOption("gui.dfplusplus.chatwidth", 0, 1, 0,
-                        (gameSettings -> getActualChatWidth()), // on get
-                        ((gameSettings, aDouble) -> {
-                            if (!syncWithMinecraft) chatWidth = aDouble;
-                            minecraft.ingameGUI.persistantChatGUI.clearChatMessages(false);
-                        }), // on set, only works if syncing
-                        (gameSettings, sliderPercentageOption) -> String.format("Chat Width: %spx", NewChatGui.calculateChatboxWidth(getActualChatWidth())) // on display
-                )
-        ));
-        this.chatWidthSlider.active = !syncWithMinecraft;
+        new FineTuneSlider(
+            (width / 2) - 100, 120, 200, 20, !syncWithMinecraft, 0.01,
+            new SliderPercentageOption("gui.dfplusplus.chatwidth", 0, 1, 0,
+                    (gameSettings -> getActualChatWidth()), // on get
+                    ((gameSettings, aDouble) -> {
+                        if (!syncWithMinecraft) chatWidth = aDouble;
+                        minecraft.ingameGUI.persistantChatGUI.clearChatMessages(false);
+                    }), // on set, only works if syncing
+                    (gameSettings, sliderPercentageOption) -> String.format("Chat Width: %spx", NewChatGui.calculateChatboxWidth(getActualChatWidth())) // on display
+            )
+        );
 
         // dummy message button
         addButton(new Button((width / 2) -100,145,200,20,"Send Dummy Messages",this::onDummyMessagesButtonPress));
