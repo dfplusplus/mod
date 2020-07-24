@@ -72,23 +72,21 @@ public class ChatSizingScreen extends Screen {
         // chat offset x slider
         int windowWidth = minecraft.getMainWindow().getScaledWidth();
         new FineTuneSlider(
-                (width / 2) - 100, 20, 200, 20, 1,
+                (width / 2) - 100, 20, 200, 20, true, 1,
                 new SliderPercentageOption("gui.dfplusplus.chatoffsetx", -windowWidth/2f, windowWidth/2f, 1f,
                         (gameSettings -> chatOffsetX),
                         ((gameSettings, aDouble) -> chatOffsetX = aDouble),
                         (gameSettings, sliderPercentageOption) -> String.format("Chat Offset X: %spx", ((int) chatOffsetX))
-                )
-        );
+                ));
 
         // chat offset y slider
         new FineTuneSlider(
-                (width / 2) - 100, 45, 200, 20, 1,
+                (width / 2) - 100, 45, 200, 20, true, 1,
                 new SliderPercentageOption("gui.dfplusplus.chatoffsetx", 0f, minecraft.getMainWindow().getScaledHeight(), 1f,
                         (gameSettings -> chatOffsetY),
                         ((gameSettings, aDouble) -> chatOffsetY = aDouble),
                         (gameSettings, sliderPercentageOption) -> String.format("Chat Offset Y: %spx", ((int) chatOffsetY))
-                )
-        );
+                ));
 
         // sync toggle button
         this.toggleSyncButton = this.addButton(new Button(
@@ -101,16 +99,14 @@ public class ChatSizingScreen extends Screen {
         this.toggleSyncButton.setMessage(I18n.format(syncWithMinecraft ? "gui.dfplusplus.settings.sync.true" : "gui.dfplusplus.settings.sync.false"));
 
         // chat scale slider
-        this.chatScaleSlider = new FineTuneSlider((width / 2) - 100, 95, 200, 20, 0.01,
-                new SliderPercentageOption("gui.dfplusplus.chatscale", 0, 1, 0,
-                        (gameSettings -> getActualChatScale()), // on get
-                        ((gameSettings, aDouble) -> {
-                            if (!syncWithMinecraft) chatScale = aDouble;
-                            minecraft.ingameGUI.persistantChatGUI.clearChatMessages(false);
-                        }), // on set, only works if syncing
-                        (gameSettings, sliderPercentageOption) -> String.format("Chat Scale: %s%%", (int)(getActualChatScale() * 100)) // on display
-                ));
-        this.chatScaleSlider.active = !syncWithMinecraft;
+        this.chatScaleSlider = new FineTuneSlider((width / 2) - 100, 95, 200, 20, !syncWithMinecraft, 0.01, new SliderPercentageOption("gui.dfplusplus.chatscale", 0, 1, 0,
+            (gameSettings -> getActualChatScale()), // on get
+            ((gameSettings, aDouble) -> {
+                if (!syncWithMinecraft) chatScale = aDouble;
+                minecraft.ingameGUI.persistantChatGUI.clearChatMessages(false);
+            }), // on set, only works if syncing
+            (gameSettings, sliderPercentageOption) -> String.format("Chat Scale: %s%%", (int)(getActualChatScale() * 100)) // on display
+        ));
 
         // chat width slider
         this.chatWidthSlider = this.addButton(new OptionSlider(
@@ -171,16 +167,11 @@ public class ChatSizingScreen extends Screen {
     }
 
     private class FineTuneSlider {
-        private boolean active;
         private final double stepSize;
         private final SliderPercentageOption sliderPercentageOption;
         private final GameSettings gameSettings = Minecraft.getInstance().gameSettings;
 
-        public void setActive(boolean active) {
-            this.active = active;
-        }
-
-        public FineTuneSlider(int x, int y, int width, int height, double stepSize, SliderPercentageOption sliderPercentageOption) {
+        public FineTuneSlider(int x, int y, int width, int height, boolean active, double stepSize, SliderPercentageOption sliderPercentageOption) {
             this.stepSize = stepSize;
             this.sliderPercentageOption = sliderPercentageOption;
 
@@ -191,7 +182,8 @@ public class ChatSizingScreen extends Screen {
                     width - (height * 2),
                     height,
                     sliderPercentageOption
-            ));
+            ))
+            .active = active;
             //otherwise it complains about 'height'
             //noinspection SuspiciousNameCombination
             ChatSizingScreen.this.addButton(new Button(
@@ -201,7 +193,8 @@ public class ChatSizingScreen extends Screen {
                 sliderPercentageOption.set(gameSettings, newValue);
                 ChatSizingScreen.this.refresh();
             }
-            ));
+            ))
+            .active = active;
 
             //noinspection SuspiciousNameCombination
             ChatSizingScreen.this.addButton(new Button(
@@ -211,7 +204,8 @@ public class ChatSizingScreen extends Screen {
                 sliderPercentageOption.set(gameSettings, newValue);
                 ChatSizingScreen.this.refresh();
             }
-            ));
+            ))
+            .active = active;
         }
     }
 }
