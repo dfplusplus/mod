@@ -13,7 +13,7 @@ public class ModScreen extends ButtonScreen {
 
     public ModScreen(Screen priorScreen) {
         super(priorScreen);
-        addCommandButton("/v");
+        addCommandButton("/mod v");
         addButton("/ban", ArgCommandAction.getBanAction(this));
         addButton("/warn", ArgCommandAction.getWarnAction(this));
         addButton("/unwarn", ArgCommandAction.getUnwarnAction(this));

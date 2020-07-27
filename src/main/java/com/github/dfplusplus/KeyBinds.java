@@ -77,7 +77,7 @@ public class KeyBinds {
     private static void registerActionKeyBindings() {
         ACTION_KEY_BINDINGS.clear();
         if (PermissionLevel.hasPerms(PermissionLevel.MOD)) {
-            addCommandBinding("/v", PermissionLevel.MOD);
+            addCommandBinding("/mod v", PermissionLevel.MOD);
             addActionBinding("/ban", ArgCommandAction.getBanAction(null), PermissionLevel.MOD);
             addActionBinding("/warn", ArgCommandAction.getWarnAction(null), PermissionLevel.MOD);
             addActionBinding("/unwarn", ArgCommandAction.getUnwarnAction(null), PermissionLevel.MOD);
