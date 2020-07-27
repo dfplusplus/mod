@@ -77,15 +77,20 @@ public class KeyBinds {
     private static void registerActionKeyBindings() {
         ACTION_KEY_BINDINGS.clear();
         if (PermissionLevel.hasPerms(PermissionLevel.MOD)) {
-            addCommandBinding("/v");
-            addActionBinding("/ban", ArgCommandAction.getBanAction(null));
+            addCommandBinding("/v", PermissionLevel.MOD);
+            addActionBinding("/ban", ArgCommandAction.getBanAction(null), PermissionLevel.MOD);
+            addActionBinding("/warn", ArgCommandAction.getWarnAction(null), PermissionLevel.MOD);
+            addActionBinding("/unwarn", ArgCommandAction.getUnwarnAction(null), PermissionLevel.MOD);
+            addActionBinding("/tempban", ArgCommandAction.getTempbanAction(null), PermissionLevel.MOD);
+            addActionBinding("/hist", ArgCommandAction.getHistAction(null), PermissionLevel.MOD);
+            addActionBinding("/alts", ArgCommandAction.getAltsAction(null), PermissionLevel.MOD);
         }
-        addCommandBinding("/fly");
-        addCommandBinding("/server node1");
-        addCommandBinding("/server node2");
-        addCommandBinding("/server node3");
-        addCommandBinding("/server node4");
-        addCommandBinding("/server beta");
+        addCommandBinding("/fly", PermissionLevel.DEFAULT);
+        addCommandBinding("/server node1", PermissionLevel.DEFAULT);
+        addCommandBinding("/server node2", PermissionLevel.DEFAULT);
+        addCommandBinding("/server node3", PermissionLevel.DEFAULT);
+        addCommandBinding("/server node4", PermissionLevel.DEFAULT);
+        addCommandBinding("/server beta", PermissionLevel.DEFAULT);
 
         for (ActionKeyBidning actionKeyBidning : ACTION_KEY_BINDINGS) {
             ClientRegistry.registerKeyBinding(actionKeyBidning.getKeyBinding());
@@ -109,23 +114,23 @@ public class KeyBinds {
         minecraft.displayGuiScreen(mainScreen);
     }
 
-    private static void addCommandBinding(String command) {
-        ACTION_KEY_BINDINGS.add(new ActionKeyBidning(GLFW_KEY_UNKNOWN,command,new CommandAction(command)));
+    private static void addCommandBinding(String command, PermissionLevel permissionLevel) {
+        addActionBinding(command,new CommandAction(command),permissionLevel);
     }
 
-    private static void addActionBinding(String name, Action action) {
-        ACTION_KEY_BINDINGS.add(new ActionKeyBidning(GLFW_KEY_UNKNOWN,name,action));
+    private static void addActionBinding(String name, Action action, PermissionLevel permissionLevel) {
+        ACTION_KEY_BINDINGS.add(new ActionKeyBidning(GLFW_KEY_UNKNOWN,name,action,permissionLevel));
     }
 
     private static class ActionKeyBidning {
         private final KeyBinding keyBinding;
         private final Action action;
 
-        public ActionKeyBidning(int keyCode, String name, Action action) {
+        public ActionKeyBidning(int keyCode, String name, Action action, PermissionLevel permissionLevel) {
             this.keyBinding = new KeyBinding(
                     name,
                     keyCode,
-                    "key.categories.dfplusplus");
+                    String.format("key.categories.dfplusplus.%s", permissionLevel.name().toLowerCase()));
             this.action = action;
         }
 

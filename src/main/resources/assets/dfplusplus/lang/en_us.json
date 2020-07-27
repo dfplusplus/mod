@@ -1,6 +1,11 @@
 {
   "key.categories.dfplusplus": "DF++",
   "key.categories.dfplusplus.chatrooms": "DF++ Chat Shortcuts",
+  "key.categories.dfplusplus.default": "DF++ Commands Shortcuts",
+  "key.categories.dfplusplus.support": "DF++ Support Commands Shortcuts",
+  "key.categories.dfplusplus.expert": "DF++ Expert Commands Shortcuts",
+  "key.categories.dfplusplus.mod": "DF++ Mod Commands Shortcuts",
+  "key.categories.dfplusplus.admin": "DF++ Admin Commands Shortcuts",
 
   "dfplusplus.key.mainscreen": "Open Main Menu",
   "dfplusplus.key.chatroom.admin_chat": "Admin Chat (/ab)",
