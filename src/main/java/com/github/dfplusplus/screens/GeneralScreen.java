@@ -10,6 +10,6 @@ public class GeneralScreen extends ButtonScreen {
 
     @Override
     public String getName() {
-        return "gui.dfadmintools.generalscreen";
+        return "gui.dfplusplus.generalscreen";
     }
 }

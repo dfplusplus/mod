@@ -16,7 +16,7 @@ public class AdminScreen extends ButtonScreen {
 
     @Override
     public String getName() {
-        return "gui.dfadmintools.adminscreen";
+        return "gui.dfplusplus.adminscreen";
     }
 
     public void onTestButtonPress(Button button) {

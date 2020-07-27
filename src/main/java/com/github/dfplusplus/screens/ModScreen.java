@@ -8,7 +8,7 @@ public class ModScreen extends ButtonScreen {
 
     @Override
     public String getName() {
-        return "gui.dfadmintools.modscreen";
+        return "gui.dfplusplus.modscreen";
     }
 
     public ModScreen(Screen priorScreen) {
