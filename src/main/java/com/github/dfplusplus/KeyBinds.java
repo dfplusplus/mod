@@ -34,16 +34,6 @@ public class KeyBinds {
     private static final List<ActionKeyBidning> ACTION_KEY_BINDINGS = new LinkedList<>();
     private static MainScreen mainScreen = null;
 
-    static {
-        for (ChatRoom chatRoom : ChatRoom.getCustomChatrooms()) {
-            chatRoomKeybinds.put(chatRoom, new KeyBinding(
-                    String.format("%s.key.chatroom.%s", MOD_ID, chatRoom.name().toLowerCase()),
-                    GLFW_KEY_UNKNOWN,
-                    "key.categories.dfplusplus.chatrooms"
-            ));
-        }
-    }
-
     @SubscribeEvent
     public static void onKeyPress(InputEvent.KeyInputEvent keyInputEvent) {
         if (Util.isValidClient() && keyInputEvent.getAction() == 1) {
@@ -103,6 +93,13 @@ public class KeyBinds {
     }
 
     private static void registerChatRoomKeyBindings() {
+        for (ChatRoom chatRoom : ChatRoom.getCustomChatrooms()) {
+            chatRoomKeybinds.put(chatRoom, new KeyBinding(
+                    String.format("%s.key.chatroom.%s", MOD_ID, chatRoom.name().toLowerCase()),
+                    GLFW_KEY_UNKNOWN,
+                    "key.categories.dfplusplus.chatrooms"
+            ));
+        }
         for (KeyBinding keyBinding : chatRoomKeybinds.values()) {
             ClientRegistry.registerKeyBinding(keyBinding);
         }
