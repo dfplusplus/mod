@@ -29,7 +29,7 @@ public class KeyBinds {
     private static final KeyBinding displayMainScreen = new KeyBinding(
             MOD_ID + ".key.mainscreen",
             GLFW_KEY_U,
-            "key.categories.dfadmintools");
+            "key.categories.dfplusplus");
     private static final Minecraft minecraft = Minecraft.getInstance();
     private static final List<ActionKeyBidning> ACTION_KEY_BINDINGS = new LinkedList<>();
     private static MainScreen mainScreen = null;
@@ -58,15 +58,15 @@ public class KeyBinds {
     private static void processActionKeyBinds() {
         for (ActionKeyBidning actionKeyBidning : ACTION_KEY_BINDINGS) {
             if (actionKeyBidning.getKeyBinding().isKeyDown()) {
-                actionKeyBidning.action.run();
+                actionKeyBidning.getAction().run();
             }
         }
     }
 
     public static void registerKeyBindings() {
         mainScreen = new MainScreen(null);
-//        registerMainScreenKeyBind();
-//        registerActionKeyBindings();
+        registerMainScreenKeyBind();
+        registerActionKeyBindings();
         registerChatRoomKeyBindings();
     }
 
@@ -78,6 +78,7 @@ public class KeyBinds {
         ACTION_KEY_BINDINGS.clear();
         if (PermissionLevel.hasPerms(PermissionLevel.MOD)) {
             addCommandBinding("/v");
+            addActionBinding("/ban", ArgCommandAction.getBanAction(null));
         }
         addCommandBinding("/fly");
         addCommandBinding("/server node1");
@@ -85,7 +86,6 @@ public class KeyBinds {
         addCommandBinding("/server node3");
         addCommandBinding("/server node4");
         addCommandBinding("/server beta");
-        addActionBinding("/ban", ArgCommandAction.getBanAction(null));
 
         for (ActionKeyBidning actionKeyBidning : ACTION_KEY_BINDINGS) {
             ClientRegistry.registerKeyBinding(actionKeyBidning.getKeyBinding());
@@ -106,7 +106,7 @@ public class KeyBinds {
     }
 
     private static void onDisplayMainScreen() {
-//        minecraft.displayGuiScreen(mainScreen);
+        minecraft.displayGuiScreen(mainScreen);
     }
 
     private static void addCommandBinding(String command) {
@@ -125,7 +125,7 @@ public class KeyBinds {
             this.keyBinding = new KeyBinding(
                     name,
                     keyCode,
-                    "key.categories.dfadmintools");
+                    "key.categories.dfplusplus");
             this.action = action;
         }
 
