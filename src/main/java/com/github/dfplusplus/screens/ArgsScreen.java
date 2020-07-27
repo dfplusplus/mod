@@ -118,14 +118,19 @@ public class ArgsScreen extends Screen {
     private String getCommand() {
         StringBuilder stringBuilder = new StringBuilder();
         for (ArgsComponent argsComponent : argsComponents) {
+            String textToAdd = "";
             if (argsComponent instanceof ArgsStaticComponent)
-                stringBuilder.append(((ArgsStaticComponent) argsComponent).getTitle());
+                textToAdd = argsComponent.getTitle();
 
             if (argsComponent instanceof ArgsStringComponent)
-                stringBuilder.append(((ArgsStringComponent) argsComponent).getText());
+                textToAdd = ((ArgsStringComponent) argsComponent).getText();
 
             if (argsComponent instanceof ArgsOptionalComponent && ((ArgsOptionalComponent) argsComponent).isEnabled())
-                stringBuilder.append(((ArgsOptionalComponent) argsComponent).getOptionalComponent());
+                textToAdd = ((ArgsOptionalComponent) argsComponent).getOptionalComponent();
+
+            if (!textToAdd.equals("")) { // ignore bits that resolved to blank
+                stringBuilder.append(textToAdd).append(" "); // also add a space between each parameter
+            }
         }
         return stringBuilder.toString();
     }

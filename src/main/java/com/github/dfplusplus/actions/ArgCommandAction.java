@@ -18,9 +18,8 @@ public class ArgCommandAction extends DisplayScreenAction {
     public static ArgCommandAction getBanAction(Screen priorScreen) {
         if (Objects.isNull(banAction)) {
             ArgsBuilder argsBuilder = new ArgsBuilder();
-            argsBuilder.addArg("/ban ");
+            argsBuilder.addArg("/ban");
             addPlayer(argsBuilder);
-            addSpace(argsBuilder);
             addOptionalS(argsBuilder);
             addReason(argsBuilder);
             banAction = new ArgCommandAction(priorScreen, argsBuilder.getArgs());
@@ -32,9 +31,8 @@ public class ArgCommandAction extends DisplayScreenAction {
     public static ArgCommandAction getWarnAction(Screen priorScreen) {
         if (Objects.isNull(warnAction)) {
             ArgsBuilder argsBuilder = new ArgsBuilder();
-            argsBuilder.addArg("/warn ");
+            argsBuilder.addArg("/warn");
             addPlayer(argsBuilder);
-            addSpace(argsBuilder);
             addOptionalS(argsBuilder);
             addReason(argsBuilder);
             warnAction = new ArgCommandAction(priorScreen, argsBuilder.getArgs());
@@ -46,9 +44,8 @@ public class ArgCommandAction extends DisplayScreenAction {
     public static ArgCommandAction getUnwarnAction(Screen priorScreen) {
         if (unwarnAction == null) {
             ArgsBuilder argsBuilder = new ArgsBuilder();
-            argsBuilder.addArg("/unwarn ");
+            argsBuilder.addArg("/unwarn");
             addPlayer(argsBuilder);
-            addSpace(argsBuilder);
             addOptionalS(argsBuilder);
             unwarnAction = new ArgCommandAction(priorScreen, argsBuilder.getArgs());
         }
@@ -59,11 +56,9 @@ public class ArgCommandAction extends DisplayScreenAction {
     public static ArgCommandAction getTempbanAction(Screen priorScreen) {
         if (tempbanAction == null) {
             ArgsBuilder argsBuilder = new ArgsBuilder();
-            argsBuilder.addArg("/tempban ");
+            argsBuilder.addArg("/tempban");
             addPlayer(argsBuilder);
-            addSpace(argsBuilder);
             addDuration(argsBuilder);
-            addSpace(argsBuilder);
             addOptionalS(argsBuilder);
             addReason(argsBuilder);
             tempbanAction = new ArgCommandAction(priorScreen, argsBuilder.getArgs());
@@ -75,7 +70,7 @@ public class ArgCommandAction extends DisplayScreenAction {
     public static ArgCommandAction getHistAction(Screen priorScreen) {
         if (histAction == null) {
             ArgsBuilder argsBuilder = new ArgsBuilder();
-            argsBuilder.addArg("/hist ");
+            argsBuilder.addArg("/hist");
             addPlayer(argsBuilder);
             histAction = new ArgCommandAction(priorScreen, argsBuilder.getArgs());
         }
@@ -86,7 +81,7 @@ public class ArgCommandAction extends DisplayScreenAction {
     public static ArgCommandAction getAltsAction(Screen priorScreen) {
         if (altsAction == null) {
             ArgsBuilder argsBuilder = new ArgsBuilder();
-            argsBuilder.addArg("/alts ");
+            argsBuilder.addArg("/alts");
             addPlayer(argsBuilder);
             altsAction = new ArgCommandAction(priorScreen, argsBuilder.getArgs());
         }
@@ -97,7 +92,7 @@ public class ArgCommandAction extends DisplayScreenAction {
     public static ArgCommandAction getModLogAction(Screen priorScreen) {
         if (modLogAction == null) {
             ArgsBuilder argsBuilder = new ArgsBuilder();
-            argsBuilder.addArg("/mod log ");
+            argsBuilder.addArg("/mod log");
             argsBuilder.addArg(ArgsStringComponent.class,"gui.dfplusplus.from","10m");
             argsBuilder.addArg(ArgsStringComponent.class,"gui.dfplusplus.to","");
             argsBuilder.addArg(ArgsStringComponent.class,"gui.dfplusplus.filter","");
@@ -110,12 +105,8 @@ public class ArgCommandAction extends DisplayScreenAction {
         argsBuilder.addArg(ArgsStringComponent.class,"gui.dfplusplus.player","gui.dfplusplus.player");
     }
 
-    private static void addSpace(ArgsBuilder argsBuilder) {
-        argsBuilder.addArg(" ");
-    }
-
     private static void addOptionalS(ArgsBuilder argsBuilder) {
-        argsBuilder.addArg(ArgsOptionalComponent.class,"-s?","-s ",false);
+        argsBuilder.addArg(ArgsOptionalComponent.class,"-s?","-s",false);
     }
 
     private static void addReason(ArgsBuilder argsBuilder) {
