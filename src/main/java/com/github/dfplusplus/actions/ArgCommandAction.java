@@ -93,8 +93,21 @@ public class ArgCommandAction extends DisplayScreenAction {
         return altsAction;
     }
 
+    private static ArgCommandAction modLogAction = null;
+    public static ArgCommandAction getModLogAction(Screen priorScreen) {
+        if (modLogAction == null) {
+            ArgsBuilder argsBuilder = new ArgsBuilder();
+            argsBuilder.addArg("/mod log ");
+            argsBuilder.addArg(ArgsStringComponent.class,"gui.dfplusplus.from","10m");
+            argsBuilder.addArg(ArgsStringComponent.class,"gui.dfplusplus.to","");
+            argsBuilder.addArg(ArgsStringComponent.class,"gui.dfplusplus.filter","");
+            modLogAction = new ArgCommandAction(priorScreen, argsBuilder.getArgs());
+        }
+        return modLogAction;
+    }
+
     private static void addPlayer(ArgsBuilder argsBuilder) {
-        argsBuilder.addArg(ArgsStringComponent.class,"gui.dfadmintools.player","gui.dfadmintools.player");
+        argsBuilder.addArg(ArgsStringComponent.class,"gui.dfplusplus.player","gui.dfplusplus.player");
     }
 
     private static void addSpace(ArgsBuilder argsBuilder) {
@@ -106,10 +119,10 @@ public class ArgCommandAction extends DisplayScreenAction {
     }
 
     private static void addReason(ArgsBuilder argsBuilder) {
-        argsBuilder.addArg(ArgsStringComponent.class,"gui.dfadmintools.reason","");
+        argsBuilder.addArg(ArgsStringComponent.class,"gui.dfplusplus.reason","");
     }
 
     private static void addDuration(ArgsBuilder argsBuilder) {
-        argsBuilder.addArg(ArgsStringComponent.class,"gui.dfadmintools.duration","1d");
+        argsBuilder.addArg(ArgsStringComponent.class,"gui.dfplusplus.duration","1d");
     }
 }

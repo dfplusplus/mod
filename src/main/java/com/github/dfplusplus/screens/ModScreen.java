@@ -20,5 +20,6 @@ public class ModScreen extends ButtonScreen {
         addButton("/tempban", ArgCommandAction.getTempbanAction(this));
         addButton("/hist",ArgCommandAction.getHistAction(this));
         addButton("/alts",ArgCommandAction.getAltsAction(this));
+        addButton("/mod log",ArgCommandAction.getModLogAction(this));
     }
 }

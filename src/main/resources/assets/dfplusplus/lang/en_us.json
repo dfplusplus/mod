@@ -26,6 +26,9 @@
   "gui.dfplusplus.player": "Player",
   "gui.dfplusplus.duration": "Duration",
   "gui.dfplusplus.reason": "Reason",
+  "gui.dfplusplus.from": "From",
+  "gui.dfplusplus.to": "To",
+  "gui.dfplusplus.filter": "Filter",
 
   "gui.dfplusplus.custom.settings": "Custom Filter Settings...",
   "gui.dfplusplus.message.settings": "/msg Filter Settings...",
