@@ -76,15 +76,21 @@ public class KeyBinds {
 
     private static void registerActionKeyBindings() {
         ACTION_KEY_BINDINGS.clear();
-        if (PermissionLevel.hasPerms(PermissionLevel.MOD)) {
-            addCommandBinding("/mod v", PermissionLevel.MOD);
-            addActionBinding("/ban", ArgCommandAction.getBanAction(null), PermissionLevel.MOD);
-            addActionBinding("/warn", ArgCommandAction.getWarnAction(null), PermissionLevel.MOD);
-            addActionBinding("/unwarn", ArgCommandAction.getUnwarnAction(null), PermissionLevel.MOD);
-            addActionBinding("/tempban", ArgCommandAction.getTempbanAction(null), PermissionLevel.MOD);
-            addActionBinding("/hist", ArgCommandAction.getHistAction(null), PermissionLevel.MOD);
-            addActionBinding("/alts", ArgCommandAction.getAltsAction(null), PermissionLevel.MOD);
-        }
+
+        // mod keybinds
+        addCommandBinding("/mod v", PermissionLevel.MOD);
+        addActionBinding("/ban", ArgCommandAction.getBanAction(null), PermissionLevel.MOD);
+        addActionBinding("/warn", ArgCommandAction.getWarnAction(null), PermissionLevel.MOD);
+        addActionBinding("/unwarn", ArgCommandAction.getUnwarnAction(null), PermissionLevel.MOD);
+        addActionBinding("/tempban", ArgCommandAction.getTempbanAction(null), PermissionLevel.MOD);
+        addActionBinding("/hist", ArgCommandAction.getHistAction(null), PermissionLevel.MOD);
+        addActionBinding("/alts", ArgCommandAction.getAltsAction(null), PermissionLevel.MOD);
+
+        // support keybinds
+        addCommandBinding("/support accept", PermissionLevel.SUPPORT);
+        addCommandBinding("/support queue", PermissionLevel.SUPPORT);
+
+        // default keybinds
         addCommandBinding("/fly", PermissionLevel.DEFAULT);
         addCommandBinding("/server node1", PermissionLevel.DEFAULT);
         addCommandBinding("/server node2", PermissionLevel.DEFAULT);
@@ -119,7 +125,8 @@ public class KeyBinds {
     }
 
     private static void addActionBinding(String name, Action action, PermissionLevel permissionLevel) {
-        ACTION_KEY_BINDINGS.add(new ActionKeyBidning(GLFW_KEY_UNKNOWN,name,action,permissionLevel));
+        if (PermissionLevel.hasPerms(permissionLevel))
+            ACTION_KEY_BINDINGS.add(new ActionKeyBidning(GLFW_KEY_UNKNOWN,name,action,permissionLevel));
     }
 
     private static class ActionKeyBidning {
