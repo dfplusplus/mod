@@ -1,6 +1,9 @@
 package com.github.dfplusplus.args;
 
 import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 
 public class ArgsOptionalComponent extends ArgsComponent {
     private boolean enabled;
@@ -15,7 +18,7 @@ public class ArgsOptionalComponent extends ArgsComponent {
     }
 
     public String getMessage() {
-        return enabled ? "Yes" : "No";
+        return enabled ? I18n.format("gui.yes") : I18n.format("gui.no");
     }
 
     public ArgsOptionalComponent(String title, String optionalComponent, boolean defaultValue) {
@@ -26,6 +29,6 @@ public class ArgsOptionalComponent extends ArgsComponent {
 
     public void flip(Button button) {
         enabled = !enabled;
-        button.setMessage(getMessage());
+        button.func_238482_a_(new StringTextComponent(getMessage()));
     }
 }
