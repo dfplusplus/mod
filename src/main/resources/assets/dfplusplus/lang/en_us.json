@@ -32,6 +32,15 @@
   "gui.dfplusplus.settings": "Settings...",
   "gui.dfplusplus.runcommand": "Run Command",
 
+  "gui.dfplusplus.chatsettings.chattypesettings": "Chat Types Settings...",
+  "gui.dfplusplus.chatsettings.chatsizingsettings": "Side Chat Sizing...",
+
+  "gui.dfplusplus.chatsizingsettings.chatoffsetx": "Chat Offset X: %spx",
+  "gui.dfplusplus.chatsizingsettings.chatoffsety": "Chat Offset Y: %spx",
+  "gui.dfplusplus.chatsizingsettings.chatscale": "Chat Scale: %s%%",
+  "gui.dfplusplus.chatsizingsettings.chatwidth": "Chat Width: %spx",
+  "gui.dfplusplus.chatsizingsettings.dummy": "Send Dummy Messages",
+
   "gui.dfplusplus.custom.settings": "Custom Filter Settings...",
   "gui.dfplusplus.message.settings": "/msg Filter Settings...",
   "gui.dfplusplus.support.settings": "Support Filter Settings...",

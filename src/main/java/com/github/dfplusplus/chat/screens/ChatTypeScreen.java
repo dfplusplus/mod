@@ -3,9 +3,11 @@ package com.github.dfplusplus.chat.screens;
 import com.github.dfplusplus.Config;
 import com.github.dfplusplus.Util;
 import com.github.dfplusplus.chat.ChatRule;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 
 public class ChatTypeScreen extends Screen {
@@ -21,16 +23,16 @@ public class ChatTypeScreen extends Screen {
     @Override
     protected void init() {
         super.init();
-        if (priorScreen != null) addButton(new Button(10,10,50,20,"Back",this::onBackButtonPress));
+        if (priorScreen != null) addButton(new Button(10,10,50,20,new TranslationTextComponent("gui.back"),this::onBackButtonPress));
         int x = (this.width / 2) - 100;
         addButton(new Button(x,10,200,20, getSideMessage(getChatRule().getChatSide()),this::onChangeSidePress));
         addButton(new Button(x,35,200,20, getSoundMessage(getChatRule().getChatSound()),this::onChangeSoundPress));
     }
 
     @Override
-    public void render(int p_render_1_, int p_render_2_, float p_render_3_) {
-        this.renderBackground();
-        super.render(p_render_1_, p_render_2_, p_render_3_);
+    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+        renderBackground(matrixStack);
+        super.render(matrixStack,mouseX,mouseY,partialTicks);
     }
 
     private ChatRule getChatRule() {
@@ -55,12 +57,12 @@ public class ChatTypeScreen extends Screen {
         Config.setChatSound(chatRuleType, getChatRule().getChatSound());
     }
 
-    private String getSideMessage(ChatRule.ChatSide newChatSide) {
-        return I18n.format(String.format("gui.dfplusplus.chatside.%s", newChatSide.name().toLowerCase()));
+    private ITextComponent getSideMessage(ChatRule.ChatSide newChatSide) {
+        return new TranslationTextComponent("gui.dfplusplus.chatside.%s", newChatSide.name().toLowerCase());
     }
 
-    private String getSoundMessage(ChatRule.ChatSound chatSound) {
-        return I18n.format(String.format("gui.dfplusplus.chatsound.%s", chatSound.name().toLowerCase()));
+    private ITextComponent getSoundMessage(ChatRule.ChatSound chatSound) {
+        return new TranslationTextComponent("gui.dfplusplus.chatsound.%s", chatSound.name().toLowerCase());
     }
 
     private void onBackButtonPress(Button button) {

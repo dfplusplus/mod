@@ -2,10 +2,13 @@ package com.github.dfplusplus.chat.screens;
 
 import com.github.dfplusplus.PermissionLevel;
 import com.github.dfplusplus.chat.ChatRule;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 
 public class ChatTypesScreen extends Screen {
@@ -20,13 +23,13 @@ public class ChatTypesScreen extends Screen {
     protected void init() {
         super.init();
         addButtons();
-        if (priorScreen != null) addButton(new Button(10,10,50,20,"Back",this::onBackButtonPress));
+        if (priorScreen != null) addButton(new Button(10,10,50,20,new TranslationTextComponent("gui.back"),this::onBackButtonPress));
     }
 
     @Override
-    public void render(int p_render_1_, int p_render_2_, float p_render_3_) {
-        this.renderBackground();
-        super.render(p_render_1_, p_render_2_, p_render_3_);
+    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+        renderBackground(matrixStack);
+        super.render(matrixStack,mouseX,mouseY,partialTicks);
     }
 
     private void addButtons() {
@@ -45,7 +48,7 @@ public class ChatTypesScreen extends Screen {
             ChatRule chatRule = ChatRule.getChatRule(chatRuleType);
 
             int BUTTON_HEIGHT = 20;
-            Button button = new Button(x, y, BUTTON_WIDTH, BUTTON_HEIGHT, "", new ChatTypeSettingsHandler(chatRuleType));
+            Button button = new Button(x, y, BUTTON_WIDTH, BUTTON_HEIGHT, new StringTextComponent(""), new ChatTypeSettingsHandler(chatRuleType));
             button.setMessage(getButtonMessage(chatRuleType));
             addButton(button);
             int BUTTON_GAP = 5;
@@ -57,8 +60,8 @@ public class ChatTypesScreen extends Screen {
         minecraft.displayGuiScreen(priorScreen);
     }
 
-    private static String getButtonMessage(ChatRule.ChatRuleType chatRuleType) {
-        return I18n.format(String.format("gui.dfplusplus.%s.settings", chatRuleType.name().toLowerCase()));
+    private static ITextComponent getButtonMessage(ChatRule.ChatRuleType chatRuleType) {
+        return new TranslationTextComponent("gui.dfplusplus.%s.settings", chatRuleType.name().toLowerCase());
     }
 
     private static class ChatTypeSettingsHandler implements Button.IPressable {
