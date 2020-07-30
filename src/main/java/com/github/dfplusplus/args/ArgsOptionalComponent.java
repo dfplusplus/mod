@@ -29,6 +29,6 @@ public class ArgsOptionalComponent extends ArgsComponent {
 
     public void flip(Button button) {
         enabled = !enabled;
-        button.func_238482_a_(new StringTextComponent(getMessage()));
+        button.setMessage(new StringTextComponent(getMessage()));
     }
 }
