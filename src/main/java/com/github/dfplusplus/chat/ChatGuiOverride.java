@@ -3,14 +3,12 @@ package com.github.dfplusplus.chat;
 import com.github.dfplusplus.Util;
 import com.github.dfplusplus.chat.screens.ChatSizingScreen;
 import com.google.common.collect.Lists;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.*;
-import net.minecraft.client.renderer.Matrix4f;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.util.text.*;
 
 import javax.annotation.Nullable;
 import java.util.Collections;
@@ -26,8 +24,8 @@ public class ChatGuiOverride extends NewChatGui {
     }
 
     @Override
-    public void render(int updateCounter) {
-        if (this.isChatVisible()) {
+    public void func_238492_a_(MatrixStack p_238492_1_, int updateCounter) {
+        if (this.func_238496_i_()) {
             int i = this.getLineCount();
             int mainDrawnChatLinesSize = this.mainDrawnChatLines.size();
             boolean flag = false;
@@ -38,13 +36,16 @@ public class ChatGuiOverride extends NewChatGui {
 
                 double d0 = this.getScale();
                 int k = MathHelper.ceil((double) this.getChatWidth() / d0);
+                // marked as depracated but minecraft still use em so.. so do I
                 RenderSystem.pushMatrix();
                 RenderSystem.translatef(2.0F, 8.0F, 0.0F);
                 RenderSystem.scaled(d0, d0, 1.0D);
                 double d1 = this.mc.gameSettings.chatOpacity * (double) 0.9F + (double) 0.1F;
                 double d2 = this.mc.gameSettings.accessibilityTextBackgroundOpacity;
+                double d3 = 9.0D * (this.mc.gameSettings.field_238331_l_ + 1.0D);
+                double d4 = -8.0D * (this.mc.gameSettings.field_238331_l_ + 1.0D) + 4.0D * this.mc.gameSettings.field_238331_l_;
                 int l = 0;
-                renderChat(0, 0, this.getMainDrawnChatLines(), updateCounter, i, flag, k, d1, d2, l);
+                renderChat(p_238492_1_, 0, 0, this.getMainDrawnChatLines(), updateCounter, i, flag, k, d1, d2, d3, d4, l);
 
                 if (flag) { // scroll bar (ignoring one for 2nd chat)
                     int l2 = 9;
@@ -55,8 +56,8 @@ public class ChatGuiOverride extends NewChatGui {
                     int k1 = j3 * j3 / i3;
                     int l3 = 96;
                     int i4 = this.isScrolled ? 13382451 : 3355562;
-                    fill(0, -k3, 2, -k3 - k1, i4 + (l3 << 24));
-                    fill(2, -k3, 1, -k3 - k1, 13421772 + (l3 << 24));
+                    fill(p_238492_1_, 0, -k3, 2, -k3 - k1, i4 + (l3 << 24));
+                    fill(p_238492_1_, 2, -k3, 1, -k3 - k1, 13421772 + (l3 << 24));
                 }
                 RenderSystem.popMatrix();
             }
@@ -70,33 +71,37 @@ public class ChatGuiOverride extends NewChatGui {
                 RenderSystem.scaled(d0, d0, 1.0D);
                 double d1 = this.mc.gameSettings.chatOpacity * (double)0.9F + (double)0.1F;
                 double d2 = this.mc.gameSettings.accessibilityTextBackgroundOpacity;
+                double d3 = 9.0D * (this.mc.gameSettings.field_238331_l_ + 1.0D);
+                double d4 = -8.0D * (this.mc.gameSettings.field_238331_l_ + 1.0D) + 4.0D * this.mc.gameSettings.field_238331_l_;
                 int l = 0;
-                renderChat(getSideChatStartX() + ChatSizingScreen.getChatOffsetX(), -ChatSizingScreen.getChatOffsetY(), this.getSideDrawnChatLines(),updateCounter,i,flag,k,d1,d2,l);
+                renderChat(p_238492_1_, getSideChatStartX() + ChatSizingScreen.getChatOffsetX(), -ChatSizingScreen.getChatOffsetY(), this.getSideDrawnChatLines(),updateCounter,i,flag,k,d1,d2,d3,d4,l);
                 RenderSystem.popMatrix();
             }
         }
     }
 
-    private void renderChat(int x, int y, List<ChatLine> chatLines, int updateCounter, int i, boolean flag, int k, double d1, double d2, int l) {
-        Matrix4f mainMatrix4f = Matrix4f.makeTranslate(x, y, -100);
-
+    private void renderChat(MatrixStack matrixStack, int x, int y, List<ChatLine> chatLines, int updateCounter, int i, boolean flag, int k, double d1, double d2, double d3, double d4, int l) {
         for(int i1 = 0; i1 + this.scrollPos < chatLines.size() && i1 < i; ++i1) {
             ChatLine chatline = chatLines.get(i1 + this.scrollPos);
             if (chatline != null) {
                 int j1 = updateCounter - chatline.getUpdatedCounter();
                 if (j1 < 200 || flag) {
-                    double d3 = flag ? 1.0D : getLineBrightness(j1);
-                    int l1 = (int)(255.0D * d3 * d1);
-                    int i2 = (int)(255.0D * d3 * d2);
+                    double d5 = flag ? 1.0D : getLineBrightness(j1);
+                    int l1 = (int)(255.0D * d5 * d1);
+                    int i2 = (int)(255.0D * d5 * d2);
                     ++l;
                     if (l1 > 3) {
-                        int k2 = -i1 * 9;
-                        fill(mainMatrix4f, -2, k2 - 9, k + 4, k2, i2 << 24);
-                        String s = chatline.getChatComponent().getFormattedText();
+                        int j2 = 0;
+                        double d6 = (double)(-i1) * d3;
+                        matrixStack.push();
+                        matrixStack.translate(x, y, 50.0D);
+                        fill(matrixStack, -2, (int)(d6 - d3), k + 4, (int)d6, i2 << 24);
                         RenderSystem.enableBlend();
-                        this.mc.fontRenderer.drawStringWithShadow(s, x, (float)(k2 - 8) + y, 16777215 + (l1 << 24));
+                        matrixStack.translate(0.0D, 0.0D, 50.0D);
+                        this.mc.fontRenderer.func_238407_a_(matrixStack, chatline.func_238169_a_(), 0.0F, (float)((int)(d6 + d4)), 16777215 + (l1 << 24));
                         RenderSystem.disableAlphaTest();
                         RenderSystem.disableBlend();
+                        matrixStack.pop();
                     }
                 }
             }
@@ -114,8 +119,9 @@ public class ChatGuiOverride extends NewChatGui {
     }
 
     @Override
-    protected void setChatLine(ITextComponent chatComponent, int chatLineId, int updateCounter, boolean displayOnly) {
-        super.setChatLine(chatComponent,chatLineId,updateCounter,displayOnly);
+    protected void func_238493_a_(ITextProperties textProperties, int chatLineId, int updateCounter, boolean displayOnly) {
+        super.func_238493_a_(textProperties,chatLineId,updateCounter,displayOnly);
+        ITextComponent chatComponent = ((ITextComponent) textProperties);
 
         boolean matchedARule = false;
         for (ChatRule chatRule : ChatRule.getChatRules()) {
@@ -140,7 +146,7 @@ public class ChatGuiOverride extends NewChatGui {
 
     private List<ChatLine> getOutputChatLines(ITextComponent chatComponent, int chatLineId, int updateCounter, int i) {
         List<ChatLine> outputChatLines =
-                RenderComponentsUtil.splitText(chatComponent, i, this.mc.fontRenderer, false, false)
+                RenderComponentsUtil.func_238505_a_(chatComponent, i, this.mc.fontRenderer)
                         .stream()
                         .map(iTextComponent -> new ChatLine(updateCounter, iTextComponent, chatLineId))
                         .collect(Collectors.toList());
@@ -165,29 +171,20 @@ public class ChatGuiOverride extends NewChatGui {
 
     @Nullable
     @Override
-    public ITextComponent getTextComponent(double p_194817_1_, double p_194817_3_) {
-        if (this.getChatOpen() && !this.mc.gameSettings.hideGUI && this.isChatVisible()) {
+    public Style func_238494_b_(double p_194817_1_, double p_194817_3_) {
+        if (this.getChatOpen() && !this.mc.gameSettings.hideGUI && this.func_238496_i_()) {
             double d0 = this.getScale();
             double d1 = p_194817_1_ - 2.0D;
             double d2 = (double)this.mc.getMainWindow().getScaledHeight() - p_194817_3_ - 40.0D;
             d1 = MathHelper.floor(d1 / d0);
-            d2 = MathHelper.floor(d2 / d0);
+            d2 = MathHelper.floor(d2 / (d0 * (this.mc.gameSettings.field_238331_l_ + 1.0D)));
             if (!(d1 < 0.0D) && !(d2 < 0.0D)) {
                 int i = Math.min(this.getLineCount(), this.getMainDrawnChatLines().size());
                 if (d1 <= (double) MathHelper.floor((double) this.getChatWidth() / this.getScale()) && d2 < (double) (9 * i + i)) {
                     int j = (int) (d2 / 9.0D + (double) this.scrollPos);
                     if (j >= 0 && j < this.getMainDrawnChatLines().size()) {
                         ChatLine chatline = this.getMainDrawnChatLines().get(j);
-                        int k = 0;
-
-                        for (ITextComponent itextcomponent : chatline.getChatComponent()) {
-                            if (itextcomponent instanceof StringTextComponent) {
-                                k += this.mc.fontRenderer.getStringWidth(RenderComponentsUtil.removeTextColorsIfConfigured(((StringTextComponent) itextcomponent).getText(), false));
-                                if ((double) k > d1) {
-                                    return itextcomponent;
-                                }
-                            }
-                        }
+                        return this.mc.fontRenderer.func_238420_b_().func_238357_a_(chatline.func_238169_a_(), (int)d0);
                     }
                 }
             }
@@ -197,7 +194,7 @@ public class ChatGuiOverride extends NewChatGui {
             d1 = p_194817_1_ - 2.0D;
             d2 = (double)this.mc.getMainWindow().getScaledHeight() - p_194817_3_ - 40.0D;
             d1 = MathHelper.floor(d1 / d0);
-            d2 = MathHelper.floor(d2 / d0);
+            d2 = MathHelper.floor(d2 / (d0 * (this.mc.gameSettings.field_238331_l_ + 1.0D)));
             if (!(d1 < 0.0D) && !(d2 < 0.0D)) {
                 int i = Math.min(this.getLineCount(), this.getSideDrawnChatLines().size());
                 if (
@@ -207,15 +204,7 @@ public class ChatGuiOverride extends NewChatGui {
                     if (j >= 0 && j < this.getSideDrawnChatLines().size()) {
                         ChatLine chatline = this.getSideDrawnChatLines().get(j);
                         int k = getSideChatStartX();
-
-                        for(ITextComponent itextcomponent : chatline.getChatComponent()) {
-                            if (itextcomponent instanceof StringTextComponent) {
-                                k += this.mc.fontRenderer.getStringWidth(RenderComponentsUtil.removeTextColorsIfConfigured(((StringTextComponent)itextcomponent).getText(), false));
-                                if ((double)k > d1) {
-                                    return itextcomponent;
-                                }
-                            }
-                        }
+                        return this.mc.fontRenderer.func_238420_b_().func_238357_a_(chatline.func_238169_a_(), (int)d0);
                     }
                 }
 
@@ -230,7 +219,7 @@ public class ChatGuiOverride extends NewChatGui {
 
     @Override
     public void printChatMessageWithOptionalDeletion(ITextComponent chatComponent, int chatLineId) {
-        this.setChatLine(chatComponent, chatLineId, this.mc.ingameGUI.getTicks(), false);
+        this.func_238493_a_(chatComponent, chatLineId, this.mc.ingameGUI.getTicks(), false);
         LOGGER.info("[CHAT] {}", chatComponent.getString().replaceAll("\r", "\\\\r").replaceAll("\n", "\\\\n"));
     }
 
