@@ -3,12 +3,15 @@ package com.github.dfplusplus.chat;
 import com.github.dfplusplus.Main;
 import com.github.dfplusplus.Util;
 import com.github.dfplusplus.chat.screens.ChatSettingsScreen;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.ChatScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -32,24 +35,25 @@ public class ChatScreenOverride extends ChatScreen {
     @Override
     protected void init() {
         super.init();
-        this.settingsButton = new Button(2,2,125,20 ,"Settings...",this::onSettingsButtonPress);
+        this.settingsButton = new Button(2,2,125,20 ,new StringTextComponent(I18n.format("gui.dfplusplus.settings")),this::onSettingsButtonPress);
         this.addButton(settingsButton);
     }
 
-    @Override
-    public void render(int p_render_1_, int p_render_2_, float p_render_3_) {
-        this.setFocused(this.inputField);
-        this.inputField.setFocused2(true);
-        fill(2, this.height - 14, this.width - 2, this.height - 2, chatRoom.getColor());
-        this.inputField.render(p_render_1_, p_render_2_, p_render_3_);
-        this.commandSuggestionHelper.render(p_render_1_, p_render_2_);
-        ITextComponent itextcomponent = this.minecraft.ingameGUI.getChatGUI().getTextComponent((double)p_render_1_, (double)p_render_2_);
-        if (itextcomponent != null && itextcomponent.getStyle().getHoverEvent() != null) {
-            this.renderComponentHoverEffect(itextcomponent, p_render_1_, p_render_2_);
-        }
-
-        super.render(p_render_1_, p_render_2_, p_render_3_);
-    }
+    // This appears to do the same as ChatScreen#render, can't quite figure out why its needed
+//    @Override
+//    public void render(int p_render_1_, int p_render_2_, float p_render_3_) {
+//        this.setFocused(this.inputField);
+//        this.inputField.setFocused2(true);
+//        fill(2, this.height - 14, this.width - 2, this.height - 2, chatRoom.getColor());
+//        this.inputField.render(p_render_1_, p_render_2_, p_render_3_);
+//        this.commandSuggestionHelper.render(p_render_1_, p_render_2_);
+//        ITextComponent itextcomponent = this.minecraft.ingameGUI.getChatGUI().getTextComponent((double)p_render_1_, (double)p_render_2_);
+//        if (itextcomponent != null && itextcomponent.getStyle().getHoverEvent() != null) {
+//            this.renderComponentHoverEffect(itextcomponent, p_render_1_, p_render_2_);
+//        }
+//
+//        super.render(p_render_1_, p_render_2_, p_render_3_);
+//    }
 
     // COPIED FROM ChatScreen#keyPressed
     @Override
