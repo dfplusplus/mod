@@ -4,6 +4,7 @@ import com.github.dfplusplus.args.ArgsComponent;
 import com.github.dfplusplus.args.ArgsOptionalComponent;
 import com.github.dfplusplus.args.ArgsStaticComponent;
 import com.github.dfplusplus.args.ArgsStringComponent;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.TextFieldWidget;
@@ -11,6 +12,7 @@ import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -42,7 +44,7 @@ public class ArgsScreen extends Screen {
     public void init(Minecraft minecraft, int width, int height) {
         minecraft.keyboardListener.enableRepeatEvents(true);
         super.init(minecraft, width, height);
-        if (priorScreen != null) addButton(new Button(10,10,50,20,"Back",this::onBackButtonPress));
+        if (priorScreen != null) addButton(new Button(10,10,50,20,new StringTextComponent(I18n.format("gui.back")),this::onBackButtonPress));
 
         argsWidgets.clear();
         int x = width / 2;
@@ -51,15 +53,15 @@ public class ArgsScreen extends Screen {
             Widget widget = null;
             if (argsComponent instanceof ArgsStringComponent) {
                 ArgsStringComponent argsStringComponent = ((ArgsStringComponent) argsComponent);
-                TextFieldWidget newTextField = new TextFieldWidget(font,0,0,200,200, "");
+                TextFieldWidget newTextField = new TextFieldWidget(font,0,0,200,200, new StringTextComponent(""));
                 newTextField.setText(I18n.format(argsStringComponent.getText()));
                 newTextField.setResponder(argsStringComponent::setText);
                 argsStringComponent.setText(I18n.format(argsStringComponent.getText()));
                 widget = newTextField;
             } else if (argsComponent instanceof ArgsOptionalComponent) {
                 ArgsOptionalComponent argsOptionalComponent = ((ArgsOptionalComponent) argsComponent);
-                Button newButton = new Button(0,0,200,200,"",argsOptionalComponent::flip);
-                newButton.setMessage(I18n.format(argsOptionalComponent.getMessage()));
+                Button newButton = new Button(0,0,200,200,new StringTextComponent(""),argsOptionalComponent::flip);
+                newButton.setMessage(new StringTextComponent(I18n.format(argsOptionalComponent.getMessage())));
                 widget = newButton;
             }
 
@@ -71,21 +73,21 @@ public class ArgsScreen extends Screen {
             y+=Y_SPACING;
         }
 
-        submitButton = addButton(new Button(0,0,200,200,"Run Command",this::onSubmitButtonPress));
+        submitButton = addButton(new Button(0,0,200,200,new TranslationTextComponent("gui.dfplusplus.runcommand"),this::onSubmitButtonPress));
         setupWidgetDimensions(x,y,submitButton);
     }
 
     @Override
-    public void render(int p_render_1_, int p_render_2_, float p_render_3_) {
-        renderBackground();
-        super.render(p_render_1_, p_render_2_, p_render_3_);
-        drawCenteredString(font, getCommand(),width/2, 20 ,16777215);
+    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+        renderBackground(matrixStack);
+        super.render(matrixStack,mouseX,mouseY,partialTicks);
+        drawCenteredString(matrixStack, font, getCommand(),width/2, 20 ,16777215);
 
         int x = width / 2;
         int y = Y_START;
         for (ArgsWidget argsWidget : argsWidgets) {
-            drawCenteredString(font, I18n.format(argsWidget.component.getTitle()),x,y-10,16777215);
-            if (argsWidget.component instanceof ArgsStringComponent) argsWidget.widget.render(p_render_1_,p_render_2_,p_render_3_);
+            drawCenteredString(matrixStack, font, I18n.format(argsWidget.component.getTitle()),x,y-10,16777215);
+            if (argsWidget.component instanceof ArgsStringComponent) argsWidget.widget.render(matrixStack,mouseX,mouseY,partialTicks);
             y+=Y_SPACING;
         }
     }
@@ -104,7 +106,7 @@ public class ArgsScreen extends Screen {
     }
 
     @Override
-    public void removed() {
+    public void onClose() {
         minecraft.keyboardListener.enableRepeatEvents(false);
     }
 
