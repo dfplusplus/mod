@@ -3,11 +3,13 @@ package com.github.dfplusplus.screens;
 
 import com.github.dfplusplus.actions.Action;
 import com.github.dfplusplus.actions.CommandAction;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +34,7 @@ public abstract class ButtonScreen extends Screen {
     @Override
     public void init(Minecraft minecraft, int width, int height) {
         super.init(minecraft, width, height);
-        if (priorScreen != null) addButton(new Button(10,10,50,20,"Back",this::onBackButtonPress));
+        if (priorScreen != null) addButton(new Button(10,10,50,20,new TranslationTextComponent("gui.back"),this::onBackButtonPress));
         updateButtons();
     }
 
@@ -66,7 +68,7 @@ public abstract class ButtonScreen extends Screen {
         for (Button button : actionButtons.subList(displayFromIndex,displayToIndex)) {
             button.x = x - (button.getWidth()/2);
             button.y = y;
-            button.setMessage(I18n.format(button.getMessage()));
+            button.setMessage(new TranslationTextComponent(button.getMessage().getString()));
             addButton(button);
             y+=(BUTTON_HEIGHT + BUTTON_GAP);
         }
@@ -77,7 +79,7 @@ public abstract class ButtonScreen extends Screen {
                     y,
                     (BUTTON_WIDTH - BUTTON_GAP) / 2,
                     BUTTON_HEIGHT,
-                    "<--",
+                    new StringTextComponent("<--"), // will never need to be translated
                     this::onScrollBackButtonPress
             ));
             scrollBackButton.active = (pageNo > 0);
@@ -87,7 +89,7 @@ public abstract class ButtonScreen extends Screen {
                     y,
                     (BUTTON_WIDTH - BUTTON_GAP) / 2,
                     BUTTON_HEIGHT,
-                    "-->",
+                    new StringTextComponent("-->"),
                     this::onScrollForwardButtonPress
             ));
             scrollForwardButton.active = (pageNo < getMaxPageNo());
@@ -112,10 +114,10 @@ public abstract class ButtonScreen extends Screen {
     }
 
     @Override
-    public void render(int p_render_1_, int p_render_2_, float p_render_3_) {
-        renderBackground();
-        super.render(p_render_1_, p_render_2_, p_render_3_);
-        drawCenteredString(font, I18n.format(getName()),width/2,20,16777215);
+    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+        renderBackground(matrixStack);
+        super.render(matrixStack,mouseX,mouseY,partialTicks);
+        drawCenteredString(matrixStack, font, I18n.format(getName()),width/2,20,16777215);
     }
 
     @Override
@@ -130,7 +132,7 @@ public abstract class ButtonScreen extends Screen {
                 0,
                 BUTTON_WIDTH,
                 BUTTON_HEIGHT,
-                name,
+                new StringTextComponent(name),
                 new ActionPressable(action)
         );
         actionButtons.add(newButton);
