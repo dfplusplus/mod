@@ -2,7 +2,7 @@ package com.github.dfplusplus.chat;
 
 import com.google.common.collect.Lists;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.Color;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -54,15 +54,15 @@ public class ChatPattern {
         @Nullable
         private final String string;
         @Nullable
-        private final TextFormatting color;
+        private final Color color;
         private int pos = -1;
 
-        public ChatComponent(String string, TextFormatting color) {
+        public ChatComponent(String string, Color color) {
             this.string = string;
             this.color = color;
         }
 
-        public ChatComponent(String string, TextFormatting color, int pos) {
+        public ChatComponent(String string, Color color, int pos) {
             this.string = string;
             this.color = color;
             this.pos = pos;
@@ -77,7 +77,7 @@ public class ChatPattern {
             boolean colorEquals = false;
             // same for colour
             if (this.color == null || chatComponent.color == null) colorEquals = true;
-            else if (this.color == chatComponent.color) colorEquals = true;
+            else if (this.color.equals(chatComponent.color)) colorEquals = true;
 
             return stringEquals && colorEquals;
         }
@@ -91,7 +91,7 @@ public class ChatPattern {
             if (color != null)
                 return "ChatComponent{" +
                         "string='" + string + '\'' +
-                        ", color=" + color.name() +
+                        ", color=" + color.func_240747_b_() +
                         '}';
             else
                 return "ChatComponent{" +
