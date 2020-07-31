@@ -25,7 +25,7 @@ public class ChatGuiOverride extends NewChatGui {
 
     @Override
     public void func_238492_a_(MatrixStack p_238492_1_, int updateCounter) {
-        if (this.func_238496_i_()) {
+        if (!this.func_238496_i_()) {
             int i = this.getLineCount();
             int mainDrawnChatLinesSize = this.mainDrawnChatLines.size();
             boolean flag = false;
@@ -91,7 +91,6 @@ public class ChatGuiOverride extends NewChatGui {
                     int i2 = (int)(255.0D * d5 * d2);
                     ++l;
                     if (l1 > 3) {
-                        int j2 = 0;
                         double d6 = (double)(-i1) * d3;
                         matrixStack.push();
                         matrixStack.translate(x, y, 50.0D);
