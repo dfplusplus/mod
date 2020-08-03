@@ -170,11 +170,11 @@ public class ChatGuiOverride extends NewChatGui {
 
     @Nullable
     @Override
-    public Style func_238494_b_(double p_194817_1_, double p_194817_3_) {
+    public Style func_238494_b_(double mouseX, double mouseY) {
         if (this.getChatOpen() && !this.mc.gameSettings.hideGUI && this.func_238496_i_()) {
             double d0 = this.getScale();
-            double d1 = p_194817_1_ - 2.0D;
-            double d2 = (double)this.mc.getMainWindow().getScaledHeight() - p_194817_3_ - 40.0D;
+            double d1 = mouseX - 2.0D;
+            double d2 = (double)this.mc.getMainWindow().getScaledHeight() - mouseY - 40.0D;
             d1 = MathHelper.floor(d1 / d0);
             d2 = MathHelper.floor(d2 / (d0 * (this.mc.gameSettings.field_238331_l_ + 1.0D)));
             if (!(d1 < 0.0D) && !(d2 < 0.0D)) {
@@ -190,8 +190,8 @@ public class ChatGuiOverride extends NewChatGui {
 
             // then recalculate the consts as 2nd chat may be diff size
             d0 = getSideChatScale();
-            d1 = p_194817_1_ - 2.0D;
-            d2 = (double)this.mc.getMainWindow().getScaledHeight() - p_194817_3_ - 40.0D;
+            d1 = mouseX - 2.0D;
+            d2 = (double)this.mc.getMainWindow().getScaledHeight() - mouseY - 40.0D;
             d1 = MathHelper.floor(d1 / d0);
             d2 = MathHelper.floor(d2 / (d0 * (this.mc.gameSettings.field_238331_l_ + 1.0D)));
             if (!(d1 < 0.0D) && !(d2 < 0.0D)) {
