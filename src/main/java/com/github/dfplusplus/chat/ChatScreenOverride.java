@@ -12,6 +12,7 @@ import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.Style;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -39,21 +40,20 @@ public class ChatScreenOverride extends ChatScreen {
         this.addButton(settingsButton);
     }
 
-    // This appears to do the same as ChatScreen#render, can't quite figure out why its needed
-//    @Override
-//    public void render(int p_render_1_, int p_render_2_, float p_render_3_) {
-//        this.setFocused(this.inputField);
-//        this.inputField.setFocused2(true);
-//        fill(2, this.height - 14, this.width - 2, this.height - 2, chatRoom.getColor());
-//        this.inputField.render(p_render_1_, p_render_2_, p_render_3_);
-//        this.commandSuggestionHelper.render(p_render_1_, p_render_2_);
-//        ITextComponent itextcomponent = this.minecraft.ingameGUI.getChatGUI().getTextComponent((double)p_render_1_, (double)p_render_2_);
-//        if (itextcomponent != null && itextcomponent.getStyle().getHoverEvent() != null) {
-//            this.renderComponentHoverEffect(itextcomponent, p_render_1_, p_render_2_);
-//        }
-//
-//        super.render(p_render_1_, p_render_2_, p_render_3_);
-//    }
+    @Override
+    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+        this.setListener(this.inputField);
+        this.inputField.setFocused2(true);
+        fill(matrixStack, 2, this.height - 14, this.width - 2, this.height - 2, chatRoom.getColor());
+        this.inputField.render(matrixStack, mouseX, mouseY, partialTicks);
+        this.commandSuggestionHelper.func_238500_a_(matrixStack, mouseX, mouseY);
+        Style style = this.minecraft.ingameGUI.getChatGUI().func_238494_b_((double)mouseX, (double)mouseY);
+        if (style != null && style.getHoverEvent() != null) {
+            this.renderComponentHoverEffect(matrixStack, style, mouseX, mouseY);
+        }
+
+        super.render(matrixStack, mouseX, mouseY, partialTicks);
+    }
 
     // COPIED FROM ChatScreen#keyPressed
     @Override
