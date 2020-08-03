@@ -25,4 +25,9 @@ public class Util {
                 false
         );
     }
+
+    public static boolean isDeveloperEnv() {
+        String target = System.getenv().get("target");
+        return target != null && target.contains("dev");
+    }
 }
