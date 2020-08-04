@@ -58,11 +58,11 @@ public class ChatTypeScreen extends Screen {
     }
 
     private ITextComponent getSideMessage(ChatRule.ChatSide newChatSide) {
-        return new TranslationTextComponent("gui.dfplusplus.chatside.%s", newChatSide.name().toLowerCase());
+        return new TranslationTextComponent(String.format("gui.dfplusplus.chatside.%s", newChatSide.name().toLowerCase()));
     }
 
     private ITextComponent getSoundMessage(ChatRule.ChatSound chatSound) {
-        return new TranslationTextComponent("gui.dfplusplus.chatsound.%s", chatSound.name().toLowerCase());
+        return new TranslationTextComponent(String.format("gui.dfplusplus.chatsound.%s", chatSound.name().toLowerCase()));
     }
 
     private void onBackButtonPress(Button button) {

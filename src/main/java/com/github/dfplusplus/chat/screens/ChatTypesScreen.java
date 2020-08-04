@@ -61,7 +61,7 @@ public class ChatTypesScreen extends Screen {
     }
 
     private static ITextComponent getButtonMessage(ChatRule.ChatRuleType chatRuleType) {
-        return new TranslationTextComponent("gui.dfplusplus.%s.settings", chatRuleType.name().toLowerCase());
+        return new TranslationTextComponent(String.format("gui.dfplusplus.%s.settings", chatRuleType.name().toLowerCase()));
     }
 
     private static class ChatTypeSettingsHandler implements Button.IPressable {
