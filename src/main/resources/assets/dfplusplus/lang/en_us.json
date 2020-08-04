@@ -41,12 +41,15 @@
   "gui.dfplusplus.chatsizingsettings.chatwidth": "Chat Width: %spx",
   "gui.dfplusplus.chatsizingsettings.dummy": "Send Dummy Messages",
 
-  "gui.dfplusplus.custom.settings": "Custom Filter Settings...",
-  "gui.dfplusplus.message.settings": "/msg Filter Settings...",
-  "gui.dfplusplus.support.settings": "Support Filter Settings...",
-  "gui.dfplusplus.session.settings": "Session Filter Settings...",
-  "gui.dfplusplus.mod.settings": "Mod Filter Settings...",
-  "gui.dfplusplus.admin.settings": "Admin Filter Settings...",
+  "gui.dfplusplus.custom": "Custom",
+  "gui.dfplusplus.message": "/msg",
+  "gui.dfplusplus.support": "Support",
+  "gui.dfplusplus.session": "Session",
+  "gui.dfplusplus.mod": "Mod",
+  "gui.dfplusplus.admin": "Admin",
+
+  "gui.dfplusplus.filtersettingslabel": "%s Filter Settings...",
+  "gui.dfplusplus.filtersettingstitle": "%s Filter Settings",
 
   "gui.dfplusplus.chatside.main": "Chat Side: Main Chat",
   "gui.dfplusplus.chatside.side": "Chat Side: Side Chat",
