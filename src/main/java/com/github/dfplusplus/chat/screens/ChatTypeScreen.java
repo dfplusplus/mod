@@ -16,7 +16,9 @@ public class ChatTypeScreen extends Screen {
     private final ChatRule.ChatRuleType chatRuleType;
 
     public ChatTypeScreen(Screen priorScreen, ChatRule.ChatRuleType chatRuleType) {
-        super(new TranslationTextComponent(ChatRule.getChatRule(chatRuleType).getName()));
+        super(new TranslationTextComponent(
+                "gui.dfplusplus.filtersettingstitle",
+                new TranslationTextComponent(String.format("gui.dfplusplus.%s", chatRuleType.name().toLowerCase()))));
         this.priorScreen = priorScreen;
         this.widgetSpacer = new WidgetSpacer();
         this.chatRuleType = chatRuleType;
@@ -35,6 +37,7 @@ public class ChatTypeScreen extends Screen {
     @Override
     public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
         renderBackground(matrixStack);
+        this.drawCenteredString(matrixStack, this.font, this.title.getString(), this.width / 2, 20, 16777215);
         super.render(matrixStack,mouseX,mouseY,partialTicks);
     }
 

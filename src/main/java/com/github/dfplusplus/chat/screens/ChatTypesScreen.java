@@ -16,7 +16,7 @@ public class ChatTypesScreen extends Screen {
     private final WidgetSpacer widgetSpacer;
 
     public ChatTypesScreen(Screen priorScreen) {
-        super(new TranslationTextComponent("Settings"));
+        super(new TranslationTextComponent("gui.dfplusplus.filtersettingstitle"));
         this.priorScreen = priorScreen;
         this.widgetSpacer = new WidgetSpacer();
     }
@@ -32,6 +32,7 @@ public class ChatTypesScreen extends Screen {
     @Override
     public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
         renderBackground(matrixStack);
+        this.drawCenteredString(matrixStack, this.font, this.title.getString(), this.width / 2, 20, 16777215);
         super.render(matrixStack,mouseX,mouseY,partialTicks);
     }
 
@@ -60,7 +61,9 @@ public class ChatTypesScreen extends Screen {
     }
 
     private static ITextComponent getButtonMessage(ChatRule.ChatRuleType chatRuleType) {
-        return new TranslationTextComponent(String.format("gui.dfplusplus.%s.settings", chatRuleType.name().toLowerCase()));
+        return new TranslationTextComponent(
+                "gui.dfplusplus.filtersettingslabel",
+                new TranslationTextComponent(String.format("gui.dfplusplus.%s", chatRuleType.name().toLowerCase())));
     }
 
     private static class ChatTypeSettingsHandler implements Button.IPressable {

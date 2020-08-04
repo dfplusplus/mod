@@ -18,7 +18,7 @@ public class ChatSettingsScreen extends Screen {
     private final Screen priorScreen;
 
     public ChatSettingsScreen(Screen priorScreen) {
-        super(new TranslationTextComponent("Settings"));
+        super(new TranslationTextComponent("gui.dfplusplus.settingstitle"));
         this.priorScreen = priorScreen;
     }
 
