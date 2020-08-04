@@ -13,15 +13,18 @@ import net.minecraft.util.text.TranslationTextComponent;
 
 public class ChatTypesScreen extends Screen {
     private final Screen priorScreen;
+    private final WidgetSpacer widgetSpacer;
 
     public ChatTypesScreen(Screen priorScreen) {
         super(new TranslationTextComponent("Settings"));
         this.priorScreen = priorScreen;
+        this.widgetSpacer = new WidgetSpacer();
     }
 
     @Override
     protected void init() {
         super.init();
+        widgetSpacer.reset();
         addButtons();
         if (priorScreen != null) addButton(new Button(10,10,50,20,new TranslationTextComponent("gui.back"),this::onBackButtonPress));
     }
@@ -35,7 +38,6 @@ public class ChatTypesScreen extends Screen {
     private void addButtons() {
         int BUTTON_WIDTH = 200;
         int x = (this.width / 2) - (BUTTON_WIDTH / 2);
-        int y = 10;
         for (ChatRule.ChatRuleType chatRuleType : ChatRule.ChatRuleType.values()) {
             boolean validButton = true;
             switch (chatRuleType) {
@@ -47,12 +49,9 @@ public class ChatTypesScreen extends Screen {
             if (!validButton) continue;
             ChatRule chatRule = ChatRule.getChatRule(chatRuleType);
 
-            int BUTTON_HEIGHT = 20;
-            Button button = new Button(x, y, BUTTON_WIDTH, BUTTON_HEIGHT, new StringTextComponent(""), new ChatTypeSettingsHandler(chatRuleType));
+            Button button = new Button(x, widgetSpacer.getNextY(), BUTTON_WIDTH, 20, new StringTextComponent(""), new ChatTypeSettingsHandler(chatRuleType));
             button.setMessage(getButtonMessage(chatRuleType));
             addButton(button);
-            int BUTTON_GAP = 5;
-            y+=(BUTTON_HEIGHT + BUTTON_GAP);
         }
     }
 

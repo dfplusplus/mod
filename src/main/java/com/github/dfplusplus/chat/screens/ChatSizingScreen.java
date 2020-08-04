@@ -10,13 +10,14 @@ import net.minecraft.client.gui.NewChatGui;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.OptionSlider;
 import net.minecraft.client.gui.widget.button.Button;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.SliderPercentageOption;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 
 public class ChatSizingScreen extends Screen {
     private final Screen priorScreen;
+    private final WidgetSpacer widgetSpacer;
+
     private static double chatOffsetX = 0;
     private static double chatOffsetY = 0;
     private static boolean syncWithMinecraft = true;
@@ -59,18 +60,20 @@ public class ChatSizingScreen extends Screen {
         super(new TranslationTextComponent("Sizing"));
         this.minecraft = Minecraft.getInstance();
         this.priorScreen = priorScreen;
+        this.widgetSpacer = new WidgetSpacer();
     }
 
     @Override
     public void init(Minecraft p_init_1_, int p_init_2_, int p_init_3_) {
         super.init(p_init_1_, p_init_2_, p_init_3_);
+        widgetSpacer.reset();
         // back button
         if (priorScreen != null) addButton(new Button(10,10,50,20,new TranslationTextComponent("gui.back"),this::onBackButtonPress));
 
         // chat offset x slider
         int windowWidth = minecraft.getMainWindow().getScaledWidth();
         new FineTuneSlider(
-                (width / 2) - 100, 20, 200, 20, true, 1,
+                (width / 2) - 100, widgetSpacer.getNextY(), 200, 20, true, 1,
                 new SliderPercentageOption("gui.dfplusplus.chatoffsetx", -windowWidth/1.5f, windowWidth/1.5f, 1f,
                         (gameSettings -> chatOffsetX),
                         ((gameSettings, aDouble) -> chatOffsetX = aDouble),
@@ -79,7 +82,7 @@ public class ChatSizingScreen extends Screen {
 
         // chat offset y slider
         new FineTuneSlider(
-                (width / 2) - 100, 45, 200, 20, true, 1,
+                (width / 2) - 100, widgetSpacer.getNextY(), 200, 20, true, 1,
                 new SliderPercentageOption("gui.dfplusplus.chatoffsetx", 0f, minecraft.getMainWindow().getScaledHeight() * 1.5, 1f,
                         (gameSettings -> chatOffsetY),
                         ((gameSettings, aDouble) -> chatOffsetY = aDouble),
@@ -88,7 +91,7 @@ public class ChatSizingScreen extends Screen {
 
         // sync toggle button
         this.addButton(new Button(
-                (width/2) - 100, 70, 200, 20, new StringTextComponent(""), (button) -> {
+                (width/2) - 100, widgetSpacer.getNextY(), 200, 20, new StringTextComponent(""), (button) -> {
             this.genConfigIfNeeded(); // if switching for the first time, copy the current chat sizing over for easy editing
             syncWithMinecraft = !syncWithMinecraft;
             this.init(minecraft,width,height);
@@ -98,7 +101,7 @@ public class ChatSizingScreen extends Screen {
 
         // chat scale slider
         new FineTuneSlider(
-            (width / 2) - 100, 95, 200, 20, !syncWithMinecraft, 0.01,
+            (width / 2) - 100, widgetSpacer.getNextY(), 200, 20, !syncWithMinecraft, 0.01,
             new SliderPercentageOption("gui.dfplusplus.chatscale", 0, 1, 0,
                 (gameSettings -> getActualChatScale()), // on get
                 ((gameSettings, aDouble) -> {
@@ -112,7 +115,7 @@ public class ChatSizingScreen extends Screen {
 
         // chat width slider
         new FineTuneSlider(
-            (width / 2) - 100, 120, 200, 20, !syncWithMinecraft, 1d / 280d,
+            (width / 2) - 100, widgetSpacer.getNextY(), 200, 20, !syncWithMinecraft, 1d / 280d,
             new SliderPercentageOption("gui.dfplusplus.chatwidth", 0, 1, 0,
                     (gameSettings -> getActualChatWidth()), // on get
                     ((gameSettings, aDouble) -> {
@@ -125,7 +128,7 @@ public class ChatSizingScreen extends Screen {
         );
 
         // dummy message button
-        addButton(new Button((width / 2) -100,145,200,20,new TranslationTextComponent("gui.dfplusplus.chatsizingsettings.dummy"),this::onDummyMessagesButtonPress));
+        addButton(new Button((width / 2) -100,widgetSpacer.getNextY(),200,20,new TranslationTextComponent("gui.dfplusplus.chatsizingsettings.dummy"),this::onDummyMessagesButtonPress));
     }
 
     @Override
