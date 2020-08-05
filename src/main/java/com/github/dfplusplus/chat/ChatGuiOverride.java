@@ -171,39 +171,38 @@ public class ChatGuiOverride extends NewChatGui {
     @Nullable
     @Override
     public Style func_238494_b_(double mouseX, double mouseY) {
-        if (this.getChatOpen() && !this.mc.gameSettings.hideGUI && this.func_238496_i_()) {
-            double d0 = this.getScale();
-            double d1 = mouseX - 2.0D;
-            double d2 = (double)this.mc.getMainWindow().getScaledHeight() - mouseY - 40.0D;
-            d1 = MathHelper.floor(d1 / d0);
-            d2 = MathHelper.floor(d2 / (d0 * (this.mc.gameSettings.field_238331_l_ + 1.0D)));
-            if (!(d1 < 0.0D) && !(d2 < 0.0D)) {
+        if (this.getChatOpen() && !this.mc.gameSettings.hideGUI && !this.func_238496_i_()) {
+            double scale = this.getScale();
+            double d0 = mouseX - 2.0D;
+            double d1 = (double)this.mc.getMainWindow().getScaledHeight() - mouseY - 40.0D;
+            d0 = (double)MathHelper.floor(d0 / scale);
+            d1 = (double)MathHelper.floor(d1 / (scale * (this.mc.gameSettings.field_238331_l_ + 1.0D)));
+            if (!(d0 < 0.0D) && !(d1 < 0.0D)) {
                 int i = Math.min(this.getLineCount(), this.getMainDrawnChatLines().size());
-                if (d1 <= (double) MathHelper.floor((double) this.getChatWidth() / this.getScale()) && d2 < (double) (9 * i + i)) {
-                    int j = (int) (d2 / 9.0D + (double) this.scrollPos);
+                if (d0 <= (double) MathHelper.floor((double) this.getChatWidth() / scale) && d1 < (double) (9 * i + i)) {
+                    int j = (int) (d1 / 9.0D + (double) this.scrollPos);
                     if (j >= 0 && j < this.getMainDrawnChatLines().size()) {
                         ChatLine chatline = this.getMainDrawnChatLines().get(j);
-                        return this.mc.fontRenderer.func_238420_b_().func_238357_a_(chatline.func_238169_a_(), (int)d0);
+                        Style returnedStyle = this.mc.fontRenderer.func_238420_b_().func_238357_a_(chatline.func_238169_a_(), (int) d0);
+                        if (returnedStyle != null) return returnedStyle; // only return if there's actually some style found
                     }
                 }
             }
 
             // then recalculate the consts as 2nd chat may be diff size
-            d0 = getSideChatScale();
-            d1 = mouseX - 2.0D;
-            d2 = (double)this.mc.getMainWindow().getScaledHeight() - mouseY - 40.0D;
-            d1 = MathHelper.floor(d1 / d0);
-            d2 = MathHelper.floor(d2 / (d0 * (this.mc.gameSettings.field_238331_l_ + 1.0D)));
-            if (!(d1 < 0.0D) && !(d2 < 0.0D)) {
+            scale = getSideChatScale();
+            d0 = mouseX - 2.0D;
+            d1 = (double)this.mc.getMainWindow().getScaledHeight() - mouseY - 40.0D;
+            d0 = MathHelper.floor(d0 / scale);
+            d1 = MathHelper.floor(d1 / (scale * (this.mc.gameSettings.field_238331_l_ + 1.0D)));
+            if (!(d0 < 0.0D) && !(d1 < 0.0D)) {
                 int i = Math.min(this.getLineCount(), this.getSideDrawnChatLines().size());
-                if (
-                        d1 >= mc.getMainWindow().getScaledWidth() - (double)MathHelper.floor((double) getSideChatWidth() / getSideChatScale())
-                                && d2 < (double)(9 * i + i)) {
-                    int j = (int)(d2 / 9.0D + (double)this.scrollPos);
+                if (d0 <= (double) MathHelper.floor((double) this.getSideChatWidth() / scale) && d1 < (double) (9 * i + i)) {
+                    int j = (int)(d1 / 9.0D + (double)this.scrollPos);
                     if (j >= 0 && j < this.getSideDrawnChatLines().size()) {
                         ChatLine chatline = this.getSideDrawnChatLines().get(j);
-                        int k = getSideChatStartX();
-                        return this.mc.fontRenderer.func_238420_b_().func_238357_a_(chatline.func_238169_a_(), (int)d0);
+                        int k = getSideChatStartX(); // subtract to d0 so that it thinks cursor is at x = 0 when x = sideChatStartX
+                        return this.mc.fontRenderer.func_238420_b_().func_238357_a_(chatline.func_238169_a_(), (int)d0 - k);
                     }
                 }
 
