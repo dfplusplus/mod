@@ -23,3 +23,6 @@ run
 
 # Files from Forge MDK
 forge*changelog.txt
+
+# ignores copied common files
+forge/src/main/java/com/github/dfplusplus/common/*
