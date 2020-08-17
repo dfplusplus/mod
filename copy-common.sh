@@ -1,3 +1,6 @@
+# makes them deletable
+chmod -R +w forge/src/main/java/com/github/dfplusplus/common
+
 # removes old common files
 rm -rf forge/src/main/java/com/github/dfplusplus/common
 
