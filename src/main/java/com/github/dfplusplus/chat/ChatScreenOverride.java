@@ -107,12 +107,19 @@ public class ChatScreenOverride extends ChatScreen {
         }
     }
 
+    @SubscribeEvent
+    public static void onGuiKeyPress(GuiScreenEvent.KeyboardKeyEvent keyboardKeyPressedEvent) {
+        Main.log("KEY");
+        keyboardKeyPressedEvent.setCanceled(true);
+    }
+
     public static void showChat(String defaultInputFieldText, ChatRoom chatRoom) {
-        Minecraft.getInstance().displayGuiScreen(new ChatScreenOverride(
+        ChatScreenOverride chatScreenOverride = new ChatScreenOverride(
                 defaultInputFieldText,
                 ((ChatGuiOverride) Minecraft.getInstance().ingameGUI.persistantChatGUI),
                 chatRoom
-        ));
+        );
+        Minecraft.getInstance().displayGuiScreen(chatScreenOverride);
     }
 
     public static void showChat(ChatRoom chatRoom) {
