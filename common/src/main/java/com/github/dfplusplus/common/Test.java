@@ -1,4 +1,4 @@
-package io.github.dfplusplus.common;
+package com.github.dfplusplus.common;
 
 import com.google.common.collect.Lists;
 import net.minecraft.client.settings.KeyBinding;
@@ -12,6 +12,6 @@ public class Test {
     }
 
     public static KeyBinding getKeyBinding() {
-        return new KeyBinding("test", GLFW.GLFW_KEY_U,"testt");
+        return new KeyBinding("test", GLFW.GLFW_KEY_U,"testrtttrt");
     }
 }

@@ -1,5 +1,6 @@
 package com.github.dfplusplus.forge;
 
+import com.github.dfplusplus.common.Test;
 import com.github.dfplusplus.forge.actions.Action;
 import com.github.dfplusplus.forge.actions.ArgCommandAction;
 import com.github.dfplusplus.forge.actions.CommandAction;
@@ -63,6 +64,7 @@ public class KeyBinds {
     }
 
     public static void registerKeyBindings() {
+        ClientRegistry.registerKeyBinding(Test.getKeyBinding());
         mainScreen = new MainScreen(null);
         registerMainScreenKeyBind();
         registerActionKeyBindings();
