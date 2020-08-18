@@ -1,12 +1,11 @@
-package com.github.dfplusplus.forge;
+package com.github.dfplusplus.common;
 
-import com.github.dfplusplus.common.Test;
-import com.github.dfplusplus.forge.actions.Action;
-import com.github.dfplusplus.forge.actions.ArgCommandAction;
-import com.github.dfplusplus.forge.actions.CommandAction;
-import com.github.dfplusplus.forge.chat.ChatRoom;
-import com.github.dfplusplus.forge.chat.ChatScreenOverride;
-import com.github.dfplusplus.forge.screens.MainScreen;
+import com.github.dfplusplus.common.actions.Action;
+import com.github.dfplusplus.common.actions.ArgCommandAction;
+import com.github.dfplusplus.common.actions.CommandAction;
+import com.github.dfplusplus.common.chat.ChatRoom;
+import com.github.dfplusplus.common.chat.ChatScreenOverride;
+import com.github.dfplusplus.common.screens.MainScreen;
 import com.google.common.collect.Maps;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
@@ -19,8 +18,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import static com.github.dfplusplus.forge.Main.MOD_ID;
-import static org.lwjgl.glfw.GLFW.*;
+import static com.github.dfplusplus.common.CommonMain.MOD_ID;
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_U;
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_UNKNOWN;
 
 @Mod.EventBusSubscriber(modid = MOD_ID)
 public class KeyBinds {
@@ -64,7 +64,6 @@ public class KeyBinds {
     }
 
     public static void registerKeyBindings() {
-        ClientRegistry.registerKeyBinding(Test.getKeyBinding());
         mainScreen = new MainScreen(null);
         registerMainScreenKeyBind();
         registerActionKeyBindings();
