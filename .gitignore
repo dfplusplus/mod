@@ -26,3 +26,4 @@ forge*changelog.txt
 
 # ignores copied common files
 forge/src/main/java/com/github/dfplusplus/common/*
+fabric/src/main/java/com/github/dfplusplus/common/*

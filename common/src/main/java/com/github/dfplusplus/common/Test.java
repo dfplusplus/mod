@@ -12,6 +12,6 @@ public class Test {
     }
 
     public static KeyBinding getKeyBinding() {
-        return new KeyBinding("test", GLFW.GLFW_KEY_U,"testrtttrt");
+        return new KeyBinding("test", GLFW.GLFW_KEY_U,"testt");
     }
 }
