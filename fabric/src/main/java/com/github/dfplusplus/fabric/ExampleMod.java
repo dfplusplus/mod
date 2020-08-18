@@ -13,6 +13,5 @@ public class ExampleMod implements ModInitializer {
 		// Proceed with mild caution.
 
 		System.out.println("Hello Fabric world!");
-		MinecraftClient.getInstance()
 	}
 }
