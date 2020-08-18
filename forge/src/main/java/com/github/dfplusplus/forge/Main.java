@@ -1,9 +1,11 @@
 package com.github.dfplusplus.forge;
 
-import com.github.dfplusplus.forge.chat.ChatGuiOverride;
-import com.github.dfplusplus.forge.chat.ChatPredicates;
-import com.github.dfplusplus.forge.chat.ChatRule;
-import com.github.dfplusplus.forge.chat.screens.ChatSizingScreen;
+import com.github.dfplusplus.common.Config;
+import com.github.dfplusplus.common.KeyBinds;
+import com.github.dfplusplus.common.chat.ChatGuiOverride;
+import com.github.dfplusplus.common.chat.ChatPredicates;
+import com.github.dfplusplus.common.chat.ChatRule;
+import com.github.dfplusplus.common.chat.screens.ChatSizingScreen;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
