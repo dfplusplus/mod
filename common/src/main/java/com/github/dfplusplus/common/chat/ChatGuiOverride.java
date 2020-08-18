@@ -1,14 +1,19 @@
-package com.github.dfplusplus.forge.chat;
+package com.github.dfplusplus.common.chat;
 
-import com.github.dfplusplus.forge.Util;
-import com.github.dfplusplus.forge.chat.screens.ChatSizingScreen;
+import com.github.dfplusplus.common.Util;
+import com.github.dfplusplus.common.chat.screens.ChatSizingScreen;
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.*;
+import net.minecraft.client.gui.ChatLine;
+import net.minecraft.client.gui.NewChatGui;
+import net.minecraft.client.gui.RenderComponentsUtil;
+import net.minecraft.util.IReorderingProcessor;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.*;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.Style;
+import net.minecraft.util.text.TranslationTextComponent;
 
 import javax.annotation.Nullable;
 import java.util.Collections;
@@ -16,8 +21,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ChatGuiOverride extends NewChatGui {
-    private final List<ChatLine> mainDrawnChatLines = Lists.newArrayList();
-    private final List<ChatLine> sideDrawnChatLines = Lists.newArrayList();
+    private final List<ChatLine<IReorderingProcessor>> mainDrawnChatLines = Lists.newArrayList();
+    private final List<ChatLine<IReorderingProcessor>> sideDrawnChatLines = Lists.newArrayList();
 
     public ChatGuiOverride(Minecraft mcIn) {
         super(mcIn);
@@ -80,9 +85,9 @@ public class ChatGuiOverride extends NewChatGui {
         }
     }
 
-    private void renderChat(MatrixStack matrixStack, int x, int y, List<ChatLine> chatLines, int updateCounter, int i, boolean flag, int k, double d1, double d2, double d3, double d4, int l) {
+    private void renderChat(MatrixStack matrixStack, int x, int y, List<ChatLine<IReorderingProcessor>> chatLines, int updateCounter, int i, boolean flag, int k, double d1, double d2, double d3, double d4, int l) {
         for(int i1 = 0; i1 + this.scrollPos < chatLines.size() && i1 < i; ++i1) {
-            ChatLine chatline = chatLines.get(i1 + this.scrollPos);
+            ChatLine<IReorderingProcessor> chatline = chatLines.get(i1 + this.scrollPos);
             if (chatline != null) {
                 int j1 = updateCounter - chatline.getUpdatedCounter();
                 if (j1 < 200 || flag) {
@@ -118,9 +123,8 @@ public class ChatGuiOverride extends NewChatGui {
     }
 
     @Override
-    protected void func_238493_a_(ITextProperties textProperties, int chatLineId, int updateCounter, boolean displayOnly) {
-        super.func_238493_a_(textProperties,chatLineId,updateCounter,displayOnly);
-        ITextComponent chatComponent = ((ITextComponent) textProperties);
+    protected void func_238493_a_(ITextComponent chatComponent, int chatLineId, int updateCounter, boolean displayOnly) {
+        super.func_238493_a_(chatComponent,chatLineId,updateCounter,displayOnly);
 
         boolean matchedARule = false;
         for (ChatRule chatRule : ChatRule.getChatRules()) {
@@ -138,16 +142,16 @@ public class ChatGuiOverride extends NewChatGui {
         }
         if (!matchedARule) {
             int i = MathHelper.floor((double) this.getChatWidth() / this.getScale());
-            List<ChatLine> outputChatLines = getOutputChatLines(chatComponent, chatLineId, updateCounter, i);
+            List<ChatLine<IReorderingProcessor>> outputChatLines = getOutputChatLines(chatComponent, chatLineId, updateCounter, i);
             this.getMainDrawnChatLines().addAll(0, outputChatLines);
         }
     }
 
-    private List<ChatLine> getOutputChatLines(ITextComponent chatComponent, int chatLineId, int updateCounter, int i) {
-        List<ChatLine> outputChatLines =
+    private List<ChatLine<IReorderingProcessor>> getOutputChatLines(ITextComponent chatComponent, int chatLineId, int updateCounter, int i) {
+        List<ChatLine<IReorderingProcessor>> outputChatLines =
                 RenderComponentsUtil.func_238505_a_(chatComponent, i, this.mc.fontRenderer)
                         .stream()
-                        .map(iTextComponent -> new ChatLine(updateCounter, iTextComponent, chatLineId))
+                        .map(iTextComponent -> new ChatLine<>(updateCounter, iTextComponent, chatLineId))
                         .collect(Collectors.toList());
         Collections.reverse(outputChatLines);
         return outputChatLines;
@@ -182,8 +186,8 @@ public class ChatGuiOverride extends NewChatGui {
                 if (d0 <= (double) MathHelper.floor((double) this.getChatWidth() / scale) && d1 < (double) (9 * i + i)) {
                     int j = (int) (d1 / 9.0D + (double) this.scrollPos);
                     if (j >= 0 && j < this.getMainDrawnChatLines().size()) {
-                        ChatLine chatline = this.getMainDrawnChatLines().get(j);
-                        Style returnedStyle = this.mc.fontRenderer.func_238420_b_().func_238357_a_(chatline.func_238169_a_(), (int) d0);
+                        ChatLine<IReorderingProcessor> chatline = this.getMainDrawnChatLines().get(j);
+                        Style returnedStyle = this.mc.fontRenderer.func_238420_b_().func_243239_a(chatline.func_238169_a_(), (int)d0);
                         if (returnedStyle != null) return returnedStyle; // only return if there's actually some style found
                     }
                 }
@@ -200,9 +204,9 @@ public class ChatGuiOverride extends NewChatGui {
                 if (d0 <= (double) MathHelper.floor((double) this.getSideChatWidth() / scale) && d1 < (double) (9 * i + i)) {
                     int j = (int)(d1 / 9.0D + (double)this.scrollPos);
                     if (j >= 0 && j < this.getSideDrawnChatLines().size()) {
-                        ChatLine chatline = this.getSideDrawnChatLines().get(j);
+                        ChatLine<IReorderingProcessor> chatline = this.getSideDrawnChatLines().get(j);
                         int k = getSideChatStartX(); // subtract to d0 so that it thinks cursor is at x = 0 when x = sideChatStartX
-                        return this.mc.fontRenderer.func_238420_b_().func_238357_a_(chatline.func_238169_a_(), (int)d0 - k);
+                        return this.mc.fontRenderer.func_238420_b_().func_243239_a(chatline.func_238169_a_(), (int)d0 - k);
                     }
                 }
 
@@ -235,7 +239,7 @@ public class ChatGuiOverride extends NewChatGui {
         this.addToChat(side, new TranslationTextComponent(message),0,mc.ingameGUI.getTicks());
     }
 
-    private List<ChatLine> getChatLines(ChatRule.ChatSide chatSide) {
+    private List<ChatLine<IReorderingProcessor>> getChatLines(ChatRule.ChatSide chatSide) {
         switch (chatSide) {
             case MAIN: default:
                 return mainDrawnChatLines;
@@ -244,11 +248,11 @@ public class ChatGuiOverride extends NewChatGui {
         }
     }
 
-    private List<ChatLine> getMainDrawnChatLines() {
+    private List<ChatLine<IReorderingProcessor>> getMainDrawnChatLines() {
         return mainDrawnChatLines;
     }
 
-    private List<ChatLine> getSideDrawnChatLines() {
+    private List<ChatLine<IReorderingProcessor>> getSideDrawnChatLines() {
         return sideDrawnChatLines;
     }
 
@@ -262,7 +266,7 @@ public class ChatGuiOverride extends NewChatGui {
                 i = MathHelper.floor((double) getSideChatWidth() / getSideChatScale());
                 break;
         }
-        List<ChatLine> outputChatLines = getOutputChatLines(chatComponent, chatLineId, updateCounter, i);
+        List<ChatLine<IReorderingProcessor>> outputChatLines = getOutputChatLines(chatComponent, chatLineId, updateCounter, i);
         this.getChatLines(side).addAll(0, outputChatLines);
     }
 
