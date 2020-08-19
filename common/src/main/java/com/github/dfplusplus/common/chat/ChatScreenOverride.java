@@ -9,13 +9,7 @@ import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.Style;
-import net.minecraftforge.client.event.GuiScreenEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 
-import static com.github.dfplusplus.common.CommonMain.MOD_ID;
-
-@Mod.EventBusSubscriber(modid = MOD_ID)
 public class ChatScreenOverride extends ChatScreen {
     private Button settingsButton;
     private final ChatGuiOverride chatGuiOverride;
@@ -87,20 +81,6 @@ public class ChatScreenOverride extends ChatScreen {
         }
 
         this.minecraft.displayGuiScreen((Screen)null);
-    }
-
-    @SubscribeEvent
-    public static void onGuiInitPre(GuiScreenEvent.InitGuiEvent.Pre initGuiEvent) {
-        if (initGuiEvent.getGui().getClass() == ChatScreen.class) { // doesnt use instanceof since it must exactly match that class
-            initGuiEvent.setCanceled(true);
-        }
-    }
-
-    @SubscribeEvent
-    public static void onGuiInitPost(GuiScreenEvent.InitGuiEvent.Post initGuiEvent) {
-        if (initGuiEvent.getGui().getClass() == ChatScreen.class) {
-            showChat(((ChatScreen) initGuiEvent.getGui()).defaultInputFieldText, ChatRoom.DEFAULT_CHAT);
-        }
     }
 
     public static void showChat(String defaultInputFieldText, ChatRoom chatRoom) {
