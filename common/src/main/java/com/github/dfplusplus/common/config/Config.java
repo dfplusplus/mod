@@ -1,171 +1,96 @@
 package com.github.dfplusplus.common.config;
 
 
-import com.google.common.collect.Maps;
 import com.github.dfplusplus.common.chat.ChatRule;
 import net.minecraft.client.GameSettings;
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.fml.common.Mod;
 
-import java.util.Map;
-
-import static com.github.dfplusplus.common.CommonMain.MOD_ID;
-
-@Mod.EventBusSubscriber(modid = MOD_ID)
 public class Config {
-    private static final ForgeConfigSpec configSpec;
-    private static final ForgeConfigSpec.ConfigValue<String> customWordsSpec;
-    private static final ForgeConfigSpec.ConfigValue<Integer> chatOffsetXSpec, chatOffsetYSpec;
-    private static final ForgeConfigSpec.BooleanValue hasGeneratedChatSizingSettingsSpec;
-    private static final ForgeConfigSpec.BooleanValue syncWithMinecraftSpec;
-    private static final ForgeConfigSpec.DoubleValue chatScaleSpec, chatWidthSpec;
+    private static IConfigProvider configProvider;
 
-    private static final Map<ChatRule.ChatRuleType, ForgeConfigSpec.EnumValue<ChatRule.ChatSide>> chatSideSpecs = Maps.newHashMap();
-    private static final Map<ChatRule.ChatRuleType, ForgeConfigSpec.EnumValue<ChatRule.ChatSound>> chatSoundSpecs = Maps.newHashMap();
+    public static IConfigProvider getConfigProvider() {
+        return configProvider;
+    }
 
-    static {
-        ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
-
-        builder.push("chat");
-        customWordsSpec = builder
-                .comment("The words for custom 2nd chat")
-                .translation(MOD_ID + ".config.customwords")
-                .define("customWords","");
-
-        hasGeneratedChatSizingSettingsSpec = builder
-                .comment("Whether the user has select 'Do not sync' on the chat sizing settings before")
-                .translation(MOD_ID + ".config.hasgeneratedchatsizingsettings")
-                .define("hasGeneratedChatSizingSettings",false);
-
-        chatOffsetXSpec = builder
-                .comment("The offset X, in pixels")
-                .translation(MOD_ID + ".config.chatoffsetx")
-                .define("chatOffsetX",0);
-
-        chatOffsetYSpec = builder
-                .comment("The offset Y, in pixels")
-                .translation(MOD_ID + ".config.chatoffsety")
-                .define("chatOffsetY",0);
-
-        syncWithMinecraftSpec = builder
-                .comment("Whether chat sizing settings are synced with minecraft")
-                .translation(MOD_ID + ".config.syncwithminecraft")
-                .define("syncWithMinecraft",true);
-
-        chatScaleSpec = builder
-                .comment("The scale of the chat")
-                .translation(MOD_ID + ".config.chatscale")
-                .defineInRange("chatScale",0,0f,1f);
-
-        chatWidthSpec = builder
-                .comment("The width of the chat")
-                .translation(MOD_ID + ".config.chatwidth")
-                .defineInRange("chatWidth",0,0f,1f);
-
-        for (ChatRule.ChatRuleType chatRuleType : ChatRule.ChatRuleType.values()) {
-            chatSideSpecs.put(chatRuleType, builder
-                    .comment(String.format("Side of %s", chatRuleType.name()))
-                    .translation(String.format("%s.config.%sside", MOD_ID, chatRuleType.name()))
-                    .defineEnum(String.format("%s_isSide", chatRuleType.name()), ChatRule.ChatSide.MAIN));
-            chatSoundSpecs.put(chatRuleType, builder
-                    .comment(String.format("Sound of %s", chatRuleType.name()))
-                    .translation(String.format("%s.config.%sside", MOD_ID, chatRuleType.name()))
-                    .defineEnum(String.format("%s_sound", chatRuleType.name()), ChatRule.ChatSound.NONE));
-        }
-        configSpec = builder.build();
+    public static void setConfigProvider(IConfigProvider configProvider) {
+        Config.configProvider = configProvider;
     }
 
     public static String getCustomWords() {
-        return customWordsSpec.get();
+        return configProvider.getCustomWords();
     }
 
     public static void setCustomWords(String customWords) {
-        customWordsSpec.set(customWords);
-        customWordsSpec.save();
+        configProvider.setCustomWords(customWords);
     }
 
     public static void genChatSizingSettings(GameSettings gameSettings) {
-        chatScaleSpec.set(gameSettings.chatScale);
-        chatScaleSpec.save();
-        chatWidthSpec.set(gameSettings.chatWidth);
-        chatWidthSpec.save();
-        hasGeneratedChatSizingSettingsSpec.set(true);
-        hasGeneratedChatSizingSettingsSpec.save();
+        configProvider.setChatScale(gameSettings.chatScale);
+        configProvider.setChatWidth(gameSettings.chatWidth);
+        configProvider.setGeneratedChatSizingSettings(true);
     }
 
     public static boolean hasGeneratedChatSizingSettings() {
-        return hasGeneratedChatSizingSettingsSpec.get();
+        return configProvider.hasGeneratedChatSizingSettings();
     }
 
     public static int getChatOffsetX() {
-        return chatOffsetXSpec.get();
+        return configProvider.getChatOffsetX();
     }
 
     public static void setChatOffsetX(int newChatOffsetX) {
-        if (newChatOffsetX == chatOffsetXSpec.get()) return;
-        chatOffsetXSpec.set(newChatOffsetX);
-        chatOffsetXSpec.save();
+        if (newChatOffsetX != configProvider.getChatOffsetX())
+            configProvider.setChatOffsetX(newChatOffsetX);
     }
 
     public static int getChatOffsetY() {
-        return chatOffsetYSpec.get();
+        return configProvider.getChatOffsetY();
     }
 
     public static void setChatOffsetY(int newChatOffsetY) {
-        if (newChatOffsetY == chatOffsetYSpec.get()) return;
-        chatOffsetYSpec.set(newChatOffsetY);
-        chatOffsetYSpec.save();
+        if (newChatOffsetY != configProvider.getChatOffsetY())
+            configProvider.setChatOffsetY(newChatOffsetY);
     }
 
     public static boolean getSyncWithMinecraft() {
-        return syncWithMinecraftSpec.get();
+        return configProvider.getSyncWithMinecraft();
     }
 
     public static void setSyncWithMinecraft(boolean newSyncWithMinecraft) {
-        if (newSyncWithMinecraft == syncWithMinecraftSpec.get()) return;
-        syncWithMinecraftSpec.set(newSyncWithMinecraft);
-        syncWithMinecraftSpec.save();
+        if (newSyncWithMinecraft != configProvider.getSyncWithMinecraft())
+            configProvider.setSyncWithMinecraft(newSyncWithMinecraft);
     }
 
     public static double getChatScale() {
-        return chatScaleSpec.get();
+        return configProvider.getChatScale();
     }
 
     public static void setChatScale(double newChatScale) {
-        if (newChatScale == chatScaleSpec.get()) return;
-        chatScaleSpec.set(newChatScale);
-        chatScaleSpec.save();
+        if (newChatScale != configProvider.getChatScale())
+            configProvider.setChatScale(newChatScale);
     }
 
     public static double getChatWidth() {
-        return chatWidthSpec.get();
+        return configProvider.getChatWidth();
     }
 
     public static void setChatWidth(double newChatWidth) {
-        if (newChatWidth == chatWidthSpec.get()) return;
-        chatWidthSpec.set(newChatWidth);
-        chatWidthSpec.save();
+        if (newChatWidth != configProvider.getChatWidth())
+            configProvider.setChatWidth(newChatWidth);
     }
 
     public static ChatRule.ChatSide getChatSide(ChatRule.ChatRuleType chatRuleType) {
-        return chatSideSpecs.get(chatRuleType).get();
+        return configProvider.getChatSide(chatRuleType);
     }
 
     public static void setChatSide(ChatRule.ChatRuleType chatRuleType, ChatRule.ChatSide chatSide) {
-        chatSideSpecs.get(chatRuleType).set(chatSide); // true if inputted 'SIDE'
-        chatSideSpecs.get(chatRuleType).save();
+        configProvider.setChatSide(chatRuleType,chatSide);
     }
 
     public static ChatRule.ChatSound getChatSound(ChatRule.ChatRuleType chatRuleType) {
-        return chatSoundSpecs.get(chatRuleType).get();
+        return configProvider.getChatSound(chatRuleType);
     }
 
     public static void setChatSound(ChatRule.ChatRuleType chatRuleType, ChatRule.ChatSound chatSound) {
-        chatSoundSpecs.get(chatRuleType).set(chatSound);
-        chatSoundSpecs.get(chatRuleType).save();
-    }
-
-    public static ForgeConfigSpec getConfigSpec() {
-        return configSpec;
+        configProvider.setChatSound(chatRuleType,chatSound);
     }
 }

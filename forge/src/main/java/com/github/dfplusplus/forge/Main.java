@@ -1,6 +1,6 @@
 package com.github.dfplusplus.forge;
 
-import com.github.dfplusplus.common.Config;
+import com.github.dfplusplus.common.config.Config;
 import com.github.dfplusplus.common.chat.ChatGuiOverride;
 import com.github.dfplusplus.common.chat.ChatPredicates;
 import com.github.dfplusplus.common.chat.ChatRule;
@@ -21,7 +21,7 @@ public class Main {
 
     public Main() {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::init);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.getConfigSpec());
+        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ForgeConfigProvider.getConfigSpec());
     }
 
     public static void log(Object message) {
