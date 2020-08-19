@@ -1,9 +1,12 @@
 package com.github.dfplusplus.forge;
 
+import com.github.dfplusplus.common.KeyBinds;
+import com.github.dfplusplus.common.Util;
 import com.github.dfplusplus.common.chat.ChatRoom;
 import com.github.dfplusplus.common.chat.ChatScreenOverride;
 import net.minecraft.client.gui.screen.ChatScreen;
 import net.minecraftforge.client.event.GuiScreenEvent;
+import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -22,6 +25,13 @@ public class EventHandlers {
     public static void onGuiInitPost(GuiScreenEvent.InitGuiEvent.Post initGuiEvent) {
         if (initGuiEvent.getGui().getClass() == ChatScreen.class) {
             ChatScreenOverride.showChat(((ChatScreen) initGuiEvent.getGui()).defaultInputFieldText, ChatRoom.DEFAULT_CHAT);
+        }
+    }
+
+    @SubscribeEvent
+    public static void onKeyPress(InputEvent.KeyInputEvent keyInputEvent) {
+        if (Util.isValidClient() && keyInputEvent.getAction() == 1) {
+            KeyBinds.onValidKeyPress();
         }
     }
 }

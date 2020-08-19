@@ -6,23 +6,20 @@ import com.github.dfplusplus.common.actions.CommandAction;
 import com.github.dfplusplus.common.chat.ChatRoom;
 import com.github.dfplusplus.common.chat.ChatScreenOverride;
 import com.github.dfplusplus.common.screens.MainScreen;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
-import net.minecraftforge.client.event.InputEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
-import net.minecraftforge.fml.common.Mod;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static com.github.dfplusplus.common.CommonMain.MOD_ID;
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_U;
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_UNKNOWN;
 
-@Mod.EventBusSubscriber(modid = MOD_ID)
 public class KeyBinds {
     private static final Map<ChatRoom, KeyBinding> chatRoomKeybinds = Maps.newHashMap();
 
@@ -34,13 +31,10 @@ public class KeyBinds {
     private static final List<ActionKeyBidning> ACTION_KEY_BINDINGS = new LinkedList<>();
     private static MainScreen mainScreen = null;
 
-    @SubscribeEvent
-    public static void onKeyPress(InputEvent.KeyInputEvent keyInputEvent) {
-        if (Util.isValidClient() && keyInputEvent.getAction() == 1) {
-            processMainScreenKeybind();
-            processChatRoomKeyBinds();
-            processActionKeyBinds();
-        }
+    public static void onValidKeyPress() {
+        processMainScreenKeybind();
+        processChatRoomKeyBinds();
+        processActionKeyBinds();
     }
 
     private static void processMainScreenKeybind() {
@@ -63,18 +57,20 @@ public class KeyBinds {
         }
     }
 
-    public static void registerKeyBindings() {
+    public static List<KeyBinding> fetchKeyBindings() {
         mainScreen = new MainScreen(null);
-        registerMainScreenKeyBind();
-        registerActionKeyBindings();
-        registerChatRoomKeyBindings();
+        List<KeyBinding> keyBindings = Lists.newLinkedList();
+        keyBindings.add   (fetchMainScreenKeyBind());
+        keyBindings.addAll(fetchActionKeyBindings());
+        keyBindings.addAll(fetchChatRoomKeyBindings());
+        return keyBindings;
     }
 
-    private static void registerMainScreenKeyBind() {
-        ClientRegistry.registerKeyBinding(KeyBinds.displayMainScreen);
+    private static KeyBinding fetchMainScreenKeyBind() {
+        return KeyBinds.displayMainScreen;
     }
 
-    private static void registerActionKeyBindings() {
+    private static List<KeyBinding> fetchActionKeyBindings() {
         ACTION_KEY_BINDINGS.clear();
 
         // mod keybinds
@@ -98,12 +94,12 @@ public class KeyBinds {
         addCommandBinding("/server node4", PermissionLevel.DEFAULT);
         addCommandBinding("/server beta", PermissionLevel.DEFAULT);
 
-        for (ActionKeyBidning actionKeyBidning : ACTION_KEY_BINDINGS) {
-            ClientRegistry.registerKeyBinding(actionKeyBidning.getKeyBinding());
-        }
+        return ACTION_KEY_BINDINGS.stream() // gathers all the key bindings I just added
+                .map(actionKeyBidning -> actionKeyBidning.keyBinding)
+                .collect(Collectors.toList());
     }
 
-    private static void registerChatRoomKeyBindings() {
+    private static List<KeyBinding> fetchChatRoomKeyBindings() {
         for (ChatRoom chatRoom : ChatRoom.getCustomChatrooms()) {
             chatRoomKeybinds.put(chatRoom, new KeyBinding(
                     String.format("%s.key.chatroom.%s", MOD_ID, chatRoom.name().toLowerCase()),
@@ -111,9 +107,7 @@ public class KeyBinds {
                     "key.categories.dfplusplus.chatrooms"
             ));
         }
-        for (KeyBinding keyBinding : chatRoomKeybinds.values()) {
-            ClientRegistry.registerKeyBinding(keyBinding);
-        }
+        return Lists.newLinkedList(chatRoomKeybinds.values());
     }
 
     private static void onDisplayMainScreen() {

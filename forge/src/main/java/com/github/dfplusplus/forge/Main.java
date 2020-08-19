@@ -1,7 +1,6 @@
 package com.github.dfplusplus.forge;
 
 import com.github.dfplusplus.common.Config;
-import com.github.dfplusplus.common.KeyBinds;
 import com.github.dfplusplus.common.chat.ChatGuiOverride;
 import com.github.dfplusplus.common.chat.ChatPredicates;
 import com.github.dfplusplus.common.chat.ChatRule;
@@ -30,7 +29,7 @@ public class Main {
     }
 
     private void init(FMLClientSetupEvent event) {
-        KeyBinds.registerKeyBindings();
+        ForgeRegistry.registerKeyBindings();
         ChatGuiOverride.inject();
         ChatPredicates.loadFromConfig();
         ChatRule.loadFromConfig();
