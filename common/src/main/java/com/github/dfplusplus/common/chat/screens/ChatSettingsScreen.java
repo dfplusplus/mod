@@ -1,6 +1,6 @@
 package com.github.dfplusplus.common.chat.screens;
 
-import com.github.dfplusplus.common.Config;
+import com.github.dfplusplus.common.config.Config;
 import com.github.dfplusplus.common.chat.ChatPredicates;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.gui.screen.Screen;

@@ -1,4 +1,4 @@
-package com.github.dfplusplus.common;
+package com.github.dfplusplus.common.config;
 
 
 import com.google.common.collect.Maps;
