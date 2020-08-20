@@ -1,0 +1,15 @@
+accessWidener	v1	named
+extendable method net/minecraft/client/gui/hud/ChatHud isChatHidden ()Z
+extendable method net/minecraft/client/gui/hud/ChatHud isChatFocused ()Z
+extendable method net/minecraft/client/gui/hud/ChatHud getMessageOpacityMultiplier (I)D
+extendable method net/minecraft/client/gui/hud/ChatHud addMessage (Lnet/minecraft/text/Text;IIZ)V
+extendable method net/minecraft/client/gui/hud/ChatHud addMessage (Lnet/minecraft/text/Text;I)V
+extendable method net/minecraft/client/gui/hud/ChatHud removeMessage (I)V
+
+mutable field net/minecraft/client/gui/hud/InGameHud chatHud Lnet/minecraft/client/gui/hud/ChatHud;
+accessible field net/minecraft/client/gui/hud/ChatHud client Lnet/minecraft/client/MinecraftClient;
+accessible field net/minecraft/client/gui/hud/ChatHud scrolledLines I
+accessible field net/minecraft/client/gui/hud/ChatHud hasUnreadNewMessages Z
+accessible field net/minecraft/client/gui/hud/ChatHud LOGGER Lorg/apache/logging/log4j/Logger;
+accessible field net/minecraft/client/gui/screen/ChatScreen commandSuggestor Lnet/minecraft/client/gui/screen/CommandSuggestor;
+accessible field net/minecraft/client/gui/screen/ChatScreen originalChatText Ljava/lang/String;
