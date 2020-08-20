@@ -1,8 +1,6 @@
 package com.github.dfplusplus.fabric;
 
-import com.github.dfplusplus.common.Test;
 import net.fabricmc.api.ModInitializer;
-import net.minecraft.client.MinecraftClient;
 
 public class FabricMain implements ModInitializer {
 	@Override
