@@ -12,8 +12,8 @@ cp -r common/src/main/java/com fabric/src/main/java/
 
 # then, transforms the fabric stuff to what fabric can understand.
 # fabric and forge use different mappings so this bodge remaps it
-find ./fabric -name "*.java" -type f | xargs fabric/fabric-transformer.sh
+find ./fabric/src/main/java/com/github/dfplusplus/common -name "*.java" -type f | xargs fabric/fabric-transformer.sh
 
 # makes them readonly
-chmod -R -w forge/src/main/java/com/github/dfplusplus/common
-chmod -R -w fabric/src/main/java/com/github/dfplusplus/common
+#chmod -R -w forge/src/main/java/com/github/dfplusplus/common
+#chmod -R -w fabric/src/main/java/com/github/dfplusplus/common
