@@ -86,7 +86,7 @@ public class ChatScreenOverride extends ChatScreen {
     public static void showChat(String defaultInputFieldText, ChatRoom chatRoom) {
         ChatScreenOverride chatScreenOverride = new ChatScreenOverride(
                 defaultInputFieldText,
-                ((ChatGuiOverride) Minecraft.getInstance().ingameGUI.persistantChatGUI),
+                ((ChatGuiOverride) Minecraft.getInstance().ingameGUI.getChatGUI()),
                 chatRoom
         );
         Minecraft.getInstance().displayGuiScreen(chatScreenOverride);

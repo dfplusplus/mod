@@ -106,7 +106,7 @@ public class ChatSizingScreen extends Screen {
                 (gameSettings -> getActualChatScale()), // on get
                 ((gameSettings, aDouble) -> {
                     if (!syncWithMinecraft) chatScale = aDouble;
-                    minecraft.ingameGUI.persistantChatGUI.clearChatMessages(false);
+                    minecraft.ingameGUI.getChatGUI().clearChatMessages(false);
                 }), // on set, only works if syncing
                 (gameSettings, sliderPercentageOption) -> new TranslationTextComponent(
                         "gui.dfplusplus.chatsizingsettings.chatscale", (int)(getActualChatScale() * 100)) // on display
@@ -120,7 +120,7 @@ public class ChatSizingScreen extends Screen {
                     (gameSettings -> getActualChatWidth()), // on get
                     ((gameSettings, aDouble) -> {
                         if (!syncWithMinecraft) chatWidth = aDouble;
-                        minecraft.ingameGUI.persistantChatGUI.clearChatMessages(false);
+                        minecraft.ingameGUI.getChatGUI().clearChatMessages(false);
                     }), // on set, only works if syncing
                     (gameSettings, sliderPercentageOption) -> new TranslationTextComponent(
                             "gui.dfplusplus.chatsizingsettings.chatwidth", NewChatGui.calculateChatboxWidth(getActualChatWidth())) // on display
@@ -154,7 +154,7 @@ public class ChatSizingScreen extends Screen {
     }
 
     private void onDummyMessagesButtonPress(Button button) {
-        ChatGuiOverride chatGuiOverride = ((ChatGuiOverride) minecraft.ingameGUI.persistantChatGUI);
+        ChatGuiOverride chatGuiOverride = ((ChatGuiOverride) minecraft.ingameGUI.getChatGUI());
         chatGuiOverride.addToChat(ChatRule.ChatSide.MAIN, "TEST");
         chatGuiOverride.addToChat(ChatRule.ChatSide.SIDE, "TEST2");
     }
