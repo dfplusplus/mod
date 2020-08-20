@@ -19,11 +19,11 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.fabricmc.example.ExampleMod"
+      "FabricMain"
     ]
   },
   "mixins": [
-    "modid.mixins.json"
+    "dfplusplus.mixins.json"
   ],
 
   "depends": {
@@ -33,5 +33,6 @@
   },
   "suggests": {
     "flamingo": "*"
-  }
+  },
+  "accessWidener": "dfplusplus.accesswidener"
 }
