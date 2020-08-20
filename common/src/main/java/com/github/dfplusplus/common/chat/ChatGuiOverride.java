@@ -216,7 +216,7 @@ public class ChatGuiOverride extends NewChatGui {
     }
 
     private int getSideChatStartX() {
-        return (int) ((mc.getMainWindow().getScaledWidth() - getSideChatWidth()) / getSideChatScale()) - 4;
+        return (int) ((this.mc.getMainWindow().getScaledWidth() - getSideChatWidth()) / getSideChatScale()) - 4;
     }
 
     @Override
@@ -230,13 +230,8 @@ public class ChatGuiOverride extends NewChatGui {
         return super.getChatOpen() || this.mc.currentScreen instanceof ChatSizingScreen;
     }
 
-    public static void inject() {
-        Minecraft mc = Minecraft.getInstance();
-        mc.ingameGUI.persistantChatGUI = new ChatGuiOverride(mc);
-    }
-
     public void addToChat(ChatRule.ChatSide side, String message) {
-        this.addToChat(side, new TranslationTextComponent(message),0,mc.ingameGUI.getTicks());
+        this.addToChat(side, new TranslationTextComponent(message),0,this.mc.ingameGUI.getTicks());
     }
 
     private List<ChatLine<IReorderingProcessor>> getChatLines(ChatRule.ChatSide chatSide) {
