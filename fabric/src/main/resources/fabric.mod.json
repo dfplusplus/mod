@@ -19,7 +19,7 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "FabricMain"
+      "com.github.dfplusplus.fabric.FabricMain"
     ]
   },
   "mixins": [
