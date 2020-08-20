@@ -64,11 +64,11 @@ public class ChatSettingsScreen extends Screen {
         renderBackground(matrixStack);
         super.render(matrixStack,mouseX,mouseY,partialTicks);
 
-        this.drawString(matrixStack, minecraft.fontRenderer,"Custom Chat Keywords",width/2 - 100,20,16777215);
+        drawString(matrixStack, minecraft.fontRenderer,"Custom Chat Keywords",width/2 - 100,20,16777215);
         customWordsField.render(matrixStack, mouseX, mouseY, partialTicks);
-        this.drawString(matrixStack, minecraft.fontRenderer,"Messages containing these phrases are",width/2 - 100,52,16777215);
-        this.drawString(matrixStack, minecraft.fontRenderer,"put into the 'Custom' second chat.",width/2 - 100,62,16777215);
-        this.drawString(matrixStack, minecraft.fontRenderer,"Separate phrases with commas.",width/2 - 100,72,16777215);
+        drawString(matrixStack, minecraft.fontRenderer,"Messages containing these phrases are",width/2 - 100,52,16777215);
+        drawString(matrixStack, minecraft.fontRenderer,"put into the 'Custom' second chat.",width/2 - 100,62,16777215);
+        drawString(matrixStack, minecraft.fontRenderer,"Separate phrases with commas.",width/2 - 100,72,16777215);
 
 //        this.drawString(minecraft.fontRenderer,"Highlight Keywords",width/2 - 100,80,16777215);
 //        highlightWordsField.render(p_render_1_,p_render_2_,p_render_3_);
