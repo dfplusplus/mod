@@ -30,4 +30,12 @@ public class Util {
         String target = System.getenv().get("target");
         return target != null && target.contains("dev");
     }
+
+    public static int getRGB(int r, int g, int b, int a) {
+        return
+                ((a & 0xFF) << 24) |
+                ((r & 0xFF) << 16) |
+                ((g & 0xFF) << 8)  |
+                ((b & 0xFF));
+    }
 }

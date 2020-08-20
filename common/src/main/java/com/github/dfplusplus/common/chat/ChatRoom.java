@@ -1,17 +1,17 @@
 package com.github.dfplusplus.common.chat;
 
 import com.github.dfplusplus.common.PermissionLevel;
+import com.github.dfplusplus.common.Util;
 import com.google.common.collect.Lists;
 import net.minecraft.client.Minecraft;
 
-import java.awt.*;
 import java.util.List;
 
 public enum ChatRoom {
     DEFAULT_CHAT(Minecraft.getInstance().gameSettings.getChatBackgroundColor(Integer.MIN_VALUE), PermissionLevel.DEFAULT),
-    SUPPORT_CHAT((new Color(0x55,0xff,0xff,100)).getRGB(), PermissionLevel.SUPPORT),
-    MOD_CHAT((new Color(0x55,0xff,0x55,100).getRGB()), PermissionLevel.MOD),
-    ADMIN_CHAT((new Color(0xff,0x55,0x55,100).getRGB()), PermissionLevel.ADMIN);
+    SUPPORT_CHAT((Util.getRGB(0x55, 0xff, 0xff, 100)), PermissionLevel.SUPPORT),
+    MOD_CHAT((Util.getRGB(0x55,0xff,0x55,100)), PermissionLevel.MOD),
+    ADMIN_CHAT((Util.getRGB(0xff,0x55,0x55,100)), PermissionLevel.ADMIN);
 
     private final int color;
 
