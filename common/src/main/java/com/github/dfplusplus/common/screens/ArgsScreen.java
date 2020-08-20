@@ -60,7 +60,7 @@ public class ArgsScreen extends Screen {
                 widget = newTextField;
             } else if (argsComponent instanceof ArgsOptionalComponent) {
                 ArgsOptionalComponent argsOptionalComponent = ((ArgsOptionalComponent) argsComponent);
-                Button newButton = new Button(0,0,200,200,new StringTextComponent(""),argsOptionalComponent::flip);
+                Button newButton = new Button(0,0,200,20,new StringTextComponent(""),argsOptionalComponent::flip);
                 newButton.setMessage(new StringTextComponent(I18n.format(argsOptionalComponent.getMessage())));
                 widget = newButton;
             }
@@ -73,7 +73,7 @@ public class ArgsScreen extends Screen {
             y+=Y_SPACING;
         }
 
-        submitButton = addButton(new Button(0,0,200,200,new TranslationTextComponent("gui.dfplusplus.runcommand"),this::onSubmitButtonPress));
+        submitButton = addButton(new Button(0,0,200,20,new TranslationTextComponent("gui.dfplusplus.runcommand"),this::onSubmitButtonPress));
         setupWidgetDimensions(x,y,submitButton);
     }
 
@@ -112,7 +112,6 @@ public class ArgsScreen extends Screen {
 
     private void setupWidgetDimensions(int x, int y, Widget widget) {
         widget.setWidth(100);
-        widget.setHeight(20);
         widget.x = x - widget.getWidth()/2;
         widget.y = y;
     }
