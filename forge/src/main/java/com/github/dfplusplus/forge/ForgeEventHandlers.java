@@ -10,10 +10,10 @@ import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import static com.github.dfplusplus.forge.Main.MOD_ID;
+import static com.github.dfplusplus.forge.ForgeMain.MOD_ID;
 
 @Mod.EventBusSubscriber(modid = MOD_ID)
-public class EventHandlers {
+public class ForgeEventHandlers {
     @SubscribeEvent
     public static void onGuiInitPre(GuiScreenEvent.InitGuiEvent.Pre initGuiEvent) {
         if (initGuiEvent.getGui().getClass() == ChatScreen.class) { // doesnt use instanceof since it must exactly match that class

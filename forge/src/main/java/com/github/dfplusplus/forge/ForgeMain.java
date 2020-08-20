@@ -15,11 +15,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 @Mod("dfplusplus")
-public class Main {
+public class ForgeMain {
     public final static String MOD_ID = "dfplusplus";
     private final static Logger logger = LogManager.getLogger(MOD_ID);
 
-    public Main() {
+    public ForgeMain() {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::init);
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ForgeConfigProvider.getConfigSpec());
     }
@@ -30,7 +30,7 @@ public class Main {
 
     private void init(FMLClientSetupEvent event) {
         ForgeRegistry.registerKeyBindings();
-        ChatGuiOverride.inject();
+        ForgeInject.inject();
         ChatPredicates.loadFromConfig();
         ChatRule.loadFromConfig();
         ChatSizingScreen.loadFromConfig();
