@@ -3,6 +3,10 @@ plugins {
 	id 'maven-publish'
 }
 
+repositories {
+	mavenCentral()
+}
+
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
@@ -21,6 +25,13 @@ dependencies {
 
 	// PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
 	// You may need to force-disable transitiveness on them.
+
+	// required for @Nullable
+	compile group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.0'
+}
+
+minecraft {
+	accessWidener "src/main/resources/dfplusplus.accesswidener"
 }
 
 processResources {
