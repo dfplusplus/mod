@@ -1,0 +1,79 @@
+{
+  "key.categories.dfplusplus": "DF++",
+  "key.categories.dfplusplus.chatrooms": "DF++ Chat Shortcuts",
+  "key.categories.dfplusplus.default": "DF++ Commands Shortcuts",
+  "key.categories.dfplusplus.support": "DF++ Support Commands Shortcuts",
+  "key.categories.dfplusplus.expert": "DF++ Expert Commands Shortcuts",
+  "key.categories.dfplusplus.mod": "DF++ Mod Commands Shortcuts",
+  "key.categories.dfplusplus.admin": "DF++ Admin Commands Shortcuts",
+
+  "dfplusplus.key.mainscreen": "Open Main Menu",
+  "dfplusplus.key.chatroom.admin_chat": "Admin Chat (/ab)",
+  "dfplusplus.key.chatroom.mod_chat": "Mod Chat (/mb)",
+  "dfplusplus.key.chatroom.support_chat": "Support Chat (/sb)",
+
+  "gui.dfplusplus.mainscreen": "DiamondFire Tools!",
+  "gui.dfplusplus.mainscreen.adminscreen": "Admin Tools",
+  "gui.dfplusplus.mainscreen.modscreen": "Mod Tools",
+  "gui.dfplusplus.mainscreen.generalscreen": "General Tools",
+
+  "gui.dfplusplus.adminscreen": "Admin Tools",
+
+  "gui.dfplusplus.modscreen": "Moderator Tools",
+
+  "gui.dfplusplus.generalscreen": "General Tools",
+
+  "gui.dfplusplus.player": "Player",
+  "gui.dfplusplus.duration": "Duration",
+  "gui.dfplusplus.reason": "Reason",
+  "gui.dfplusplus.from": "From",
+  "gui.dfplusplus.to": "To",
+  "gui.dfplusplus.filter": "Filter",
+  "gui.dfplusplus.settings": "Settings...",
+  "gui.dfplusplus.settingstitle": "Settings",
+  "gui.dfplusplus.runcommand": "Run Command",
+
+  "gui.dfplusplus.chatsettings.chattypesettings": "Chat Types Settings...",
+  "gui.dfplusplus.chatsettings.chatsizingsettings": "Side Chat Sizing...",
+
+  "gui.dfplusplus.chatsizingsettings.chatoffsetx": "Chat Offset X: %spx",
+  "gui.dfplusplus.chatsizingsettings.chatoffsety": "Chat Offset Y: %spx",
+  "gui.dfplusplus.chatsizingsettings.chatscale": "Chat Scale: %s%%",
+  "gui.dfplusplus.chatsizingsettings.chatwidth": "Chat Width: %spx",
+  "gui.dfplusplus.chatsizingsettings.dummy": "Send Dummy Messages",
+
+  "gui.dfplusplus.custom": "Custom",
+  "gui.dfplusplus.message": "/msg",
+  "gui.dfplusplus.support": "Support",
+  "gui.dfplusplus.session": "Session",
+  "gui.dfplusplus.mod": "Mod",
+  "gui.dfplusplus.admin": "Admin",
+
+  "gui.dfplusplus.filtersettingslabel": "%s Filter Settings...",
+  "gui.dfplusplus.filtersettingstitle": "%s Filter Settings",
+
+  "gui.dfplusplus.chatside.main": "Chat Side: Main Chat",
+  "gui.dfplusplus.chatside.side": "Chat Side: Side Chat",
+  "gui.dfplusplus.chatside.either": "Chat Side: Either",
+
+  "gui.dfplusplus.chatsound.none": "Sound: None",
+  "gui.dfplusplus.chatsound.bass": "Sound: Bass",
+  "gui.dfplusplus.chatsound.bass_drum": "Sound: Bass Drum",
+  "gui.dfplusplus.chatsound.banjo": "Sound: Banjo",
+  "gui.dfplusplus.chatsound.bell": "Sound: Bell",
+  "gui.dfplusplus.chatsound.bit": "Sound: Bit",
+  "gui.dfplusplus.chatsound.chime": "Sound: Chime",
+  "gui.dfplusplus.chatsound.click": "Sound: Click",
+  "gui.dfplusplus.chatsound.cow_bell": "Sound: Cowbell",
+  "gui.dfplusplus.chatsound.didgeridoo": "Sound: Didgeridoo",
+  "gui.dfplusplus.chatsound.flute": "Sound: Flute",
+  "gui.dfplusplus.chatsound.guitar": "Sound: Guitar",
+  "gui.dfplusplus.chatsound.harp": "Sound: Harp",
+  "gui.dfplusplus.chatsound.iron_xylophone": "Sound: Iron Xylophone",
+  "gui.dfplusplus.chatsound.pling": "Sound: Pling",
+  "gui.dfplusplus.chatsound.snare_drum": "Sound: Snare Drum",
+  "gui.dfplusplus.chatsound.xylophone": "Sound: Xylophone",
+
+  "gui.dfplusplus.settings.sync.true": "Chat Sizing: Sync with Main Chat",
+  "gui.dfplusplus.settings.sync.false": "Chat Sizing: Custom"
+}
