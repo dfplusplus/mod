@@ -1,6 +1,6 @@
 package com.github.dfplusplus.common.chat;
 
-import com.github.dfplusplus.common.config.Config;
+import com.github.dfplusplus.common.Config;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.minecraft.util.SoundEvent;

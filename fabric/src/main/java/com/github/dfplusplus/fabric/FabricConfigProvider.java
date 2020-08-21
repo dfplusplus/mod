@@ -1,8 +1,8 @@
 package com.github.dfplusplus.fabric;
 
 import com.github.dfplusplus.common.chat.ChatRule;
-import com.github.dfplusplus.common.config.Config;
-import com.github.dfplusplus.common.config.IConfigProvider;
+import com.github.dfplusplus.common.Config;
+import com.github.dfplusplus.common.providers.IConfigProvider;
 
 public class FabricConfigProvider implements IConfigProvider {
     static {

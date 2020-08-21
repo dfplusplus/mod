@@ -1,6 +1,6 @@
 package com.github.dfplusplus.common.chat.screens;
 
-import com.github.dfplusplus.common.config.Config;
+import com.github.dfplusplus.common.Config;
 import com.github.dfplusplus.common.chat.ChatGuiOverride;
 import com.github.dfplusplus.common.chat.ChatRule;
 import com.mojang.blaze3d.matrix.MatrixStack;

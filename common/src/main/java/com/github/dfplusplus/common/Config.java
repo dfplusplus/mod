@@ -1,7 +1,8 @@
-package com.github.dfplusplus.common.config;
+package com.github.dfplusplus.common;
 
 
 import com.github.dfplusplus.common.chat.ChatRule;
+import com.github.dfplusplus.common.providers.IConfigProvider;
 import net.minecraft.client.GameSettings;
 
 public class Config {
