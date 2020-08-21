@@ -50,7 +50,6 @@ public class FabricConfigProvider implements IConfigProvider {
         return true;
     }
 
-
     @Override
     public void setSyncWithMinecraftClient(boolean newSyncWithMinecraftClient) {
 
