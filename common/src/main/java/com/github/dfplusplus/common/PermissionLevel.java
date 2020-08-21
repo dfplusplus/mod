@@ -1,5 +1,6 @@
 package com.github.dfplusplus.common;
 
+import com.github.dfplusplus.common.providers.IResourceProvider;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
@@ -17,26 +18,27 @@ public enum PermissionLevel {
     DEFAULT;
 
     private static PermissionLevel permissionLevel;
+    private static IResourceProvider resourceProvider;
 
-    static {
+    public static void setResourceProvider(IResourceProvider resourceProvider) {
+        PermissionLevel.resourceProvider = resourceProvider;
+    }
+
+    private static void loadPerms() {
+        if (resourceProvider == null) throw new IllegalStateException("Resource Provider not yet set!");
         if (Util.isDeveloperEnv()) {
             permissionLevel = PermissionLevel.ADMIN;
         } else {
-            ResourceLocation adminsResourceLocation = new ResourceLocation(MOD_ID,"admin_permissions");
-            ResourceLocation modPermissionLocation = new ResourceLocation(MOD_ID,"mod_permissions");
-            ResourceLocation expertPermissionLocation = new ResourceLocation(MOD_ID,"expert_permissions");
-            ResourceLocation supportPermissionLocation = new ResourceLocation(MOD_ID,"support_permissions");
-
-            IResourceManager resourceManager = Minecraft.getInstance().getResourceManager();
             permissionLevel = PermissionLevel.DEFAULT;
-            if (resourceManager.hasResource(adminsResourceLocation)) permissionLevel = PermissionLevel.ADMIN;
-            if (resourceManager.hasResource(modPermissionLocation)) permissionLevel = PermissionLevel.MOD;
-            if (resourceManager.hasResource(expertPermissionLocation)) permissionLevel = PermissionLevel.EXPERT;
-            if (resourceManager.hasResource(supportPermissionLocation)) permissionLevel = PermissionLevel.SUPPORT;
+            if (resourceProvider.hasResource("admin_permissions")) permissionLevel = PermissionLevel.ADMIN;
+            if (resourceProvider.hasResource("mod_permissions")) permissionLevel = PermissionLevel.MOD;
+            if (resourceProvider.hasResource("expert_permissions")) permissionLevel = PermissionLevel.EXPERT;
+            if (resourceProvider.hasResource("support_permissions")) permissionLevel = PermissionLevel.SUPPORT;
         }
     }
 
     public static boolean hasPerms(PermissionLevel checkPermissionLevel) {
+        if (permissionLevel == null) loadPerms();
         List<PermissionLevel> permissionLevelList = Arrays.asList(PermissionLevel.values());
         return permissionLevelList.indexOf(permissionLevel) <= permissionLevelList.indexOf(checkPermissionLevel);
     }
