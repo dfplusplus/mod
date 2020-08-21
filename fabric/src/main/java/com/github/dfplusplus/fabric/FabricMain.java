@@ -19,6 +19,7 @@ public class FabricMain implements ModInitializer {
 		PermissionLevel.setResourceProvider(new FabricResourceProvider());
 		Config.setConfigProvider(new FabricConfigProvider());
 
+		FabricEventHandlers.loadEvents();
 		FabricRegistry.registerKeyBindings();
 		ChatPredicates.loadFromConfig();
 		ChatRule.loadFromConfig();
