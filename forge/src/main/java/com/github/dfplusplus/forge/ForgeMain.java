@@ -31,8 +31,8 @@ public class ForgeMain {
     }
 
     private void init(FMLClientSetupEvent event) {
-        Config.setConfigProvider(new ForgeConfigProvider());
         PermissionLevel.setResourceProvider(new ForgeResourceProvider());
+        Config.setConfigProvider(new ForgeConfigProvider());
 
         ForgeRegistry.registerKeyBindings();
         ForgeInject.inject();
