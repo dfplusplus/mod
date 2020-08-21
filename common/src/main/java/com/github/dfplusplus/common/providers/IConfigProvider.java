@@ -1,4 +1,4 @@
-package com.github.dfplusplus.common.config;
+package com.github.dfplusplus.common.providers;
 
 import com.github.dfplusplus.common.chat.ChatRule;
 

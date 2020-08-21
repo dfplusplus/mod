@@ -1,13 +1,10 @@
-package com.github.dfplusplus.forge;
+package com.github.dfplusplus.forge.providers;
 
 import com.github.dfplusplus.common.chat.ChatRule;
-import com.github.dfplusplus.common.config.Config;
-import com.github.dfplusplus.common.config.IConfigProvider;
+import com.github.dfplusplus.common.Config;
+import com.github.dfplusplus.common.providers.IConfigProvider;
 import com.google.common.collect.Maps;
-import net.minecraft.client.GameSettings;
 import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.config.ModConfig;
 
 import java.util.Map;
 
@@ -74,8 +71,6 @@ public class ForgeConfigProvider implements IConfigProvider {
                     .defineEnum(String.format("%s_sound", chatRuleType.name()), ChatRule.ChatSound.NONE));
         }
         configSpec = builder.build();
-
-        Config.setConfigProvider(new ForgeConfigProvider());
     }
 
     public static ForgeConfigSpec getConfigSpec() {

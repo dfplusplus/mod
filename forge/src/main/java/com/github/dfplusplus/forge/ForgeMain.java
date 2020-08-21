@@ -1,10 +1,12 @@
 package com.github.dfplusplus.forge;
 
-import com.github.dfplusplus.common.config.Config;
-import com.github.dfplusplus.common.chat.ChatGuiOverride;
+import com.github.dfplusplus.common.Config;
+import com.github.dfplusplus.common.PermissionLevel;
 import com.github.dfplusplus.common.chat.ChatPredicates;
 import com.github.dfplusplus.common.chat.ChatRule;
 import com.github.dfplusplus.common.chat.screens.ChatSizingScreen;
+import com.github.dfplusplus.forge.providers.ForgeConfigProvider;
+import com.github.dfplusplus.forge.providers.ForgeResourceProvider;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -29,6 +31,9 @@ public class ForgeMain {
     }
 
     private void init(FMLClientSetupEvent event) {
+        Config.setConfigProvider(new ForgeConfigProvider());
+        PermissionLevel.setResourceProvider(new ForgeResourceProvider());
+
         ForgeRegistry.registerKeyBindings();
         ForgeInject.inject();
         ChatPredicates.loadFromConfig();
