@@ -1,5 +1,8 @@
 package com.github.dfplusplus.fabric;
 
+import com.github.dfplusplus.common.chat.ChatPredicates;
+import com.github.dfplusplus.common.chat.ChatRule;
+import com.github.dfplusplus.common.chat.screens.ChatSizingScreen;
 import net.fabricmc.api.ModInitializer;
 
 public class FabricMain implements ModInitializer {
@@ -9,6 +12,6 @@ public class FabricMain implements ModInitializer {
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
 
-		System.out.println("Hello Fabric world!");
+		new FabricConfigProvider(); // loads fabric config temp
 	}
 }
