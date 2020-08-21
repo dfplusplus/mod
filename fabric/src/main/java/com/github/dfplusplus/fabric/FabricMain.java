@@ -1,8 +1,9 @@
 package com.github.dfplusplus.fabric;
 
-import com.github.dfplusplus.common.chat.ChatPredicates;
-import com.github.dfplusplus.common.chat.ChatRule;
-import com.github.dfplusplus.common.chat.screens.ChatSizingScreen;
+import com.github.dfplusplus.common.Config;
+import com.github.dfplusplus.common.PermissionLevel;
+import com.github.dfplusplus.fabric.providers.FabricConfigProvider;
+import com.github.dfplusplus.fabric.providers.FabricResourceProvider;
 import net.fabricmc.api.ModInitializer;
 
 public class FabricMain implements ModInitializer {
@@ -12,6 +13,7 @@ public class FabricMain implements ModInitializer {
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
 
-		new FabricConfigProvider(); // loads fabric config temp
+		PermissionLevel.setResourceProvider(new FabricResourceProvider());
+		Config.setConfigProvider(new FabricConfigProvider());
 	}
 }

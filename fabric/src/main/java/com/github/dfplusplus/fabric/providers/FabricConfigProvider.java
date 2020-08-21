@@ -1,14 +1,10 @@
-package com.github.dfplusplus.fabric;
+package com.github.dfplusplus.fabric.providers;
 
 import com.github.dfplusplus.common.chat.ChatRule;
 import com.github.dfplusplus.common.Config;
 import com.github.dfplusplus.common.providers.IConfigProvider;
 
 public class FabricConfigProvider implements IConfigProvider {
-    static {
-        Config.setConfigProvider(new FabricConfigProvider());
-    }
-
     @Override
     public String getCustomWords() {
         return "beans";
