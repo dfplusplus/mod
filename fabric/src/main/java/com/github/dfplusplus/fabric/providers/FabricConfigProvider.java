@@ -8,9 +8,7 @@ import me.sargunvohra.mcmods.autoconfig1u.annotation.Config;
 import static com.github.dfplusplus.common.CommonMain.MOD_ID;
 
 @Config(name = MOD_ID)
-public class FabricConfigProvider implements IConfigProvider, ConfigData {
-    boolean coolToggle = true;
-
+public class FabricConfigProvider implements IConfigProvider {
     @Override
     public String getCustomWords() {
         return "beans";
