@@ -29,8 +29,8 @@ dependencies {
 	// required for @Nullable
 	compile group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.0'
 
-	// cloth-config 4.8.1
-	clothconfigversion = "4.8.1"
+	// cloth-config
+	def clothconfigversion = "4.8.1"
 	modApi("me.shedaniel.cloth:config-2:${clothconfigversion}") {
 		exclude(group: "net.fabricmc.fabric-api")
 	}
@@ -38,7 +38,7 @@ dependencies {
 	include "me.shedaniel.cloth:config-2:${clothconfigversion}"
 
 	// auto-config
-	autoconfigversion = "3.2.2"
+	def autoconfigversion = "3.2.2"
 	modApi("me.sargunvohra.mcmods:autoconfig1u:${autoconfigversion}") {
 		exclude(group: "net.fabricmc.fabric-api")
 	}
