@@ -43,6 +43,9 @@ dependencies {
 		exclude(group: "net.fabricmc.fabric-api")
 	}
 	include "me.sargunvohra.mcmods:autoconfig1u:${autoconfigversion}"
+
+	def modmenuversion = "1.14.6+build.31"
+	modImplementation "io.github.prospector:modmenu:${modmenuversion}"
 }
 
 minecraft {
