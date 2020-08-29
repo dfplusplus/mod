@@ -1,10 +1,16 @@
 package com.github.dfplusplus.fabric.providers;
 
 import com.github.dfplusplus.common.chat.ChatRule;
-import com.github.dfplusplus.common.Config;
 import com.github.dfplusplus.common.providers.IConfigProvider;
+import me.sargunvohra.mcmods.autoconfig1u.ConfigData;
+import me.sargunvohra.mcmods.autoconfig1u.annotation.Config;
 
-public class FabricConfigProvider implements IConfigProvider {
+import static com.github.dfplusplus.common.CommonMain.MOD_ID;
+
+@Config(name = MOD_ID)
+public class FabricConfigProvider implements IConfigProvider, ConfigData {
+    boolean coolToggle = true;
+
     @Override
     public String getCustomWords() {
         return "beans";

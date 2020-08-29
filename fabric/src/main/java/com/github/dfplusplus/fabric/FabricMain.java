@@ -7,6 +7,8 @@ import com.github.dfplusplus.common.chat.ChatRule;
 import com.github.dfplusplus.common.chat.screens.ChatSizingScreen;
 import com.github.dfplusplus.fabric.providers.FabricConfigProvider;
 import com.github.dfplusplus.fabric.providers.FabricResourceProvider;
+import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
+import me.sargunvohra.mcmods.autoconfig1u.serializer.Toml4jConfigSerializer;
 import net.fabricmc.api.ModInitializer;
 
 public class FabricMain implements ModInitializer {
@@ -16,6 +18,7 @@ public class FabricMain implements ModInitializer {
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
 
+		AutoConfig.register(FabricConfigProvider.class, Toml4jConfigSerializer::new);
 		PermissionLevel.setResourceProvider(new FabricResourceProvider());
 		Config.setConfigProvider(new FabricConfigProvider());
 
