@@ -92,6 +92,7 @@ do
   sed -i 's/getPosX/getX/g' $file
   sed -i 's/getPosY/getY/g' $file
   sed -i 's/getPosZ/getZ/g' $file
+  sed -i 's/onClose(/removed(/g' $file
 
   sed -i 's/ Button / ButtonWidget /g' $file
   sed -i 's/ Button(/ ButtonWidget(/g' $file
