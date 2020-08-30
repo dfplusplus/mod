@@ -1,0 +1,6 @@
+version = '0.11.0'
+group = 'com.github.dfplusplus' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+description = "test"
+ext {
+    archivesBaseName = 'dfplusplus'
+}

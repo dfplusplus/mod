@@ -13,9 +13,9 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-version = '0.10.1'
-group = 'com.github.dfplusplus' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = 'dfplusplus'
+archivesBaseName = rootProject.ext.archivesBaseName
+version = rootProject.version
+group = rootProject.group
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 
