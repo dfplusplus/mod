@@ -8,7 +8,7 @@ mkdir -p build/libs/assets/dfplusplus
 
 # copies permission files in
 # shellcheck disable=SC2225
-cp -a permissions/. build/libs/assets/dfplusplus
+cp -a ../permissions/. build/libs/assets/dfplusplus
 
 # cds to make the next bit more readable
 # shellcheck disable=SC2164

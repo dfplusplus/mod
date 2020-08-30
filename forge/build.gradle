@@ -149,7 +149,7 @@ publishing {
 task buildWithSh(dependsOn: build) {
     doLast {
         exec {
-            executable "./generateRankedJars.sh"
+            executable "../generateRankedJars.sh"
             args = ["${archivesBaseName}-${version}"]
         }
     }
