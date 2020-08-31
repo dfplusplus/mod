@@ -21,8 +21,6 @@ public class ChatScreenOverride extends ChatScreen {
         this.chatRoom = chatRoom;
     }
 
-    public static int i1 = 0;
-
     @Override
     protected void init() {
         super.init();
