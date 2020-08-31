@@ -109,7 +109,7 @@ task buildWithSh(dependsOn: build) {
 	doLast {
 		exec {
 			executable "../generateRankedJars.sh"
-			args = ["${archivesBaseName}-${version}"]
+			args = ["${archivesBaseName}-${version}","fabric"]
 		}
 	}
 }
