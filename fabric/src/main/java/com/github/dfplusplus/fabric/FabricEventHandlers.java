@@ -20,7 +20,7 @@ public class FabricEventHandlers {
                     minecraftClient.currentScreen != null &&
                     minecraftClient.currentScreen.getClass() == ChatScreen.class
                 ) {
-                    minecraftClient.openScreen(new ChatScreenOverride("", ((ChatGuiOverride) minecraftClient.inGameHud.getChatHud()), ChatRoom.DEFAULT_CHAT));
+                    ChatScreenOverride.showChat("",ChatRoom.DEFAULT_CHAT);
                 }
             }
         });
