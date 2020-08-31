@@ -30,8 +30,12 @@ public class ForgeEventHandlers {
 
     @SubscribeEvent
     public static void onKeyPress(InputEvent.KeyInputEvent keyInputEvent) {
-        if (Util.isValidClient() && keyInputEvent.getAction() == 1) {
-            KeyBinds.onValidKeyPress();
+        if (Util.isValidClient()) {
+            if (keyInputEvent.getAction() == 1)
+                KeyBinds.onBeginKeyPress();
+
+            if (keyInputEvent.getAction() == 0)
+                KeyBinds.onEndKeyPress();
         }
     }
 }

@@ -14,7 +14,8 @@ public class FabricEventHandlers {
     public static void loadEvents() {
         ClientTickEvents.END_CLIENT_TICK.register(minecraftClient -> {
             if (Util.isValidClient()) {
-                KeyBinds.onValidKeyPress();
+                KeyBinds.onBeginKeyPress();
+                KeyBinds.onEndKeyPress(); // not needed to seperate these - it just works
 
                 if (
                     minecraftClient.currentScreen != null &&

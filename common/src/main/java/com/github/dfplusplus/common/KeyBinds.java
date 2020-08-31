@@ -31,10 +31,13 @@ public class KeyBinds {
     private static final List<ActionKeyBidning> ACTION_KEY_BINDINGS = new LinkedList<>();
     private static MainScreen mainScreen = null;
 
-    public static void onValidKeyPress() {
+    public static void onBeginKeyPress() {
         processMainScreenKeybind();
-        processChatRoomKeyBinds();
         processActionKeyBinds();
+    }
+
+    public static void onEndKeyPress() {
+        processChatRoomKeyBinds();
     }
 
     private static void processMainScreenKeybind() {
