@@ -46,7 +46,7 @@ do
   sed -i 's/getMinValue/getMin/g' $file
   sed -i 's/getMaxValue/getMax/g' $file
   sed -i 's/clearChatMessages/clear/g' $file
-  sed -i 's/func_238496_i_/getChatOpen/g' $file
+  sed -i 's/func_238496_i_/isChatHidden/g' $file
   sed -i 's/getLineCount/getVisibleLineCount/g' $file
   sed -i 's/getScale(/getChatScale(/g' $file
   sed -i 's/func_238505_a_/breakRenderedChatMessageLines/g' $file
