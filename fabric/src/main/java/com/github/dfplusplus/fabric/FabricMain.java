@@ -2,15 +2,12 @@ package com.github.dfplusplus.fabric;
 
 import com.github.dfplusplus.common.Config;
 import com.github.dfplusplus.common.PermissionLevel;
+import com.github.dfplusplus.common.Util;
 import com.github.dfplusplus.common.chat.ChatPredicates;
 import com.github.dfplusplus.common.chat.ChatRule;
 import com.github.dfplusplus.common.chat.screens.ChatSizingScreen;
 import com.github.dfplusplus.fabric.providers.FabricConfigProvider;
-import com.github.dfplusplus.fabric.providers.FabricResourceProvider;
-import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
-import me.sargunvohra.mcmods.autoconfig1u.ConfigHolder;
-import me.sargunvohra.mcmods.autoconfig1u.ConfigManager;
-import me.sargunvohra.mcmods.autoconfig1u.serializer.Toml4jConfigSerializer;
+import com.github.dfplusplus.fabric.providers.FabricUtilProvider;
 import net.fabricmc.api.ModInitializer;
 
 public class FabricMain implements ModInitializer {
@@ -20,7 +17,7 @@ public class FabricMain implements ModInitializer {
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
 
-		PermissionLevel.setResourceProvider(new FabricResourceProvider());
+		Util.setUtilProvider(new FabricUtilProvider());
 		Config.setConfigProvider(new FabricConfigProvider());
 
 		FabricEventHandlers.loadEvents();

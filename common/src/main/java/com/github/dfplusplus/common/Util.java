@@ -1,11 +1,18 @@
 package com.github.dfplusplus.common;
 
+import com.github.dfplusplus.common.providers.IUtilProvider;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 
 public class Util {
+    private static IUtilProvider utilProvider;
+
+    public static void setUtilProvider(IUtilProvider utilProvider) {
+        Util.utilProvider = utilProvider;
+    }
+
     public static boolean isValidClient() {
         Minecraft minecraft = Minecraft.getInstance();
         return minecraft.world != null && minecraft.world.isRemote() && minecraft.player != null;
@@ -27,8 +34,7 @@ public class Util {
     }
 
     public static boolean isDeveloperEnv() {
-        String target = System.getenv().get("target");
-        return target != null && target.contains("dev");
+        return utilProvider.isDeveloperEnv();
     }
 
     public static int getRGB(int r, int g, int b, int a) {
@@ -37,5 +43,10 @@ public class Util {
                 ((r & 0xFF) << 16) |
                 ((g & 0xFF) << 8)  |
                 ((b & 0xFF));
+    }
+
+    public static boolean hasResource(String name) {
+        if (utilProvider == null) throw new IllegalStateException("Util Provider not yet set!");
+        return utilProvider.hasResource(name);
     }
 }
