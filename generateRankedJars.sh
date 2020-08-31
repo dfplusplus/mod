@@ -27,3 +27,6 @@ jar uf $1-$2-expert.jar assets/dfplusplus/expert_permissions
 cp $1.jar $1-$2-support.jar
 jar uf $1-$2-support.jar assets/dfplusplus/support_permissions
 
+# rename existing file to contain loader
+mv $1.jar $1-$2.jar
+
