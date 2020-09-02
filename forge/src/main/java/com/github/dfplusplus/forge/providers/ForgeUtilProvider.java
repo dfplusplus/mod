@@ -11,7 +11,7 @@ public class ForgeUtilProvider implements IUtilProvider {
     @Override
     public boolean hasResource(String name) {
         return Minecraft.getInstance().getResourceManager().hasResource(
-                new ResourceLocation(MOD_ID)
+                new ResourceLocation(MOD_ID,name)
         );
     }
 
