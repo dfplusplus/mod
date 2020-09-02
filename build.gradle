@@ -4,3 +4,5 @@ description = "test"
 ext {
     archivesBaseName = 'dfplusplus'
 }
+
+task buildAll(dependsOn: ['fabric:buildWithSh','forge:buildWithSh']) {}
