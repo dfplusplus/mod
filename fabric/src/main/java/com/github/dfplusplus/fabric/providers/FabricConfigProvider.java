@@ -102,12 +102,12 @@ public class FabricConfigProvider implements IConfigProvider, ConfigData {
     }
 
     @Override
-    public boolean getSyncWithMinecraftClient() {
+    public boolean getSyncWithMinecraft() {
         return getReference().syncWithMinecraftClient;
     }
 
     @Override
-    public void setSyncWithMinecraftClient(boolean newSyncWithMinecraftClient) {
+    public void setSyncWithMinecraft(boolean newSyncWithMinecraftClient) {
         getReference().syncWithMinecraftClient = newSyncWithMinecraftClient;
         save();
     }
