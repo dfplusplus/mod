@@ -54,7 +54,7 @@ public class KeyBinds {
 
     private static void processActionKeyBinds() {
         for (ActionKeyBidning actionKeyBidning : ACTION_KEY_BINDINGS) {
-            if (actionKeyBidning.getKeyBinding().isKeyDown()) {
+            if (actionKeyBidning.getKeyBinding().isPressed()) {
                 actionKeyBidning.getAction().run();
             }
         }
