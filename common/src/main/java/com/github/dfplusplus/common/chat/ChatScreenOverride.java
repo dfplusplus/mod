@@ -24,7 +24,7 @@ public class ChatScreenOverride extends ChatScreen {
     @Override
     protected void init() {
         super.init();
-        this.settingsButton = new Button(2,2,125,20 ,new StringTextComponent(I18n.format("gui.dfplusplus.settings")),this::onSettingsButtonPress);
+        this.settingsButton = new Button(10,10,125,20 ,new StringTextComponent(I18n.format("gui.dfplusplus.settings")),this::onSettingsButtonPress);
         this.addButton(settingsButton);
     }
 
