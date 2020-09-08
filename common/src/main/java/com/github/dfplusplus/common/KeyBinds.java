@@ -96,6 +96,10 @@ public class KeyBinds {
         addCommandBinding("/server node3", PermissionLevel.DEFAULT);
         addCommandBinding("/server node4", PermissionLevel.DEFAULT);
         addCommandBinding("/server beta", PermissionLevel.DEFAULT);
+        addCommandBinding("/code", PermissionLevel.DEFAULT);
+        addCommandBinding("/build", PermissionLevel.DEFAULT);
+        addCommandBinding("/play", PermissionLevel.DEFAULT);
+        addCommandBinding("/spawn", PermissionLevel.DEFAULT);
 
         return ACTION_KEY_BINDINGS.stream() // gathers all the key bindings I just added
                 .map(actionKeyBidning -> actionKeyBidning.keyBinding)
