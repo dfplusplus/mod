@@ -40,14 +40,14 @@ public class FabricConfigProvider implements IConfigProvider, ConfigData {
     boolean syncWithMinecraftClient = true;
     double chatScale;
     double chatWidth;
-    Map<ChatRule.ChatRuleType, ChatRule.ChatSide> chatSides = Maps.asMap(
-            new HashSet<>(Arrays.asList(ChatRule.ChatRuleType.values())), // uses a Set because Maps.toMap returns an ImmutableMap which I don't want
+    Map<ChatRule.ChatRuleType, ChatRule.ChatSide> chatSides = Maps.newHashMap(
+            Maps.toMap(Arrays.asList(ChatRule.ChatRuleType.values()), // uses a regular HashMap because Maps.toMap returns an ImmutableMap which I don't want
             input -> ChatRule.ChatSide.MAIN
-    );
-    Map<ChatRule.ChatRuleType, ChatRule.ChatSound> chatSounds = Maps.asMap(
-            new HashSet<>(Arrays.asList(ChatRule.ChatRuleType.values())),
+    ));
+    Map<ChatRule.ChatRuleType, ChatRule.ChatSound> chatSounds = Maps.newHashMap(
+            Maps.toMap(Arrays.asList(ChatRule.ChatRuleType.values()),
             input -> ChatRule.ChatSound.NONE
-    );
+    ));
 
     private FabricConfigProvider getReference() {
         return AutoConfig.getConfigHolder(FabricConfigProvider.class).getConfig();
