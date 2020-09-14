@@ -6,6 +6,7 @@ import com.github.dfplusplus.common.Util;
 import com.github.dfplusplus.common.chat.ChatPredicates;
 import com.github.dfplusplus.common.chat.ChatRule;
 import com.github.dfplusplus.common.chat.screens.ChatSizingScreen;
+import com.github.dfplusplus.common.codehints.CodeBlockDataUI;
 import com.github.dfplusplus.fabric.providers.FabricConfigProvider;
 import com.github.dfplusplus.fabric.providers.FabricUtilProvider;
 import net.fabricmc.api.ModInitializer;
@@ -25,5 +26,6 @@ public class FabricMain implements ModInitializer {
 		ChatPredicates.loadFromConfig();
 		ChatRule.loadFromConfig();
 		ChatSizingScreen.loadFromConfig();
+		CodeBlockDataUI.initCodeBlockDataUI();
 	}
 }

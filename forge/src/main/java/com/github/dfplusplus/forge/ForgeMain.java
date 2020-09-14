@@ -6,6 +6,7 @@ import com.github.dfplusplus.common.Util;
 import com.github.dfplusplus.common.chat.ChatPredicates;
 import com.github.dfplusplus.common.chat.ChatRule;
 import com.github.dfplusplus.common.chat.screens.ChatSizingScreen;
+import com.github.dfplusplus.common.codehints.CodeBlockDataUI;
 import com.github.dfplusplus.forge.providers.ForgeConfigProvider;
 import com.github.dfplusplus.forge.providers.ForgeUtilProvider;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -40,5 +41,6 @@ public class ForgeMain {
         ChatPredicates.loadFromConfig();
         ChatRule.loadFromConfig();
         ChatSizingScreen.loadFromConfig();
+        CodeBlockDataUI.initCodeBlockDataUI();
     }
 }
