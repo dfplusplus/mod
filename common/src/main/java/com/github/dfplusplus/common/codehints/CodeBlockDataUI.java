@@ -26,6 +26,11 @@ public class CodeBlockDataUI {
     private boolean hitSign = false;
     private TileEntity sign;
     private Vector3d signLoc;
+    private static boolean enabled;
+
+    public static void setEnabled(boolean enabled) {
+        CodeBlockDataUI.enabled = enabled;
+    }
 
     private CodeBlockDataUI() {
         this.codeActions = CodeBlockDataLoader.loadCodeBlockInfo();
@@ -69,7 +74,7 @@ public class CodeBlockDataUI {
     }
 
     public void onRender() {
-        if(this.hitSign && this.sign instanceof SignTileEntity && (minecraft.currentScreen == null || minecraft.currentScreen instanceof ChatScreen) && minecraft.player != null) {
+        if(this.hitSign && this.sign instanceof SignTileEntity && (minecraft.currentScreen == null || minecraft.currentScreen instanceof ChatScreen) && minecraft.player != null && enabled) {
             SignTileEntity s = (SignTileEntity)this.sign;
             RenderSystem.pushMatrix();
             float x = (minecraft.getFramebuffer().framebufferWidth / 2f / (float)minecraft.gameSettings.guiScale) + 5;
