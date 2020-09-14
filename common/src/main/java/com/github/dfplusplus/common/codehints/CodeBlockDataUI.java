@@ -2,11 +2,8 @@
 
 package com.github.dfplusplus.common.codehints;
 
-import com.github.dfplusplus.common.CommonMain;
-import com.google.common.collect.Lists;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.sun.javafx.geom.Vec3d;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
@@ -15,18 +12,12 @@ import net.minecraft.tileentity.SignTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-@Mod.EventBusSubscriber(value = {Dist.CLIENT},  modid = CommonMain.MOD_ID)
 public class CodeBlockDataUI {
-
     private static CodeBlockDataUI codeblockUI = null;
 
     private HashMap<String, ArrayList<String>> codeActions = null;
@@ -113,20 +104,17 @@ public class CodeBlockDataUI {
         return CodeBlockDataUI.codeblockUI;
     }
 
-    @SubscribeEvent
-    public static void onClientTick(final TickEvent.ClientTickEvent event) {
+    public static void onClientTick() {
         CodeBlockDataUI ui = CodeBlockDataUI.getInstance();
         if(ui != null) {
             ui.onTick();
         }
     }
 
-    @SubscribeEvent
-    public static void onRenderTick(final TickEvent.RenderTickEvent event) {
+    public static void onRenderTick() {
          CodeBlockDataUI ui = CodeBlockDataUI.getInstance();
          if(ui != null) {
              ui.onRender();
          }
     }
-
 }
