@@ -2,6 +2,7 @@
 
 package com.github.dfplusplus.common.codehints;
 
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.JsonToNBT;
@@ -21,8 +22,10 @@ public class CodeBlockDataLoader {
         String versionFile = readFile("version.dfpp");
         if(versionFile != null) {
             try {
-            version = Integer.parseInt(JsonToNBT.getTagFromJson(versionFile).getString("version"));
-            } catch (Exception e){}
+                version = Integer.parseInt(JsonToNBT.getTagFromJson(versionFile).getString("version"));
+            } catch (CommandSyntaxException e) {
+                e.printStackTrace();
+            }
         }
 
         // Find newest version
