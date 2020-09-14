@@ -22,13 +22,20 @@ GENERIC_NAMES=(
   "Widget"                      "AbstractButtonWidget"
   "AbstractButtonWidgetSpacer"  "WidgetSpacer"
   "TextFormatting"              "Formatting"
+  "CompoundNBT"                 "CompoundTag"
+  "ListNBT"                     "ListTag"
+  "JsonToNBT"                   "StringNbtReader"
+  "TileEntity"                  "BlockEntity"
+  "SignTileEntity"              "SignBlockEntity"
+  "Vector3d"                    "Vec3d"
+  "AbstractGui"                 "DrawableHelper"
 
   "displayGuiScreen"            "openScreen"
   "enableRepeatEvents"          "setRepeatEvents"
   "fontRenderer"                "textRenderer"
   "setMaxStringLength"          "setMaxLength"
   "setResponder"                "setChangedListener"
-  "drawString"                  "drawStringWithShadow"
+  "DrawableHelper.drawString"   "DrawableHelper.drawStringWithShadow"
   "font"                        "textRenderer"
   "gameSettings"                "options"
   "getMainWindow"               "getWindow"
@@ -85,6 +92,16 @@ GENERIC_NAMES=(
   "minecraft"                   "client"
   "font"                        "textRenderer"
   "keyboardListener"            "keyboard"
+  "getTagFromJson"              "parse"
+  "getLookVec"                  "getRotationVector"
+  "mul"                         "multiply"
+  "getPositionVec"              "getPos"
+  "getTileEntity"               "getBlockEntity"
+  "framebufferWidth"            "viewportWidth"
+  "framebufferHeight"           "viewportHeight"
+  "getText\(0"                  "getTextOnRow(0"
+  "getText\(1"                  "getTextOnRow(1"
+  "textRenderer.drawStringWithShadow" "textRenderer.drawWithShadow"
 )
 
 # imports to rename. a special filter as the . needs to be escaped
@@ -92,6 +109,7 @@ DOTTED_NAMES=(
   "net.minecraft.client.settings." "net.minecraft.client.options."
   "net.minecraft.util.text." "net.minecraft.text."
   "net.minecraft.resources." "net.minecraft.resource."
+  "net.minecraft.tileentity." "net.minecraft.block.entity."
 
   "net.minecraft.client.resources.I18n" "net.minecraft.client.resource.language.I18n"
   "net.minecraft.client.gui.widget.button.Button" "net.minecraft.client.gui.widget.ButtonWidget"
@@ -103,6 +121,7 @@ DOTTED_NAMES=(
   "net.minecraft.text.TextFormatting" "net.minecraft.util.TextFormatting"
   "net.minecraft.util.SoundEvent" "net.minecraft.sound.SoundEvent"
   "net.minecraft.util.SoundCategory" "net.minecraft.sound.SoundCategory"
+  "net.minecraft.util.math.vector.Vector3d" "net.minecraft.util.math.Vec3d"
 
   "com.mojang.blaze3d.matrix.MatrixStack" "net.minecraft.client.util.math.MatrixStack"
 
