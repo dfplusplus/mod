@@ -31,7 +31,7 @@ public class KeyBinds {
     private static final KeyBinding displayCodeData = new KeyBinding(
             String.format("%s.key.codedata.show", MOD_ID),
             GLFW_KEY_UNKNOWN,
-            "key.categories.dfplusplus.codedata"
+            "key.categories.dfplusplus"
     );
     private static final Minecraft minecraft = Minecraft.getInstance();
     private static final List<ActionKeyBidning> ACTION_KEY_BINDINGS = new LinkedList<>();
