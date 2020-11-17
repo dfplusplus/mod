@@ -85,6 +85,10 @@ GENERIC_NAMES=(
   "minecraft"                   "client"
   "font"                        "textRenderer"
   "keyboardListener"            "keyboard"
+  "fromTextFormatting"          "fromFormatting"
+  "drawSuggestionList"          "render"
+  "getLineString"               "getText"
+  "getCharacterManager"         "getTextHandler"
 )
 
 # imports to rename. a special filter as the . needs to be escaped

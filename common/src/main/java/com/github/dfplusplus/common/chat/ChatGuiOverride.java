@@ -47,8 +47,8 @@ public class ChatGuiOverride extends NewChatGui {
                 RenderSystem.scaled(d0, d0, 1.0D);
                 double d1 = this.mc.gameSettings.chatOpacity * (double) 0.9F + (double) 0.1F;
                 double d2 = this.mc.gameSettings.accessibilityTextBackgroundOpacity;
-                double d3 = 9.0D * (this.mc.gameSettings.field_238331_l_ + 1.0D);
-                double d4 = -8.0D * (this.mc.gameSettings.field_238331_l_ + 1.0D) + 4.0D * this.mc.gameSettings.field_238331_l_;
+                double d3 = 9.0D * (this.mc.gameSettings.chatLineSpacing + 1.0D);
+                double d4 = -8.0D * (this.mc.gameSettings.chatLineSpacing + 1.0D) + 4.0D * this.mc.gameSettings.chatLineSpacing;
                 int l = 0;
                 renderChat(p_238492_1_, 0, 0, this.getMainDrawnChatLines(), updateCounter, i, flag, k, d1, d2, d3, d4, l);
 
@@ -76,8 +76,8 @@ public class ChatGuiOverride extends NewChatGui {
                 RenderSystem.scaled(d0, d0, 1.0D);
                 double d1 = this.mc.gameSettings.chatOpacity * (double)0.9F + (double)0.1F;
                 double d2 = this.mc.gameSettings.accessibilityTextBackgroundOpacity;
-                double d3 = 9.0D * (this.mc.gameSettings.field_238331_l_ + 1.0D);
-                double d4 = -8.0D * (this.mc.gameSettings.field_238331_l_ + 1.0D) + 4.0D * this.mc.gameSettings.field_238331_l_;
+                double d3 = 9.0D * (this.mc.gameSettings.chatLineSpacing + 1.0D);
+                double d4 = -8.0D * (this.mc.gameSettings.chatLineSpacing + 1.0D) + 4.0D * this.mc.gameSettings.chatLineSpacing;
                 int l = 0;
                 renderChat(p_238492_1_, getSideChatStartX() + ChatSizingScreen.getChatOffsetX(), -ChatSizingScreen.getChatOffsetY(), this.getSideDrawnChatLines(),updateCounter,i,flag,k,d1,d2,d3,d4,l);
                 RenderSystem.popMatrix();
@@ -102,7 +102,7 @@ public class ChatGuiOverride extends NewChatGui {
                         fill(matrixStack, -2, (int)(d6 - d3), k + 4, (int)d6, i2 << 24);
                         RenderSystem.enableBlend();
                         matrixStack.translate(0.0D, 0.0D, 50.0D);
-                        this.mc.fontRenderer.func_238407_a_(matrixStack, chatline.func_238169_a_(), 0.0F, (float)((int)(d6 + d4)), 16777215 + (l1 << 24));
+                        this.mc.fontRenderer.func_238407_a_(matrixStack, chatline.getLineString(), 0.0F, (float)((int)(d6 + d4)), 16777215 + (l1 << 24));
                         RenderSystem.disableAlphaTest();
                         RenderSystem.disableBlend();
                         matrixStack.pop();
@@ -180,14 +180,14 @@ public class ChatGuiOverride extends NewChatGui {
             double d0 = mouseX - 2.0D;
             double d1 = (double)this.mc.getMainWindow().getScaledHeight() - mouseY - 40.0D;
             d0 = (double)MathHelper.floor(d0 / scale);
-            d1 = (double)MathHelper.floor(d1 / (scale * (this.mc.gameSettings.field_238331_l_ + 1.0D)));
+            d1 = (double)MathHelper.floor(d1 / (scale * (this.mc.gameSettings.chatLineSpacing + 1.0D)));
             if (!(d0 < 0.0D) && !(d1 < 0.0D)) {
                 int i = Math.min(this.getLineCount(), this.getMainDrawnChatLines().size());
                 if (d0 <= (double) MathHelper.floor((double) this.getChatWidth() / scale) && d1 < (double) (9 * i + i)) {
                     int j = (int) (d1 / 9.0D + (double) this.scrollPos);
                     if (j >= 0 && j < this.getMainDrawnChatLines().size()) {
                         ChatLine<IReorderingProcessor> chatline = this.getMainDrawnChatLines().get(j);
-                        Style returnedStyle = this.mc.fontRenderer.func_238420_b_().func_243239_a(chatline.func_238169_a_(), (int)d0);
+                        Style returnedStyle = this.mc.fontRenderer.getCharacterManager().func_243239_a(chatline.getLineString(), (int)d0);
                         if (returnedStyle != null) return returnedStyle; // only return if there's actually some style found
                     }
                 }
@@ -198,7 +198,7 @@ public class ChatGuiOverride extends NewChatGui {
             d0 = mouseX - 2.0D;
             d1 = (double)this.mc.getMainWindow().getScaledHeight() - mouseY - 40.0D;
             d0 = MathHelper.floor(d0 / scale);
-            d1 = MathHelper.floor(d1 / (scale * (this.mc.gameSettings.field_238331_l_ + 1.0D)));
+            d1 = MathHelper.floor(d1 / (scale * (this.mc.gameSettings.chatLineSpacing + 1.0D)));
             if (!(d0 < 0.0D) && !(d1 < 0.0D)) {
                 int i = Math.min(this.getLineCount(), this.getSideDrawnChatLines().size());
                 if (d0 <= (double) MathHelper.floor((double) this.getSideChatWidth() / scale) && d1 < (double) (9 * i + i)) {
@@ -206,7 +206,7 @@ public class ChatGuiOverride extends NewChatGui {
                     if (j >= 0 && j < this.getSideDrawnChatLines().size()) {
                         ChatLine<IReorderingProcessor> chatline = this.getSideDrawnChatLines().get(j);
                         int k = getSideChatStartX(); // subtract to d0 so that it thinks cursor is at x = 0 when x = sideChatStartX
-                        return this.mc.fontRenderer.func_238420_b_().func_243239_a(chatline.func_238169_a_(), (int)d0 - k);
+                        return this.mc.fontRenderer.getCharacterManager().func_243239_a(chatline.getLineString(), (int)d0 - k);
                     }
                 }
 

@@ -46,18 +46,18 @@ public class ChatPredicates {
 
     //MESSAGE
     private static final ChatPattern messageChatPattern = new ChatPattern(
-            new ChatPattern.ChatComponent("[", Color.func_240744_a_(TextFormatting.DARK_RED),0),
-            new ChatPattern.ChatComponent(null,Color.func_240744_a_(TextFormatting.AQUA)),
-            new ChatPattern.ChatComponent(" -> ",Color.func_240744_a_(TextFormatting.GOLD)),
-            new ChatPattern.ChatComponent(null,Color.func_240744_a_(TextFormatting.AQUA)),
-            new ChatPattern.ChatComponent("] ",Color.func_240744_a_(TextFormatting.DARK_RED))
+            new ChatPattern.ChatComponent("[", Color.fromTextFormatting(TextFormatting.DARK_RED),0),
+            new ChatPattern.ChatComponent(null,Color.fromTextFormatting(TextFormatting.AQUA)),
+            new ChatPattern.ChatComponent(" -> ",Color.fromTextFormatting(TextFormatting.GOLD)),
+            new ChatPattern.ChatComponent(null,Color.fromTextFormatting(TextFormatting.AQUA)),
+            new ChatPattern.ChatComponent("] ",Color.fromTextFormatting(TextFormatting.DARK_RED))
     );
     private static final ChatPattern crossNodeMessagePattern = new ChatPattern(
-            new ChatPattern.ChatComponent("[",Color.func_240744_a_(TextFormatting.GOLD),0),
-            new ChatPattern.ChatComponent(null,Color.func_240744_a_(TextFormatting.AQUA)),
-            new ChatPattern.ChatComponent(" -> ",Color.func_240744_a_(TextFormatting.DARK_RED)),
-            new ChatPattern.ChatComponent(null,Color.func_240744_a_(TextFormatting.AQUA)),
-            new ChatPattern.ChatComponent("] ",Color.func_240744_a_(TextFormatting.GOLD))
+            new ChatPattern.ChatComponent("[",Color.fromTextFormatting(TextFormatting.GOLD),0),
+            new ChatPattern.ChatComponent(null,Color.fromTextFormatting(TextFormatting.AQUA)),
+            new ChatPattern.ChatComponent(" -> ",Color.fromTextFormatting(TextFormatting.DARK_RED)),
+            new ChatPattern.ChatComponent(null,Color.fromTextFormatting(TextFormatting.AQUA)),
+            new ChatPattern.ChatComponent("] ",Color.fromTextFormatting(TextFormatting.GOLD))
     );
     public static Predicate<ITextComponent> getMessagePredicate() {
         return iTextComponent -> {
@@ -68,7 +68,7 @@ public class ChatPredicates {
 
     //SUPPORT
     private static final ChatPattern supportChatPattern = new ChatPattern(
-            new ChatPattern.ChatComponent("[SUPPORT] ", Color.func_240744_a_(TextFormatting.BLUE),0)
+            new ChatPattern.ChatComponent("[SUPPORT] ", Color.fromTextFormatting(TextFormatting.BLUE),0)
     );
     public static Predicate<ITextComponent> getSupportPredicate() {
         return iTextComponent -> (new ChatPattern(iTextComponent)).contains(supportChatPattern);
@@ -76,7 +76,7 @@ public class ChatPredicates {
 
     //MOD
     private static final ChatPattern modChatPattern = new ChatPattern(
-            new ChatPattern.ChatComponent("[MOD] ", Color.func_240744_a_(TextFormatting.DARK_GREEN),0)
+            new ChatPattern.ChatComponent("[MOD] ", Color.fromTextFormatting(TextFormatting.DARK_GREEN),0)
     );
     public static Predicate<ITextComponent> getModPredicate() {
         return iTextComponent -> (new ChatPattern(iTextComponent)).contains(modChatPattern);
@@ -84,7 +84,7 @@ public class ChatPredicates {
 
     //SESSION
     private static final ChatPattern sessionChatPattern = new ChatPattern(
-            new ChatPattern.ChatComponent("*",Color.func_240744_a_(TextFormatting.GREEN),0)
+            new ChatPattern.ChatComponent("*",Color.fromTextFormatting(TextFormatting.GREEN),0)
     );
     public static Predicate<ITextComponent> getSessionPredicate() {
         return iTextComponent -> (new ChatPattern(iTextComponent)).contains(sessionChatPattern);
@@ -92,7 +92,7 @@ public class ChatPredicates {
 
     //ADMIN
     private static final ChatPattern adminChatPattern = new ChatPattern(
-            new ChatPattern.ChatComponent("[ADMIN] ", Color.func_240744_a_(TextFormatting.RED),0)
+            new ChatPattern.ChatComponent("[ADMIN] ", Color.fromTextFormatting(TextFormatting.RED),0)
     );
     public static Predicate<ITextComponent> getAdminPredicate() {
         return iTextComponent -> (new ChatPattern(iTextComponent)).contains(modChatPattern);

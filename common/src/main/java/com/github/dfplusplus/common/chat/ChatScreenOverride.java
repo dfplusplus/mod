@@ -35,7 +35,7 @@ public class ChatScreenOverride extends ChatScreen {
         // only apply the colour if its not default
         if (chatRoom.getColor() != 0) fill(matrixStack, 2, this.height - 14, this.width - 2, this.height - 2, chatRoom.getColor());
         this.inputField.render(matrixStack, mouseX, mouseY, partialTicks);
-        this.commandSuggestionHelper.func_238500_a_(matrixStack, mouseX, mouseY);
+        this.commandSuggestionHelper.drawSuggestionList(matrixStack, mouseX, mouseY);
         Style style = this.minecraft.ingameGUI.getChatGUI().func_238494_b_((double)mouseX, (double)mouseY);
         if (style != null && style.getHoverEvent() != null) {
             this.renderComponentHoverEffect(matrixStack, style, mouseX, mouseY);

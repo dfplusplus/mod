@@ -91,7 +91,7 @@ public class ChatPattern {
             if (color != null)
                 return "ChatComponent{" +
                         "string='" + string + '\'' +
-                        ", color=" + color.func_240747_b_() +
+                        ", color=" + color.getName() +
                         '}';
             else
                 return "ChatComponent{" +
