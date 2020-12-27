@@ -53,7 +53,7 @@ public class ArgsScreen extends Screen {
             Widget widget = null;
             if (argsComponent instanceof ArgsStringComponent) {
                 ArgsStringComponent argsStringComponent = ((ArgsStringComponent) argsComponent);
-                TextFieldWidget newTextField = new TextFieldWidget(font,0,0,200,200, new StringTextComponent(""));
+                TextFieldWidget newTextField = new TextFieldWidget(font,0,0,200,20, new StringTextComponent(""));
                 newTextField.setText(I18n.format(argsStringComponent.getText()));
                 newTextField.setResponder(argsStringComponent::setText);
                 argsStringComponent.setText(I18n.format(argsStringComponent.getText()));
