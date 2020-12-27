@@ -4,9 +4,11 @@ import com.github.dfplusplus.common.KeyBinds;
 import com.github.dfplusplus.common.Util;
 import com.github.dfplusplus.common.chat.ChatRoom;
 import com.github.dfplusplus.common.chat.ChatScreenOverride;
+import com.github.dfplusplus.common.codehints.CodeBlockDataUI;
 import net.minecraft.client.gui.screen.ChatScreen;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.client.event.InputEvent;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -37,5 +39,15 @@ public class ForgeEventHandlers {
             if (keyInputEvent.getAction() == 0)
                 KeyBinds.onEndKeyPress();
         }
+    }
+
+    @SubscribeEvent
+    public static void onClientTick(final TickEvent.ClientTickEvent event) {
+        CodeBlockDataUI.onClientTick();
+    }
+
+    @SubscribeEvent
+    public static void onRenderTick(final TickEvent.RenderTickEvent event) {
+        CodeBlockDataUI.onRenderTick();
     }
 }
