@@ -5,11 +5,17 @@ ext {
     archivesBaseName = 'dfplusplus'
 }
 
-task prepareBuildAll(type:Exec) {
+task copyCommon(type:Exec) {
     commandLine './copy-common.sh'
 }
 
-task buildAll(dependsOn: ['prepareBuildAll','fabric:buildWithSh','forge:buildWithSh'], type:Copy) {
+task cleanBuildDir(type:Delete) {
+    delete fileTree(buildDir) {
+        include '*.jar'
+    }
+}
+
+task buildAll(dependsOn: ['copyCommon','cleanBuildDir','fabric:buildWithSh','forge:buildWithSh'], type:Copy) {
     from "$rootDir/forge/build/libs", "$rootDir/fabric/build/libs"
     include "*.jar"
     into "$buildDir"
